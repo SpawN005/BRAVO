@@ -1,15 +1,17 @@
-package com.example.demo1;
+package utils;
 
 import java.sql.*;
-import java.io.IOException;
 
 public class DataSource {
+    private String url = "jdbc:mysql://localhost:3306/esprit";
+    private String login = "root";
+    private String pwd = "";
+    private Connection cnx;
     private static DataSource instance;
-    Connection connection;
-
     public DataSource(){
         try {
-              connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/esprit", "root", "");
+            cnx = DriverManager.getConnection(url, login, pwd);
+            System.out.println("Connexion etablie");
         } catch (  SQLException e) {
             e.printStackTrace();
         }
@@ -22,6 +24,6 @@ public class DataSource {
     }
     public Connection getCnx(){
 
-        return connection;
+        return cnx;
     }
 }

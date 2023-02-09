@@ -9,6 +9,12 @@ module com.example.demo1 {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
 
-    opens com.example.demo1 to javafx.fxml;
-    exports com.example.demo1;
+    opens com.example.PIDEV to javafx.fxml;
+    exports com.example.PIDEV;
+    exports utils;
+    opens utils to javafx.fxml;
+    exports service;
+    opens service to javafx.fxml;
+    exports entity;
+    opens entity to javafx.fxml;
 }
