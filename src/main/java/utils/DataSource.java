@@ -3,7 +3,7 @@ package utils;
 import java.sql.*;
 
 public class DataSource {
-    private String url = "jdbc:mysql://localhost:3306/esprit";
+    private String url = "jdbc:mysql://localhost:3306/bravo";
     private String login = "root";
     private String pwd = "";
     private Connection cnx;

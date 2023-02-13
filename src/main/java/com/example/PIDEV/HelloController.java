@@ -1,12 +1,16 @@
 package com.example.PIDEV;
 
+import entity.Oeuvre;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import service.ServiceOeuvre;
 import utils.DataSource;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class HelloController {
     @FXML
@@ -14,19 +18,12 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-          String c1 ="";
-        DataSource ds=new DataSource();
-        try{
-            Statement statement = ds.getCnx().createStatement();
-            ResultSet resultSet =statement.executeQuery("Select * from personne");
-            while(resultSet.next()){
-                c1= resultSet.getString("nom");
-            }
+        Oeuvre o = new Oeuvre("korfi","alaman","ahmed","mohamed");
+        ServiceOeuvre so=new ServiceOeuvre();
+        List<Oeuvre> l=so.readAll();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
-        welcomeText.setText(c1);
+
+        welcomeText.setText(l.get(1).getOwner());
     }
 }
