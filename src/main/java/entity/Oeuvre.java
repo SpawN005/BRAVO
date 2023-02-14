@@ -7,22 +7,26 @@ public class Oeuvre {
     private String owner;
     private String category;
 
+    private String url;
+
     public Oeuvre() {
     }
 
-    public Oeuvre(String title, String description, String owner, String category) {
+    public Oeuvre(String title, String description, String owner, String category, String url) {
         this.title = title;
         this.description = description;
         this.owner = owner;
         this.category = category;
+        this.url=url;
     }
 
-    public Oeuvre(int id, String title, String description, String owner, String category) {
+    public Oeuvre(int id, String title, String description, String owner, String category, String url) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.owner = owner;
         this.category = category;
+        this.url =url;
     }
 
     public int getId() {
@@ -45,6 +49,10 @@ public class Oeuvre {
         return category;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -63,6 +71,10 @@ public class Oeuvre {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public void insert(Oeuvre oeuvre) {
-        String requete = "insert into artwork (title,description,owner,catégorie) values ('" + oeuvre.getTitle() + "','" + oeuvre.getDescription() + "','"+ oeuvre.getOwner()+"','"+oeuvre.getCategory()+"')";
+        String requete = "insert into artwork (title,description,owner,catégorie,url) values ('" + oeuvre.getTitle() + "','" + oeuvre.getDescription() + "','"+ oeuvre.getOwner()+"','"+oeuvre.getCategory()+"','"+oeuvre.getUrl()+"')";
 
         try {
             Statement st = this.conn.createStatement();
@@ -46,7 +46,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public void update(Oeuvre oeuvre) {
-        String requete = "update artwork set title="+oeuvre.getTitle()+", description="+oeuvre.getDescription()+", owner"+oeuvre.getOwner()+", catégorie="+oeuvre.getCategory()+ "where id="+oeuvre.getId();
+        String requete = "update artwork set title="+oeuvre.getTitle()+", description="+oeuvre.getDescription()+", owner"+oeuvre.getOwner()+", catégorie="+oeuvre.getCategory()+", url="+oeuvre.getUrl()+"where id="+oeuvre.getId();
         try {
             Statement st = this.conn.createStatement();
             st.executeUpdate(requete);
@@ -67,7 +67,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
             ResultSet rs = st.executeQuery(requete);
 
             while(rs.next()) {
-                Oeuvre o= new Oeuvre(rs.getInt("id"), rs.getString("title"), rs.getString("description"), rs.getString("owner"), rs.getString("catégorie"));
+                Oeuvre o= new Oeuvre(rs.getInt("id"), rs.getString("title"), rs.getString("description"), rs.getString("owner"), rs.getString("catégorie"), rs.getString("url"));
                 list.add(o);
             }
         } catch (SQLException var6) {
@@ -90,10 +90,89 @@ public class ServiceOeuvre implements IService<Oeuvre>{
             o.setDescription(rs.getString("description"));
             o.setOwner(rs.getString("owner"));
             o.setCategory(rs.getString("catégorie"));
+            o.setUrl(rs.getString("url"));
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
         return o;
+
+    }
+
+    public List<Oeuvre> AfficherListeOeuvresASC() {
+
+        String requete = "SELECT * FROM `artwork` ORDER BY title ASC";
+        List<Oeuvre> list = new ArrayList();
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                Oeuvre o = new Oeuvre();
+                o.setId(rs.getInt("id"));
+                o.setTitle(rs.getString("title"));
+                o.setDescription(rs.getString("description"));
+                o.setOwner(rs.getString("owner"));
+                o.setCategory(rs.getString("catégorie"));
+                o.setUrl(rs.getString("url"));
+                list.add(o);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return list;
+    }
+
+
+    public List<Oeuvre> AfficherListeOeuvresDES() {
+
+        String requete = "SELECT * FROM `artwork` ORDER BY title DESC";
+        List<Oeuvre> list = new ArrayList();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                Oeuvre o = new Oeuvre();
+                o.setId(rs.getInt("id"));
+                o.setTitle(rs.getString("title"));
+                o.setDescription(rs.getString("description"));
+                o.setOwner(rs.getString("owner"));
+                o.setCategory(rs.getString("catégorie"));
+                o.setUrl(rs.getString("url"));
+                list.add(o);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return list;
+
+    }
+    public List<Oeuvre> RechercheTitre(String title) {
+
+        String requete = "SELECT * FROM `artwork` where title='"+title+"'";
+        List<Oeuvre> list = new ArrayList();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                Oeuvre o = new Oeuvre();
+                o.setId(rs.getInt("id"));
+                o.setTitle(rs.getString("title"));
+                o.setDescription(rs.getString("description"));
+                o.setOwner(rs.getString("owner"));
+                o.setCategory(rs.getString("catégorie"));
+                o.setUrl(rs.getString("url"));
+                list.add(o);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return list;
 
     }
 }
