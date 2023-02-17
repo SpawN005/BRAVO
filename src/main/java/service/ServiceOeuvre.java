@@ -152,7 +152,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
     }
     public List<Oeuvre> RechercheTitre(String title) {
 
-        String requete = "SELECT * FROM `artwork` where title='"+title+"'";
+        String requete = "SELECT * FROM `artwork` where title LIKE %"+title+"%";
         List<Oeuvre> list = new ArrayList();
         try {
             Statement st = conn.createStatement();

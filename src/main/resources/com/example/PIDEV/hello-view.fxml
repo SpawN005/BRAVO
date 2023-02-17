@@ -10,8 +10,8 @@
    <center>
       <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children >
-            <ImageView fx:id="artworkImage" fitHeight="150.0" fitWidth="166.0" layoutX="51.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
-
+            <ImageView   fx:id="paint" fitHeight="150.0" fitWidth="166.0" layoutX="51.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" >
+            </ImageView>
          </children></AnchorPane>
    </center>
 </BorderPane>
