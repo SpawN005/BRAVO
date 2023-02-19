@@ -2,6 +2,7 @@ package com.example.PIDEV;
 import entity.CommentaireEvent;
 import entity.Event;
 import entity.Reservation;
+import entity.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ import service.ServiceReservation;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class HelloApplication extends Application {
+public class HelloApplication extends Application  {
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,26 +29,37 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
 
-        LocalDate d1=LocalDate.of(2023 , 02 , 18);
-        LocalDate d2=LocalDate.of(2023 , 03 , 20);
-        LocalDate d3=LocalDate.of(1998 , 9 , 29);
+        LocalDate d1 = LocalDate.of(2023, 02, 18);
+        LocalDate d2 = LocalDate.of(2023, 03, 20);
+        LocalDate d3 = LocalDate.of(1998, 9, 29);
+        LocalDate d4 = LocalDate.of(2000, 11, 07);
 
 
-        Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,50,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");
-        Event e2=new Event( "AAC","kouchou kouchou",0, d2 ,d2,5, "dance" , 100 ,"Urbain Dance");
-        Event e3=new Event( "hjhj","hello ",5, d3 ,d3,20, "musique" , 50 ,"sama3ni");
+       /* Event e= new Event();*/
+
+        /*CommentaireEvent CE = new CommentaireEvent("de rien", e.getId_commentaire().getId_event(), 6);*/
+
+        CommentaireEvent SC = new ServiceCommentaire().readById(100);
 
 
-        ServiceEvent sv= new ServiceEvent();
-       // sv.insert(e1);
-          sv.insert(e3);
-       // sv.delete(e2);
-       // sv.deleteById(e2,4);
-       // sv.updateById(e2,8);
+
+
+       /* Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,SCommentaire,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");*/
+        Event e2=new Event( "MARIOUMAAAA","kouchou kouchou",0, d2 ,d2,5, "dance" , SC,"Urbain Dance");
+       /* Event e3=new Event( "hjhj","hello ",5, d3 ,d3,20, "musique" , CE ,"sama3ni");
+        //Event e4 = new Event("dj", "hello ", 5, d4, d4, 20, "musique", CE, "sama3ni");*/
+
+
+        ServiceEvent sv = new ServiceEvent();
+        // sv.insert(e1);
+       // sv.insert(e2);
+        // sv.delete(e2);
+        // sv.deleteById(e2,0);
+        // sv.updateById(e2,8);
         //sv.update(e1);
         sv.readAll().forEach(System.out::println);
-       // System.out.println(sv.readById(7));
-
+        // System.out.println(sv.readById(7));
+/*
         CommentaireEvent c1= new CommentaireEvent("Mercii", 3,2);
         CommentaireEvent c2= new CommentaireEvent("aaichek", 6,5);
         ServiceCommentaire sc= new ServiceCommentaire();
@@ -72,16 +84,9 @@ public class HelloApplication extends Application {
 
         //sr.insert(r4);
         sr.readAll().forEach(System.out::println);
-        sr.update(r2);
-
-
-
-
-
-
+        sr.update(r2);*/
 
 
     };
-
 
 }

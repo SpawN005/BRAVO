@@ -31,7 +31,7 @@ public class ServiceReservation implements IService<Reservation> {
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ps.setInt(1,reservation.getId_participant());
-            ps.setInt(2,reservation.getId_event());
+            ps.setInt(2,reservation.getId_event().getId());
             ps.setBoolean(3, reservation.isConfirmed());
             ps.setInt(4,reservation.getNb_place());
 
@@ -127,7 +127,9 @@ ServiceReservation sr= new ServiceReservation();
             Statement st = conn.createStatement();
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
-                Reservation r=new Reservation (rs.getInt("id"),rs.getInt(2),rs.getInt("id_event"),rs.getBoolean("isConfirmed"),rs.getInt("nb_place"));
+                Event e= new Event();
+
+                Reservation r=new Reservation (rs.getInt("id"),rs.getInt(2),e,rs.getBoolean("isConfirmed"),rs.getInt("nb_place"));
                 list.add(r);
             }
         } catch (SQLException e) {
@@ -147,7 +149,9 @@ ServiceReservation sr= new ServiceReservation();
             ResultSet rs=ps.executeQuery(requete);
 
             if(rs.next()) {
-                r= new Reservation(rs.getInt(1),rs.getInt("id_participant"),rs.getInt(3),rs.getBoolean(4),rs.getInt(5));
+                Event e= new Event();
+
+                r= new Reservation(rs.getInt(1),rs.getInt(2),e,rs.getBoolean(4),rs.getInt(5));
                 return r;
             }
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.HelloController">
+   <children>
+      <Label layoutX="112.0" layoutY="32.0" text="Type d'évènement">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="91.0" prefHeight="22.0" prefWidth="114.0" text="Description">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="108.0" layoutY="159.0" prefHeight="22.0" prefWidth="114.0" text="Date de début">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="396.0" layoutY="159.0" text="Date de fin">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="258.0" text="Nombre de place">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="112.0" layoutY="317.0" text="Image ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="settype" layoutX="286.0" layoutY="30.0" />
+      <TextField fx:id="setDescription" layoutX="295.0" layoutY="89.0" />
+      <TextField fx:id="setDD" layoutX="103.0" layoutY="194.0" />
+      <TextField fx:id="setDF" layoutX="370.0" layoutY="194.0" />
+      <TextField fx:id="setNbPlace" layoutX="251.0" layoutY="256.0" />
+      <ImageView fx:id="setImg" fitHeight="86.0" fitWidth="114.0" layoutX="212.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="button_event" layoutX="419.0" layoutY="352.0" mnemonicParsing="false" onAction="#CreerEvent" text="Créer évènement" />
+   </children>
+</AnchorPane>

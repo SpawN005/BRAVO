@@ -23,7 +23,7 @@ public class ServiceCommentaire implements IService<CommentaireEvent> {
 
     @Override
     public void insert(CommentaireEvent commentaireEvent) {
-        String requete="INSERT INTO commentaire(id,content,id_event,id_user) values(?,?,?,?)";
+        String requete="INSERT INTO commentaire(id,content,event.id,user.id) values(?,?,?,?)";
         try {
             PreparedStatement ps= conn.prepareStatement(requete);
             ps.setInt(1 , commentaireEvent.getId());
@@ -108,7 +108,9 @@ public class ServiceCommentaire implements IService<CommentaireEvent> {
                 Statement st = conn.createStatement();
                 ResultSet rs =st.executeQuery(requete);
                 while(rs.next()) {
-                    CommentaireEvent c=new CommentaireEvent (rs.getInt("id"),rs.getString(2),rs.getInt("id_event"),rs.getInt("id_user"));
+                    Event e= new Event();
+                   /* User u = new User();*/
+                    CommentaireEvent c=new CommentaireEvent (rs.getInt("id"),rs.getString(2),rs.getInt(3),rs.getInt(4));
                     list.add(c);
                 }
             } catch (SQLException e) {
@@ -124,13 +126,18 @@ public class ServiceCommentaire implements IService<CommentaireEvent> {
     @Override
     public CommentaireEvent readById(int id) {
         CommentaireEvent c = new CommentaireEvent();
-        String requete="select * from commentaire where id="+id;
+        String requete="select * from `commentaire` where id="+id;
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ResultSet rs=ps.executeQuery(requete);
 
             if(rs.next()) {
-                c= new CommentaireEvent (rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4));
+                Event e= new Event();
+               /* User u = new User();*/
+                c.setId_user(rs.getInt(4));
+                c.setId(rs.getInt(1));
+                c.setContent(rs.getString(2));
+                c.setId_event(rs.getInt(3));
                 return c;
             }
 

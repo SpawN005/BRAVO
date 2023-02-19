@@ -1,5 +1,6 @@
 package service;
 
+import entity.CommentaireEvent;
 import entity.Event;
 import entity.User;
 import utils.DataSource;
@@ -25,7 +26,8 @@ public class ServiceEvent implements IService<Event> {
     public void insert(Event event) {
         List<Reservation> reservations=new ArrayList<>();
 
-        String requete="INSERT INTO event(title,description,nb_placeMax,date_beg,date_end,note,type_event,id_commentaire,url) values(?,?,?,?,?,?,?,?,?)";
+
+        String requete="INSERT INTO event(title,description,nb_placeMax,date_beg,date_end,note,type_event,id_commentaire,url) values(?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps= conn.prepareStatement(requete);
             ps.setString(1, event.getTitle());
@@ -35,8 +37,8 @@ public class ServiceEvent implements IService<Event> {
             ps.setDate(5,   Date.valueOf(event.getDate_end()));
             ps.setInt(6, event.getNote());
             ps.setString(7, event.getType_event());
-            ps.setInt(8, event.getId_commentaire());
-            ps.setString(9,event.getUrl());
+            ps.setInt(8, event.getId_commentaire().getId());
+            ps.setString(8,event.getUrl());
 
             ps.executeUpdate();
 
@@ -54,7 +56,7 @@ public class ServiceEvent implements IService<Event> {
 
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
-            ps.setInt(1,5);
+            ps.setInt(1,event.getId());
             ps.executeUpdate();
         } catch (SQLException e ){
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, e);
@@ -94,7 +96,7 @@ public class ServiceEvent implements IService<Event> {
             ps.setDate(5,Date.valueOf(event.getDate_end()));
             ps.setInt(6,event.getNote());
             ps.setString(7,event.getType_event());
-            ps.setInt(8,event.getId_commentaire());
+            ps.setInt(8,event.getId_commentaire().getId());
             ps.setString(9,event.getUrl());
             ps.setInt(10, event.getId());
 
@@ -118,7 +120,7 @@ public class ServiceEvent implements IService<Event> {
                 + "`date_beg`='"+event.getDate_end()+"',"
                 + "`note`='"+event.getNote()+"',"
                 + "`type_event`='"+event.getType_event()+"',"
-                + "`id_commentaire`='"+event.getId_commentaire()+"',"
+                + "`id_commentaire`='"+event.getId_commentaire().getId()+"',"
                 + "`url`='"+event.getUrl()+"'"
                 + " WHERE id="+id_m;
         try {
@@ -136,13 +138,14 @@ public class ServiceEvent implements IService<Event> {
     @Override
     public List<Event> readAll() {
         List<Event> list=new ArrayList<>();
-        String requete="select* from event";
+        String requete="select * from event";
 
         try {
             Statement st = conn.createStatement();
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
-                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt("note"),rs.getString("type_event"),rs.getInt("id_commentaire"),rs.getString("url"));
+                CommentaireEvent CE = new CommentaireEvent();
+                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt("note"),rs.getString("type_event"),CE,rs.getString("url"));
                 list.add(e);
             }
         } catch (SQLException e1) {
@@ -162,7 +165,8 @@ public class ServiceEvent implements IService<Event> {
             ResultSet rs=ps.executeQuery(requete);
 
             if(rs.next()) {
-                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt(7),rs.getString(8),rs.getInt(9),rs.getString(10));
+                CommentaireEvent CE= new CommentaireEvent();
+                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt(7),rs.getString(8),CE,rs.getString(10));
                 return e;
             }
 
