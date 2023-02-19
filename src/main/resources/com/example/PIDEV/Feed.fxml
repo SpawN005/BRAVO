@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="pane" prefHeight="527.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.FeedController">
+
+   <top><fx:include source="header.fxml" BorderPane.alignment="TOP_CENTER" /></top>
+
+   <center>
+      <ScrollPane fx:id="ScrollPane">
+      <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+         </children></AnchorPane>
+      </ScrollPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F4F4F2;" BorderPane.alignment="CENTER" />
+   </bottom>
+
+</BorderPane>
