@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import entity.User;
 
 public class ServiceBlog implements IService <Blog> {
+    ServiceUser su = new ServiceUser();
+
     private Connection conn;
 
     public ServiceBlog() {
@@ -20,19 +22,20 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void insert(Blog b) {
-        int i = b.getAuthor();
-        String requete = "insert into blog (title,description,content,author) values"
-                +"('" +b.getTitle() + "' ,'" + b.getDescription() +"', '" + b.getContent() +"', '" + i +"')";
-
+        String requete ="insert into blog (id,title,description,content,author) values (?,?,?,?,?)";
         try {
-            PreparedStatement pst=conn.prepareStatement(requete);
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setInt(1,b.getId());
+            pst.setString(1, b.getTitle());
+            pst.setString(2, b.getDescription());
+            pst.setString(3, b.getContent());
+            pst.setInt(5,b.getAuthor().getId());
             pst.executeUpdate();
-            System.out.println("le blog n'est pas inséré dans la base");
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("le blog est inséré avec succès");
         }
+
     }
 
     @Override
@@ -51,10 +54,14 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void update(Blog b) {
-        String requete =" update blog set content='?' where author='?'";
+        String requete =" update blog set title='?' and description='?' and content='?' where author='?'";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.executeUpdate(requete);
+
+            pst.setString(1, b.getTitle());
+            pst.setString(2, b.getDescription());
+            pst.setString(3, b.getContent());
+            pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,23 +72,19 @@ public class ServiceBlog implements IService <Blog> {
     public List<Blog> readAll() {
         List<Blog> list = new ArrayList<>();
         ServiceUser su = new ServiceUser();
-        User u = new User();
-        Blog b = new Blog();
         String requete = "select * from blog";
-
 
         try {
             Statement st = conn.createStatement();
 
             ResultSet rs=st.executeQuery(requete);
             while (rs.next()){
-
-                b.setId(rs.getInt(1));
-                b.setContent(rs.getString(4));
-                b.setTitle(rs.getString(2));
-                b.setDescription(rs.getString(3));
-                u = su.readById(rs.getInt(5));
-                b.setAuthor(u.getId());
+                Blog b = new Blog(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("content"),
+                        su.readById(rs.getInt("author"))
+                );
 
                 list.add(b);
 
@@ -91,28 +94,29 @@ public class ServiceBlog implements IService <Blog> {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
-    }
+        }
 
     @Override
     public Blog readById(int id) {
         Blog b = new Blog();
-        ServiceUser su = new ServiceUser();
-        User user = new User();
         String requete= "select * from blog where id="+id;
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setInt(1,id);
             ResultSet rs= pst.executeQuery();
 
-            if(rs.next()){
-                b = new Blog(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getInt(5));
-                user = su.readById(rs.getInt(5));
+            while(rs.next()){
+                b.setId(id);
+                b.setTitle(rs.getString("title"));
+                b.setDescription(rs.getString("description"));
+                b.setContent(rs.getString("content"));
+                b.setAuthor(su.readById(id));
 
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("le propriétaire de ce " +b+ " est "+" email = " +user.getEmail()+", " + " first name = " + user.getFirstName()+ " , "+ " last name = " + user.getLastName()+" , "+ " role = " + user.getRole()+" , "+ " id = " + user.getId());
         return b;
     }
 

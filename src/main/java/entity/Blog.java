@@ -5,13 +5,14 @@ public class Blog {
     private String title;
     private String description;
     private String content;
-    private int author;
-
+    private User author;
+    //private int author;
 
     public Blog() {
     }
 
-    public Blog(int id, String title, String description, String content, int author) {
+    public Blog(int id, String title, String description, String content, User author) {
+        // public Blog(int id, String title, String description, String content, int author) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -19,7 +20,7 @@ public class Blog {
         this.author = author;
     }
 
-    public Blog(String title, String description, String content, int author) {
+    public Blog(String title, String description, String content, User author) {
         this.title = title;
         this.description = description;
         this.content = content;
@@ -58,11 +59,12 @@ public class Blog {
         this.content = content;
     }
 
-    public int getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(int author) {
+    public void setAuthor(User author) {
+
         this.author = author;
     }
 
