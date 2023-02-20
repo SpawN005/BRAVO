@@ -4,10 +4,7 @@ import entity.Oeuvre;
 import entity.User;
 import utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,6 +12,7 @@ import java.util.logging.Logger;
 
 public class ServiceOeuvre implements IService<Oeuvre>{
     private Connection conn = DataSource.getInstance().getCnx();
+
     public ServiceOeuvre() {
     }
 
@@ -80,17 +78,20 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public Oeuvre readById(int id) {
-        String requete = "select from artwork where id="+id;
-        Oeuvre o =new Oeuvre();
+        String requete = "select * from `artwork` where `id`=?";
+            Oeuvre o =new Oeuvre();
         try {
-            Statement st = this.conn.createStatement();
-            ResultSet rs = st.executeQuery(requete);st.executeUpdate(requete);
-            o.setId(id);
-            o.setTitle(rs.getString("title"));
-            o.setDescription(rs.getString("description"));
-            o.setOwner(rs.getString("owner"));
-            o.setCategory(rs.getString("catégorie"));
-            o.setUrl(rs.getString("url"));
+            PreparedStatement ps = conn.prepareStatement(requete);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){  o.setId(id);
+                o.setTitle(rs.getString("title"));
+                o.setDescription(rs.getString("description"));
+                o.setOwner(rs.getString("owner"));
+                o.setCategory(rs.getString("catégorie"));
+                o.setUrl(rs.getString("url"));}
+
+
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
@@ -152,11 +153,13 @@ public class ServiceOeuvre implements IService<Oeuvre>{
     }
     public List<Oeuvre> RechercheTitre(String title) {
 
-        String requete = "SELECT * FROM `artwork` where title LIKE %"+title+"%";
+        String requete = "SELECT * FROM `artwork` where title LIKE '%"+title+"%'";
         List<Oeuvre> list = new ArrayList();
         try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(requete);
+            Statement ps = conn.createStatement();
+
+            ResultSet rs = ps.executeQuery(requete);
+
             while (rs.next()) {
                 Oeuvre o = new Oeuvre();
                 o.setId(rs.getInt("id"));
@@ -169,7 +172,8 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
             }
         } catch (SQLException ex) {
-            System.out.println("erreur d'affichage");
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, ex);
+
         }
 
         return list;

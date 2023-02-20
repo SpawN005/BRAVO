@@ -130,7 +130,6 @@ public class AddOeuvreController implements Initializable {
             showAlert("Please enter an image",false);
 
         }else {
-            System.out.println("oaze");
             Oeuvre o = new Oeuvre();
             File newFile = new File("src/main/resources/com/example/PIDEV/assets/" + selectedFile.getName());
             try {
@@ -139,7 +138,8 @@ public class AddOeuvreController implements Initializable {
                 throw new RuntimeException(e);
             }
             o.setTitle(title.getText());
-            o.setOwner("Samar");
+            o.setOwner("AHMED");
+
             o.setDescription(description.getText());
             o.setUrl(selectedFile.getName());
             o.setCategory(categorie.getText());

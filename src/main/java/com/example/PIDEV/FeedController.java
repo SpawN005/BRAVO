@@ -56,7 +56,6 @@ public class FeedController implements Initializable {
         double x =58.0;
         for (Oeuvre o : l){
             anchorPane = new AnchorPane();
-            System.out.println(o.getUrl());
             Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
             ImageView paint= new ImageView(image);
             Label title=new Label(o.getTitle());
