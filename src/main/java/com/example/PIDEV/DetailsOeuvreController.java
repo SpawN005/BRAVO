@@ -1,6 +1,7 @@
 package com.example.PIDEV;
 
 import entity.Oeuvre;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import service.ServiceOeuvre;
 
 
 public class DetailsOeuvreController implements Initializable {
@@ -40,6 +42,9 @@ public class DetailsOeuvreController implements Initializable {
     @FXML
     private Label title;
 
+    private ServiceOeuvre so;
+    private Oeuvre oeuvre;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         back.setOnMouseClicked(e->backwardButton());
@@ -54,6 +59,7 @@ public class DetailsOeuvreController implements Initializable {
         owner.setText(o.getOwner());
         Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
         mainImage.setImage(image);
+        oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());
 
 
     }
@@ -73,5 +79,35 @@ public class DetailsOeuvreController implements Initializable {
     }
 
 
+    public void modify(ActionEvent actionEvent) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("modifyOeuvre.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        ModifyOeuvreController moc = loader.getController();
+        moc.SetOeuvre(oeuvre);
+        title.getScene().setRoot(root);
+
+    }
+    @FXML
+    public void delete(ActionEvent actionEvent) {
+        so = new ServiceOeuvre();
+        so.delete(oeuvre);
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        title.getScene().setRoot(root);
+
+
+    }
 }

@@ -16,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("addOeuvre.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("feed.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("tun'ART");
         stage.setScene(scene);
@@ -24,13 +24,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        ServiceCommentaireOeuvre so= new ServiceCommentaireOeuvre();
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-
-        Oeuvre o= new Oeuvre(2,"Wallowing Breeze","Wallowing Breeze","Faten Asker","Painting","Painting2.png");
-        CommentaireOeuvre co= new CommentaireOeuvre(o,1,"Great Painting",now);
-        so.insert(co);
-
 
         launch();
     };

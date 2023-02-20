@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.ServiceOeuvre;
@@ -36,6 +37,8 @@ public class AddOeuvreController implements Initializable {
 
     @FXML
     private TextField title;
+    @FXML
+    private ImageView ImageView;
 
     @FXML
     private Button uploadImage;
@@ -95,6 +98,12 @@ public class AddOeuvreController implements Initializable {
         if (selectedFile != null) {
             uploadImage.setText(selectedFile.getName());
 
+
+            ImageView.setImage(new Image("file:"+selectedFile));
+            ImageView.setFitWidth(200);
+            ImageView.setFitHeight(150);
+
+
         }
 
 
@@ -116,17 +125,18 @@ public class AddOeuvreController implements Initializable {
     @FXML
     private void submit()  {
         String text = title.getText();
+
         if (text.isEmpty()) {
             showAlert("Please enter a title",false);
         } else if (!text.matches("[a-zA-Z ]+")) {
             showAlert("Your title must contain only letters and spaces",false);
         }
-        if (description.getText().isEmpty()) {
+        else if (description.getText().isEmpty()) {
             showAlert("Please enter a description",false);
         } else if (!text.matches("[a-zA-Z ]+")) {
             showAlert("Your description must contain only letters and spaces",false);
         }
-        if (selectedFile==null){
+        else if (selectedFile==null){
             showAlert("Please enter an image",false);
 
         }else {
