@@ -1,6 +1,6 @@
 package service;
 
-import entity.Commentaire;
+import entity.CommentaireBlog;
 import entity.User;
 import utils.DataSource;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ServiceCommentaireBlog implements IService<Commentaire> {
+public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
     ServiceBlog sb= new ServiceBlog();
     ServiceUser su = new ServiceUser();
     private Connection conn;
@@ -21,7 +21,7 @@ public class ServiceCommentaireBlog implements IService<Commentaire> {
     }
 
     @Override
-    public void insert(Commentaire c) {
+    public void insert(CommentaireBlog c) {
         String requete = "INSERT INTO commentaire (id, content,id_blog, user_id,) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
@@ -38,12 +38,12 @@ public class ServiceCommentaireBlog implements IService<Commentaire> {
     }
 
     @Override
-    public void delete(Commentaire c) {
-        String requete = "delete from commentsOeuvre where id="+c.getId();
+    public void delete(CommentaireBlog c) {
+        String requete = "delete from commentsOeuvre where id=?";
 
         try {
-            Statement st = this.conn.createStatement();
-            st.executeUpdate(requete);
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setInt(1, c.getId());
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
@@ -52,15 +52,15 @@ public class ServiceCommentaireBlog implements IService<Commentaire> {
 
 
     @Override
-    public void update(Commentaire c) {
-        String requete= "UPDATE commentsOeuvre SET content = ?, is_blog = ?, id_user = ? WHERE id = ?";
+    public void update(CommentaireBlog c) {
+        String requete= "UPDATE commentsOeuvre SET content = ?, id_blog = ?, id_user = ? WHERE id = ?";
         try {
-            PreparedStatement st = conn.prepareStatement(requete);
+            PreparedStatement pst = conn.prepareStatement(requete);
 
-            st.setString(1, c.getContent());
-            st.setInt(2, c.getId_blog().getId());
-            st.setInt(3, c.getId_user().getId());
-            st.executeUpdate();
+            pst.setString(1, c.getContent());
+            pst.setInt(2, c.getId_blog().getId());
+            pst.setInt(3, c.getId_user().getId());
+            pst.executeUpdate();
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
@@ -68,8 +68,8 @@ public class ServiceCommentaireBlog implements IService<Commentaire> {
     }
 
     @Override
-    public List<Commentaire> readAll() {
-        List<Commentaire> c = new ArrayList<>();
+    public List<CommentaireBlog> readAll() {
+        List<CommentaireBlog> c = new ArrayList<>();
         String requete = "SELECT * FROM commentaire";
 
         try {
@@ -80,7 +80,7 @@ public class ServiceCommentaireBlog implements IService<Commentaire> {
 
             while(rs.next()) {
 
-                Commentaire c1 = new Commentaire(rs.getInt("id"),
+                CommentaireBlog c1 = new CommentaireBlog(rs.getInt("id"),
                         rs.getString("content"),
                         sb.readById(rs.getInt("id_blog")),
                         su.readById(rs.getInt("id_user"))
@@ -97,9 +97,9 @@ public class ServiceCommentaireBlog implements IService<Commentaire> {
     }
 
     @Override
-    public Commentaire readById(int id) {
+    public CommentaireBlog readById(int id) {
         String requete = "select * from commentaire where `id`=?";
-        Commentaire cb =new Commentaire();
+        CommentaireBlog cb =new CommentaireBlog();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ps.setInt(1,id);

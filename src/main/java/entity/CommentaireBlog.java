@@ -1,22 +1,22 @@
 package entity;
 
-public class Commentaire {
+public class CommentaireBlog {
     private int id;
     private String content;
     private Blog id_blog;
     private User id_user;
 
-    public Commentaire() {
+    public CommentaireBlog() {
     }
 
-    public Commentaire(int id, String content, Blog id_blog, User id_user) {
+    public CommentaireBlog(int id, String content, Blog id_blog, User id_user) {
         this.id = id;
         this.content = content;
         this.id_blog = id_blog;
         this.id_user = id_user;
     }
 
-    public Commentaire(String content, Blog id_blog, User id_user) {
+    public CommentaireBlog(String content, Blog id_blog, User id_user) {
         this.content = content;
         this.id_blog = id_blog;
         this.id_user = id_user;

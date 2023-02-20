@@ -1,14 +1,10 @@
 package com.example.PIDEV;
-import entity.Blog;
-import entity.Commentaire;
+import entity.CommentaireBlog;
 import entity.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import service.ServiceBlog;
 import service.ServiceUser;
 
 import java.io.IOException;
@@ -33,7 +29,7 @@ public class HelloApplication extends Application {
         //Blog b = new Blog("test","test123","abcdefgh",u);
         //ServiceBlog sb= new ServiceBlog();
 
-        Commentaire c = new Commentaire("asslema",61,u);
+        //CommentaireBlog c = new CommentaireBlog("asslema",61,u);
 
 
 

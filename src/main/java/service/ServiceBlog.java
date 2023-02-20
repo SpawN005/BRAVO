@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import entity.User;
+
 
 public class ServiceBlog implements IService <Blog> {
     ServiceUser su = new ServiceUser();
@@ -40,10 +40,10 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void delete(Blog b) {
-        String requete = "delete from blog where id="+b.getId();
+        String requete = "delete from blog where id=?";
         try {
-            PreparedStatement pst =conn.prepareStatement(requete);
-            pst.executeUpdate();
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setInt(1, b.getId());
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("un probleme est survenu lors de la suppression du blog");
