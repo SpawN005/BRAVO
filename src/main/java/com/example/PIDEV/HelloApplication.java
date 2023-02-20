@@ -1,17 +1,12 @@
 package com.example.PIDEV;
-import entity.CommentaireEvent;
 import entity.Event;
-import entity.Reservation;
-import entity.User;
+import entity.NoteEvent;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import service.ServiceCommentaire;
 import service.ServiceEvent;
-import service.ServiceReservation;
+import service.ServiceNoteEvent;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -20,7 +15,7 @@ public class HelloApplication extends Application  {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AddEvent.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("Feed Page!");
         stage.setScene(scene);
@@ -28,6 +23,7 @@ public class HelloApplication extends Application  {
     }
 
     public static void main(String[] args) {
+        launch();
 
         LocalDate d1 = LocalDate.of(2023, 02, 18);
         LocalDate d2 = LocalDate.of(2023, 03, 20);
@@ -39,15 +35,19 @@ public class HelloApplication extends Application  {
 
         /*CommentaireEvent CE = new CommentaireEvent("de rien", e.getId_commentaire().getId_event(), 6);*/
 
-        CommentaireEvent SC = new ServiceCommentaire().readById(100);
+        ServiceNoteEvent SN = new ServiceNoteEvent();
+        ServiceEvent SE= new ServiceEvent();
+
+        NoteEvent  NE1= new NoteEvent(5,SE.readById(8));
+        SN.insert(NE1);
 
 
 
 
-       /* Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,SCommentaire,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");*/
+       /* Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,SCommentaire,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");
         Event e2=new Event( "MARIOUMAAAA","kouchou kouchou",0, d2 ,d2,5, "dance" , SC,"Urbain Dance");
        /* Event e3=new Event( "hjhj","hello ",5, d3 ,d3,20, "musique" , CE ,"sama3ni");
-        //Event e4 = new Event("dj", "hello ", 5, d4, d4, 20, "musique", CE, "sama3ni");*/
+        //Event e4 = new Event("dj", "hello ", 5, d4, d4, 20, "musique", CE, "sama3ni");
 
 
         ServiceEvent sv = new ServiceEvent();
@@ -58,7 +58,7 @@ public class HelloApplication extends Application  {
         // sv.updateById(e2,8);
         //sv.update(e1);
         sv.readAll().forEach(System.out::println);
-        // System.out.println(sv.readById(7));
+        // System.out.println(sv.readById(7));*/
 /*
         CommentaireEvent c1= new CommentaireEvent("Mercii", 3,2);
         CommentaireEvent c2= new CommentaireEvent("aaichek", 6,5);

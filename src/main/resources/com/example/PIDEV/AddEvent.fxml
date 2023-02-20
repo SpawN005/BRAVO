@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.HelloController">
+<AnchorPane prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AddEventController">
    <children>
       <Label layoutX="112.0" layoutY="32.0" text="Type d'évènement">
          <font>
@@ -42,10 +43,14 @@
       </Label>
       <TextField fx:id="settype" layoutX="286.0" layoutY="30.0" />
       <TextField fx:id="setDescription" layoutX="295.0" layoutY="89.0" />
-      <TextField fx:id="setDD" layoutX="103.0" layoutY="194.0" />
-      <TextField fx:id="setDF" layoutX="370.0" layoutY="194.0" />
       <TextField fx:id="setNbPlace" layoutX="251.0" layoutY="256.0" />
-      <ImageView fx:id="setImg" fitHeight="86.0" fitWidth="114.0" layoutX="212.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="86.0" fitWidth="114.0" layoutX="675.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/logo.png" />
+         </image></ImageView>
       <Button fx:id="button_event" layoutX="419.0" layoutY="352.0" mnemonicParsing="false" onAction="#CreerEvent" text="Créer évènement" />
+      <DatePicker layoutX="112.0" layoutY="194.0" />
+      <DatePicker layoutX="348.0" layoutY="194.0" />
+      <Button fx:id="button_image" layoutX="269.0" layoutY="315.0" mnemonicParsing="false" text="Insérer Image" />
    </children>
 </AnchorPane>

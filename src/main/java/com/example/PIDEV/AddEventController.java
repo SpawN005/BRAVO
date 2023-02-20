@@ -16,16 +16,10 @@ public class AddEventController implements Initializable {
     private Button button_event;
 
     @FXML
-    private TextField setDD;
-
-    @FXML
-    private TextField setDF;
+    private Button button_image;
 
     @FXML
     private TextField setDescription;
-
-    @FXML
-    private ImageView setImg;
 
     @FXML
     private TextField setNbPlace;
@@ -35,12 +29,12 @@ public class AddEventController implements Initializable {
 
     @FXML
     void CreerEvent(ActionEvent event) {
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("/resources/com."));
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
     }
 }

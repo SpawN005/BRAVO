@@ -1,14 +1,12 @@
 package service;
 
 
-import entity.CommentaireEvent;
 import entity.Event;
 import entity.Reservation;
 
 import entity.User;
 import utils.DataSource;
 
-import java.nio.file.FileAlreadyExistsException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

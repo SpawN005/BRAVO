@@ -1,6 +1,5 @@
 package service;
 
-import entity.CommentaireEvent;
 import entity.Event;
 import entity.User;
 import utils.DataSource;
@@ -27,7 +26,7 @@ public class ServiceEvent implements IService<Event> {
         List<Reservation> reservations=new ArrayList<>();
 
 
-        String requete="INSERT INTO event(title,description,nb_placeMax,date_beg,date_end,note,type_event,id_commentaire,url) values(?,?,?,?,?,?,?,?)";
+        String requete="INSERT INTO event(title,description,nb_placeMax,date_beg,date_end,note,type_event,url) values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps= conn.prepareStatement(requete);
             ps.setString(1, event.getTitle());
@@ -37,7 +36,6 @@ public class ServiceEvent implements IService<Event> {
             ps.setDate(5,   Date.valueOf(event.getDate_end()));
             ps.setInt(6, event.getNote());
             ps.setString(7, event.getType_event());
-            ps.setInt(8, event.getId_commentaire().getId());
             ps.setString(8,event.getUrl());
 
             ps.executeUpdate();
@@ -84,7 +82,7 @@ public class ServiceEvent implements IService<Event> {
 
     @Override
     public void update(Event event) {
-        String query = "UPDATE event SET title=?,description=?,nb_placeMax=?,date_beg=?,date_end=?,note=?,type_event=?,id_commentaire=?,url=? WHERE id=?";
+        String query = "UPDATE event SET title=?,description=?,nb_placeMax=?,date_beg=?,date_end=?,note=?,type_event=?,url=? WHERE id=?";
         try {
 
             PreparedStatement ps = conn.prepareStatement(query);
@@ -96,9 +94,9 @@ public class ServiceEvent implements IService<Event> {
             ps.setDate(5,Date.valueOf(event.getDate_end()));
             ps.setInt(6,event.getNote());
             ps.setString(7,event.getType_event());
-            ps.setInt(8,event.getId_commentaire().getId());
-            ps.setString(9,event.getUrl());
-            ps.setInt(10, event.getId());
+
+            ps.setString(8,event.getUrl());
+            ps.setInt(9, event.getId());
 
 
             ps.executeUpdate();
@@ -120,7 +118,7 @@ public class ServiceEvent implements IService<Event> {
                 + "`date_beg`='"+event.getDate_end()+"',"
                 + "`note`='"+event.getNote()+"',"
                 + "`type_event`='"+event.getType_event()+"',"
-                + "`id_commentaire`='"+event.getId_commentaire().getId()+"',"
+
                 + "`url`='"+event.getUrl()+"'"
                 + " WHERE id="+id_m;
         try {
@@ -144,8 +142,8 @@ public class ServiceEvent implements IService<Event> {
             Statement st = conn.createStatement();
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
-                CommentaireEvent CE = new CommentaireEvent();
-                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt("note"),rs.getString("type_event"),CE,rs.getString("url"));
+
+                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt("note"),rs.getString("type_event"),rs.getString("url"));
                 list.add(e);
             }
         } catch (SQLException e1) {
@@ -165,8 +163,8 @@ public class ServiceEvent implements IService<Event> {
             ResultSet rs=ps.executeQuery(requete);
 
             if(rs.next()) {
-                CommentaireEvent CE= new CommentaireEvent();
-                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt(7),rs.getString(8),CE,rs.getString(10));
+
+                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getInt(7),rs.getString(8),rs.getString(9));
                 return e;
             }
 

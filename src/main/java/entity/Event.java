@@ -12,7 +12,7 @@ public class Event {
     private LocalDate date_end;
     private int note;
     private String type_event;
-    private CommentaireEvent id_commentaire;
+
     private String url;
 
 
@@ -21,7 +21,7 @@ public class Event {
 
     }
 
-    public Event(int id, String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, int note, String type_event, CommentaireEvent id_commentaire, String url) {
+    public Event(int id, String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, int note, String type_event,  String url) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -30,12 +30,12 @@ public class Event {
         this.date_end = date_end;
         this.note = note;
         this.type_event = type_event;
-        this.id_commentaire = id_commentaire;
+
         this.url = url;
 
     }
 
-    public Event(String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, int note, String type_event, CommentaireEvent id_commentaire, String url) {
+    public Event(String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, int note, String type_event,  String url) {
         this.title = title;
         this.description = description;
         this.nb_placeMax = nb_placeMax;
@@ -43,7 +43,7 @@ public class Event {
         this.date_end = date_end;
         this.note = note;
         this.type_event = type_event;
-        this.id_commentaire = id_commentaire;
+
         this.url = url;
 
     }
@@ -112,13 +112,6 @@ public class Event {
         this.type_event = type_event;
     }
 
-    public CommentaireEvent getId_commentaire() {
-        return id_commentaire;
-    }
-
-    public void setId_commentaire(CommentaireEvent id_commentaire) {
-        this.id_commentaire = id_commentaire;
-    }
 
     public String getUrl() {
         return url;
@@ -141,8 +134,7 @@ public class Event {
                 ", date_end=" + date_end +
                 ", note=" + note +
                 ", type_event='" + type_event + '\'' +
-                ", id_commentaire=" + id_commentaire +
-                ", url='" + url + '\'' +
+                 ", url='" + url + '\'' +
 
                 '}';
     }
