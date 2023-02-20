@@ -10,11 +10,14 @@ import java.util.logging.Logger;
 
 import entity.Reclamation;
 import entity.User;
+
 import service.ServiceUser;
 import utils.DataSource;
 
 public class ServiceReclamation implements IService<Reclamation>{
+    ServiceUser su=new ServiceUser();
     private Connection conn;
+
 
     public ServiceReclamation() {
         conn=DataSource.getInstance().getCnx();
@@ -22,33 +25,33 @@ public class ServiceReclamation implements IService<Reclamation>{
 
     @Override
     public void insert(Reclamation reclamation) {
-        //String owner_requete="select ownerID from Reclamation INNER JOIN User ON User.id = Reclamation.ownerID";
-      String requete = "SELECT * FROM Reclamation WHERE title= ? AND description= ? AND date_creation= ? AND etat=? AND date_treatment=? AND note=?";
+
+      String requete = "SELECT * FROM Reclamation WHERE title= ? AND description= ? AND date_creation= ? AND etat=? AND ownerID=? AND date_treatment=? AND note=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.setString(1, reclamation.getTitle());
             pst.setString(2, reclamation.getDescription());
             pst.setDate(3, reclamation.getDate_creation());
             pst.setString(4, reclamation.getEtat());
-
-            pst.setDate(5, reclamation.getDate_treatment());
-            pst.setInt(6, reclamation.getNote());
+            pst.setInt(5, reclamation.getOwnerID().getId());
+            pst.setDate(6, reclamation.getDate_treatment());
+            pst.setInt(7, reclamation.getNote());
 
             ResultSet rs =pst.executeQuery();
             if (rs.next()) {
                 System.out.println("desole, ces valeurs sont deja existantes");
             } else {
                 // des valeurs non existantes, vous pouvez procéder à l'insertion
-                String requete2 = "insert into Reclamation(title,description,date_creation,etat,date_treatment,note) values(?,?,?,?,?,?)";
+                String requete2 = "insert into Reclamation(title,description,date_creation,etat,ownerID,date_treatment,note) values(?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(requete2);
 
                 ps.setString(1, reclamation.getTitle());
                 ps.setString(2, reclamation.getDescription());
                 ps.setDate(3, reclamation.getDate_creation());
                 ps.setString(4, reclamation.getEtat());
-                // MANQUE OWNER ID
-                ps.setDate(5, reclamation.getDate_treatment());
-                ps.setInt(6, reclamation.getNote());
+                ps.setInt(5, reclamation.getOwnerID().getId());
+                ps.setDate(6, reclamation.getDate_treatment());
+                ps.setInt(7, reclamation.getNote());
 
                 ps.executeUpdate();
                 System.out.println("Reclamation Ajoutée");
@@ -90,7 +93,7 @@ public class ServiceReclamation implements IService<Reclamation>{
 
     @Override
     public void update(Reclamation reclamation) {
-        String requete = "UPDATE Reclamation SET title=?, description=?,date_creation=?, etat=?,date_treatment=?,note=? WHERE id=?";
+        String requete = "UPDATE Reclamation SET title=?, description=?,date_creation=?, etat=?, ownerID=?, date_treatment=?,note=? WHERE id=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
@@ -98,10 +101,10 @@ public class ServiceReclamation implements IService<Reclamation>{
             ps.setString(2, reclamation.getDescription());
             ps.setDate(3, reclamation.getDate_creation());
             ps.setString(4, reclamation.getEtat());
-           // ps.setObject(5,u.getId());
-            ps.setDate(5, reclamation.getDate_treatment());
-            ps.setInt(6,reclamation.getNote());
-            ps.setInt(7,reclamation.getId());
+            ps.setInt(5, reclamation.getOwnerID().getId());
+            ps.setDate(6, reclamation.getDate_treatment());
+            ps.setInt(7,reclamation.getNote());
+            ps.setInt(8,reclamation.getId());
 
             ps.executeUpdate();
             System.out.println("une reclamation existante a été mise à jour ");
@@ -114,14 +117,14 @@ public class ServiceReclamation implements IService<Reclamation>{
     public void update2(Reclamation r, int id) {
 
         try {
-            String requete =  "UPDATE Reclamation SET title=?, description=?,date_creation=?, etat=?,date_treatment=?,note=? WHERE id=?";
+            String requete =  "UPDATE Reclamation SET title=?, description=?,date_creation=?, etat=?, ownerID=?, date_treatment=?,note=? WHERE id=?";
             PreparedStatement ps = conn.prepareStatement(requete);
-            //User u = new User(readById(user));
+
             ps.setString(1, r.getTitle());
             ps.setString(2, r.getDescription());
             ps.setDate(3, r.getDate_creation());
             ps.setString(4, r.getEtat());
-            //ps.setObject(5,u.getId());
+            ps.setInt(5, r.getOwnerID().getId());
             ps.setDate(5, r.getDate_treatment());
             ps.setInt(6,r.getNote());
             ps.setInt(7, id);
@@ -138,7 +141,6 @@ public class ServiceReclamation implements IService<Reclamation>{
     @Override
     public List<Reclamation> readAll() {
         List<Reclamation> list=new ArrayList<>();
-        //User u = new User(readById(user));
         String requete="select * from Reclamation";
         try {
             Statement st=conn.createStatement();
@@ -146,7 +148,7 @@ public class ServiceReclamation implements IService<Reclamation>{
             while(rs.next()){
                 Reclamation r=new Reclamation(rs.getInt("id"), rs.getString("title"),
                         rs.getString("description"), rs.getDate("date_creation"),
-                        rs.getString("etat"),rs.getDate("date_treatment"),rs.getInt("note"));
+                        rs.getString("etat"),su.readById(rs.getInt("ownerID")),rs.getDate("date_treatment"),rs.getInt("note"));
                 list.add(r);
             }
 
@@ -158,24 +160,23 @@ public class ServiceReclamation implements IService<Reclamation>{
 
     @Override
     public Reclamation readById(int id) {
+        String requete = "SELECT * from Reclamation WHERE id="+id;
         Reclamation r = new Reclamation();
 
         try {
-            String requete = "SELECT * from Reclamation WHERE id="+id;
-            //User u=new User(readById(getId()));
-
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.executeQuery(requete);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                r.setId(rs.getInt(1));
-                r.setTitle(rs.getString(2));
-                r.setDescription(rs.getString(3));
-                r.setDate_creation(rs.getDate(4));
-                r.setEtat(rs.getString(5));
-               // r.setOwnerID(rs.getObject(6));
-                r.setDate_treatment(rs.getDate(6));
-                r.setNote(rs.getInt(7));
+                r.setId(rs.getInt(id));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                r.setDate_creation(rs.getDate("date_creation"));
+                r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(id));
+                r.setDate_treatment(rs.getDate("date_treatment"));
+                r.setNote(rs.getInt("note"));
+
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -196,6 +197,7 @@ public class ServiceReclamation implements IService<Reclamation>{
                 r.setDescription(rs.getString("description"));
                 r.setDate_creation(rs.getDate("date_creation"));
                 r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
                // r.setDate_treatment(rs.getDate("date_treatment"));
                 if (rs.getDate("date_treatment") != null) {
                     java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -240,7 +242,7 @@ public class ServiceReclamation implements IService<Reclamation>{
                     r.setDate_treatment(rs.getDate("date_treatment"));
                 }
                 r.setEtat(rs.getString("etat"));
-                //nzid ownerID HNE
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
 
                 //r.setDate_treatment(rs.getDate("date_treatment"));
                 if (rs.getDate("date_treatment") != null) {

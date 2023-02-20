@@ -1,4 +1,5 @@
 package com.example.PIDEV;
+import entity.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,29 +16,40 @@ import entity.Reclamation;
 import entity.TypeReclamation;
 import service.ServiceReclamation;
 import service.ServiceTypeReclamation;
+import service.ServiceUser;
 import utils.DataSource;
 
 public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
-        stage.setTitle("Feed Page!");
-        stage.setScene(scene);
+        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+       // Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
+        //stage.setTitle("Feed Page!");
+        //stage.setScene(scene);
+        //stage.show();
+
+        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
+        stage.setTitle("envoie de reclamation!");
+        stage.setScene(scene2);
         stage.show();
+
+
     }
 
     public static void main(String[] args) {
         launch();
         DataSource d = DataSource.getInstance();
+
         java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
         Reclamation r = new Reclamation("Oeuvre dart","jai pas pu rechercher les ouevres",date_sql,"on hold",date_sql,2);
         Reclamation r66 = new Reclamation("service","service tres lent",date_sql,"treated",date_sql,5);
         ServiceReclamation sr =new ServiceReclamation ();
+
         //sr.insert(r);
-        //sr.insert2(r);
+
         //sr.insert(r66);
 
         //sr.readAll().forEach(System.out::println);
@@ -56,9 +68,13 @@ public class HelloApplication extends Application {
 
         TypeReclamation T = new TypeReclamation("prestation");
         TypeReclamation T1 = new TypeReclamation("dons");
+        TypeReclamation T2 = new TypeReclamation("blogs");
         ServiceTypeReclamation Tr= new ServiceTypeReclamation();
         //Tr.insert(T);
-        Tr.insert(T1);
+        //Tr.insert(T1);
+
+        //Tr.insert(T2);
+
         //Tr.deleteType2(10);
         //Tr.delete(T);
         //Tr.readAll().forEach(System.out::println);
@@ -66,6 +82,22 @@ public class HelloApplication extends Application {
         //Tr.update(T);
         //Tr.update2(T,13);
         //Tr.RechercheType("prestation").forEach(System.out::println);
+
+        User u = new User("feriel","sahbi",25222421,"feriel.sahbi@gmil.com","simple user");
+        User u2 = new User("mariem","hammi",22442145,"mariem.hammi@gmil.com","simple user");
+        ServiceUser s =new ServiceUser();
+        //s.insert(u);
+        //s.insert(u2);
+      Reclamation r44 =new Reclamation("don","tres peu",date_sql,"on hold",s.readById(6),date_sql,0);
+
+      //sr.insert(r44);
+      //sr.update(r44);
+       // sr.readAll().forEach(System.out::println);
+       // System.out.println("la ligne suivante est "+sr.readById(38));
+        //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
+        //sr.RechercheTitle("art work").forEach(System.out::println);
+
+
 
 
 
