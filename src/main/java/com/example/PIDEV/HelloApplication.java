@@ -29,12 +29,17 @@ public class HelloApplication extends Application {
         //stage.setScene(scene);
         //stage.show();
 
-        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
+        //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
+        //Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
+        //stage.setTitle("envoie de reclamation!");
+        //stage.setScene(scene2);
+        //stage.show();
+
+        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
-        stage.setTitle("envoie de reclamation!");
+        stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
         stage.show();
-
 
     }
 

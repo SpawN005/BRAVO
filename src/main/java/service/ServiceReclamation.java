@@ -125,9 +125,9 @@ public class ServiceReclamation implements IService<Reclamation>{
             ps.setDate(3, r.getDate_creation());
             ps.setString(4, r.getEtat());
             ps.setInt(5, r.getOwnerID().getId());
-            ps.setDate(5, r.getDate_treatment());
-            ps.setInt(6,r.getNote());
-            ps.setInt(7, id);
+            ps.setDate(6, r.getDate_treatment());
+            ps.setInt(7,r.getNote());
+            ps.setInt(8, r.getId());
 
             ps.executeUpdate();
             System.out.println("une reclamation existante a été mise à jour selon id ");
