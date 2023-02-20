@@ -7,59 +7,90 @@ package entity;
 
 public class User {
     private int id;
-    private String nom;
-    private String prenom;
-    private int age;
+    private String firstName;
+    private String lastName;
+    private int phoneNumber;
+    private String email;
+    private String role;
 
     public User() {
+
     }
 
-    public User(int id, String nom, String prenom, int age) {
+    public User(int id, String firstName, String lastName, int phoneNumber, String email, String role) {
         this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.role = role;
     }
 
-    public User(String nom, String prenom, int age) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.age = age;
+    public User(String firstName, String lastName, int phoneNumber, String email, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.role = role;
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getNom() {
-        return this.nom;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPrenom() {
-        return this.prenom;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public int getAge() {
-        return this.age;
+    public int getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Override
     public String toString() {
-        return "Personne{id=" + this.id + ", nom=" + this.nom + ", prenom=" + this.prenom + ", age=" + this.age + "}";
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

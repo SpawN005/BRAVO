@@ -1,12 +1,15 @@
 package com.example.PIDEV;
 import entity.Event;
 import entity.NoteEvent;
+import entity.Reservation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import service.ServiceEvent;
 import service.ServiceNoteEvent;
+import service.ServiceReservation;
+import service.ServiceUser;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,9 +34,7 @@ public class HelloApplication extends Application  {
         LocalDate d4 = LocalDate.of(2000, 11, 07);
 
 
-       /* Event e= new Event();*/
 
-        /*CommentaireEvent CE = new CommentaireEvent("de rien", e.getId_commentaire().getId_event(), 6);*/
 
         ServiceNoteEvent SN = new ServiceNoteEvent();
         ServiceEvent SE= new ServiceEvent();
@@ -44,10 +45,10 @@ public class HelloApplication extends Application  {
 
 
 
-       /* Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,SCommentaire,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");
-        Event e2=new Event( "MARIOUMAAAA","kouchou kouchou",0, d2 ,d2,5, "dance" , SC,"Urbain Dance");
-       /* Event e3=new Event( "hjhj","hello ",5, d3 ,d3,20, "musique" , CE ,"sama3ni");
-        //Event e4 = new Event("dj", "hello ", 5, d4, d4, 20, "musique", CE, "sama3ni");
+       Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");
+        Event e2=new Event( "MARIOUMAAAA","kouchou kouchou",0, d2 ,d2,5, "dance" ,"Urbain Dance");
+        Event e3=new Event( "hjhj","hello ",5, d3 ,d3,20, "musique" ,"sama3ni");
+        Event e4 = new Event("dj", "hello ", 5, d4, d4, 20, "musique", "sama3ni");
 
 
         ServiceEvent sv = new ServiceEvent();
@@ -59,32 +60,23 @@ public class HelloApplication extends Application  {
         //sv.update(e1);
         sv.readAll().forEach(System.out::println);
         // System.out.println(sv.readById(7));*/
-/*
-        CommentaireEvent c1= new CommentaireEvent("Mercii", 3,2);
-        CommentaireEvent c2= new CommentaireEvent("aaichek", 6,5);
-        ServiceCommentaire sc= new ServiceCommentaire();
-       // sc.insert(c1);
-        //sc.insert(c2);
-        sc.readAll().forEach(System.out::println);
-       // sc.delete(c2);
-        // sc.deleteById(c2,4);
-        // sc.updateById(c2,8);
-        //sc.update(c1);
-        // System.out.println(sc.readById(7));
 
 
-        Reservation r1=new Reservation(1,3,true,8);
-        Reservation r2=new Reservation(2,6, false,60);
-        Reservation r3=new Reservation(5,7,false,7);
-        Reservation r4=new Reservation(6,8, true,50);
+              ServiceReservation SR= new ServiceReservation();
+              ServiceUser SU = new ServiceUser();
+
+        Reservation r1=new Reservation(SU.readById(1),SE.readById(3),true,8);
+        Reservation r2=new Reservation(SU.readById(2),SE.readById(6), false,60);
+        Reservation r3=new Reservation(SU.readById(5),SE.readById(8),false,7);
+        Reservation r4=new Reservation(SU.readById(6),SE.readById(3), true,50);
         ServiceReservation sr=new ServiceReservation();
-        //sr.insert(r1);
-       // sr.insert(r2);
-        //sr.insert(r3);
+        sr.insert(r1);
+        sr.insert(r2);
+        sr.insert(r3);
 
-        //sr.insert(r4);
-        sr.readAll().forEach(System.out::println);
-        sr.update(r2);*/
+       // sr.insert(r4);
+        //sr.readAll().forEach(System.out::println);
+       // sr.update(r2);
 
 
     };

@@ -117,8 +117,8 @@ ServiceEvent SE= new ServiceEvent();
             Statement st = conn.createStatement();
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
-                NoteEvent NE= new NoteEvent();
-                /* User u = new User();*/
+              /*  NoteEvent NE= new NoteEvent();*/
+
                 NoteEvent c=new NoteEvent (rs.getInt("id"),rs.getInt(2),SE.readById(rs.getInt("id_event")));
                 list.add(c);
             }

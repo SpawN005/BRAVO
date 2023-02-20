@@ -2,7 +2,7 @@ package entity;
 
 public class Reservation {
     private int id;
-    private int id_participant;
+    private User id_participant;
     private Event id_event;
     private boolean isConfirmed;
     private int nb_place;
@@ -11,7 +11,7 @@ public class Reservation {
 
     }
 
-    public Reservation(int id, int id_participant, Event id_event, boolean isConfirmed, int nb_place) {
+    public Reservation(int id, User id_participant, Event id_event, boolean isConfirmed, int nb_place) {
         this.id = id;
         this.id_participant = id_participant;
         this.id_event = id_event;
@@ -19,7 +19,7 @@ public class Reservation {
         this.nb_place = nb_place;
     }
 
-    public Reservation(int id_participant, Event id_event, boolean isConfirmed, int nb_place) {
+    public Reservation(User id_participant, Event id_event, boolean isConfirmed, int nb_place) {
         this.id_participant = id_participant;
         this.id_event = id_event;
         this.isConfirmed = isConfirmed;
@@ -34,11 +34,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getId_participant() {
+    public User getId_participant() {
         return id_participant;
     }
 
-    public void setId_participant(int id_participant) {
+    public void setId_participant(User id_participant) {
         this.id_participant = id_participant;
     }
 

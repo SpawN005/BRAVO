@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 
 public class ServiceReservation implements IService<Reservation> {
     Connection conn;
-
+ServiceUser SU = new ServiceUser();
+ServiceEvent SE = new ServiceEvent();
 
     public ServiceReservation() {
 
@@ -28,7 +29,7 @@ public class ServiceReservation implements IService<Reservation> {
         String requete = "INSERT INTO reservation (id_participant, id_event, isConfirmed, nb_place) VALUES (?,?,?,?) ";
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
-            ps.setInt(1,reservation.getId_participant());
+            ps.setInt(1,reservation.getId_participant().getId());
             ps.setInt(2,reservation.getId_event().getId());
             ps.setBoolean(3, reservation.isConfirmed());
             ps.setInt(4,reservation.getNb_place());
@@ -72,26 +73,16 @@ public class ServiceReservation implements IService<Reservation> {
 
     @Override
     public void update(Reservation reservation) {
-        String query = "UPDATE reservation SET isConfirmed=?, nb_place=? WHERE id=?";
+        String query = "UPDATE reservation SET id_participant=?, id_event=?, isConfirmed=?, nb_place=? WHERE id=?";
         try {
-ServiceReservation sr= new ServiceReservation();
+
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setBoolean(1,reservation.isConfirmed());
-            ps.setInt(2,reservation.getNb_place());
-            ps.setInt(3,2);
-            if (reservation.isConfirmed() == false){
-                System.out.println("La réservation n'a pas été confirmée.");
-
-            }
-
-            // confirmer la réservation
-          else {
-              reservation.setConfirmed(true);
-            }
+            ps.setInt(1,reservation.getId_participant().getId());
+            ps.setInt(2,reservation.getId_event().getId());
+            ps.setBoolean(3,reservation.isConfirmed());
+            ps.setInt(4,reservation.getNb_place());
+            ps.setInt(5,reservation.getId());
             ps.executeUpdate();
-
-            System.out.println("La réservation a été confirmée.");
-
 
         } catch (SQLException e) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, e);
@@ -101,12 +92,17 @@ ServiceReservation sr= new ServiceReservation();
     }
     public void updateById(Reservation reservation, int id_m) {
 
-        String query = "UPDATE reservation SET  isConfirmed=?, nb_place=? where id=" + id_m;
+        String query = "UPDATE reservation SET id_participant=?, id_event=?,isConfirmed=?, nb_place=? where id=" + id_m;
 
         try {
 
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.executeUpdate(query);
+            ps.setInt(1,reservation.getId_participant().getId());
+            ps.setInt(2,reservation.getId_event().getId());
+            ps.setBoolean(3,reservation.isConfirmed());
+            ps.setInt(4,reservation.getNb_place());
+            ps.executeUpdate();
+
             System.out.println("La reservation a été mise à jour.");
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,9 +121,9 @@ ServiceReservation sr= new ServiceReservation();
             Statement st = conn.createStatement();
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
-                Event e= new Event();
 
-                Reservation r=new Reservation (rs.getInt("id"),rs.getInt(2),e,rs.getBoolean("isConfirmed"),rs.getInt("nb_place"));
+
+                Reservation r=new Reservation (rs.getInt("id"),SU.readById(rs.getInt(2)),SE.readById(rs.getInt(3)),rs.getBoolean("isConfirmed"),rs.getInt("nb_place"));
                 list.add(r);
             }
         } catch (SQLException e) {
@@ -147,9 +143,8 @@ ServiceReservation sr= new ServiceReservation();
             ResultSet rs=ps.executeQuery(requete);
 
             if(rs.next()) {
-                Event e= new Event();
 
-                r= new Reservation(rs.getInt(1),rs.getInt(2),e,rs.getBoolean(4),rs.getInt(5));
+                r= new Reservation(rs.getInt(1),SU.readById(rs.getInt(2)),SE.readById(rs.getInt(3)),rs.getBoolean(4),rs.getInt(5));
                 return r;
             }
 
