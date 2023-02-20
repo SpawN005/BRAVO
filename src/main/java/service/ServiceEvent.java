@@ -23,7 +23,7 @@ public class ServiceEvent implements IService<Event> {
 
     @Override
     public void insert(Event event) {
-        List<Reservation> reservations=new ArrayList<>();
+
 
 
         String requete="INSERT INTO event(title,description,nb_placeMax,date_beg,date_end,note,type_event,url) values(?,?,?,?,?,?,?)";

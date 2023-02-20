@@ -11,46 +11,53 @@
 
 <AnchorPane prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AddEventController">
    <children>
-      <Label layoutX="112.0" layoutY="32.0" text="Type d'évènement">
+      <Label layoutX="154.0" layoutY="34.0" text="Type d'évènement">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="112.0" layoutY="91.0" prefHeight="22.0" prefWidth="114.0" text="Description">
+      <Label layoutX="136.0" layoutY="137.0" prefHeight="22.0" prefWidth="114.0" text="Description">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="108.0" layoutY="159.0" prefHeight="22.0" prefWidth="114.0" text="Date de début">
+      <Label layoutX="136.0" layoutY="205.0" prefHeight="22.0" prefWidth="114.0" text="Date de début">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="396.0" layoutY="159.0" text="Date de fin">
+      <Label layoutX="542.0" layoutY="205.0" text="Date de fin">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="109.0" layoutY="258.0" text="Nombre de place">
+      <Label layoutX="136.0" layoutY="295.0" text="Nombre de place">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="112.0" layoutY="317.0" text="Image ">
+      <Label layoutX="139.0" layoutY="374.0" text="Image ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="settype" layoutX="286.0" layoutY="30.0" />
-      <TextField fx:id="setDescription" layoutX="295.0" layoutY="89.0" />
-      <TextField fx:id="setNbPlace" layoutX="251.0" layoutY="256.0" />
-      <ImageView fitHeight="86.0" fitWidth="114.0" layoutX="675.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="settype" layoutX="146.0" layoutY="64.0" prefHeight="26.0" prefWidth="175.0" />
+      <TextField fx:id="setDescription" layoutX="287.0" layoutY="111.0" prefHeight="74.0" prefWidth="479.0" />
+      <TextField fx:id="setNbPlace" layoutX="282.0" layoutY="293.0" prefHeight="26.0" prefWidth="175.0" />
+      <ImageView fitHeight="86.0" fitWidth="114.0" layoutX="23.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/logo.png" />
          </image></ImageView>
-      <Button fx:id="button_event" layoutX="419.0" layoutY="352.0" mnemonicParsing="false" onAction="#CreerEvent" text="Créer évènement" />
-      <DatePicker layoutX="112.0" layoutY="194.0" />
-      <DatePicker layoutX="348.0" layoutY="194.0" />
-      <Button fx:id="button_image" layoutX="269.0" layoutY="315.0" mnemonicParsing="false" text="Insérer Image" />
+      <Button fx:id="button_event" layoutX="382.0" layoutY="552.0" mnemonicParsing="false" onAction="#CreerEvent" text="Créer évènement" />
+      <DatePicker fx:id="setDD" layoutX="132.0" layoutY="233.0" />
+      <DatePicker fx:id="setDF" layoutX="542.0" layoutY="233.0" />
+      <Button fx:id="button_image" layoutX="631.0" layoutY="425.0" mnemonicParsing="false" onAction="#browse" text="Insérer Image" />
+      <ImageView fx:id="ImageView" fitHeight="205.0" fitWidth="353.0" layoutX="243.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="setTitre" layoutX="542.0" layoutY="64.0" prefHeight="26.0" prefWidth="175.0" />
+      <Label layoutX="542.0" layoutY="34.0" text="Titre évènement">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
