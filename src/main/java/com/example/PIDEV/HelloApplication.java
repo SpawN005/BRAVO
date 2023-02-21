@@ -29,17 +29,29 @@ public class HelloApplication extends Application {
         //stage.setScene(scene);
         //stage.show();
 
-        //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
-        //Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
-        //stage.setTitle("envoie de reclamation!");
-        //stage.setScene(scene2);
-        //stage.show();
+        /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
+        stage.setTitle("envoie de reclamation!");
+        stage.setScene(scene2);
+        stage.show();*/
 
-        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
+       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
         stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
+        stage.show();*/
+
+        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("afficherReclamation.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
+        stage.setTitle("affichage de reclamation !");
+        stage.setScene(scene2);
         stage.show();
+
+        /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
+        stage.setTitle("modification de reclamation !");
+        stage.setScene(scene2);
+        stage.show();*/
 
     }
 
@@ -90,17 +102,22 @@ public class HelloApplication extends Application {
 
         User u = new User("feriel","sahbi",25222421,"feriel.sahbi@gmil.com","simple user");
         User u2 = new User("mariem","hammi",22442145,"mariem.hammi@gmil.com","simple user");
+
+       User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
         ServiceUser s =new ServiceUser();
-        //s.insert(u);
+        s.insert(u3);
         //s.insert(u2);
       Reclamation r44 =new Reclamation("don","tres peu",date_sql,"on hold",s.readById(6),date_sql,0);
 
       //sr.insert(r44);
       //sr.update(r44);
        // sr.readAll().forEach(System.out::println);
-       // System.out.println("la ligne suivante est "+sr.readById(38));
+
+        //System.out.println("la ligne suivante est "+sr.readById(40));
+
         //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);
+        //sr.update(r44);
 
 
 

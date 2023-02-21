@@ -168,7 +168,7 @@ public class ServiceReclamation implements IService<Reclamation>{
             pst.executeQuery(requete);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                r.setId(rs.getInt(id));
+                r.setId(rs.getInt("id"));
                 r.setTitle(rs.getString("title"));
                 r.setDescription(rs.getString("description"));
                 r.setDate_creation(rs.getDate("date_creation"));

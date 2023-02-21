@@ -6,11 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
+import javafx.scene.input.KeyEvent;
 import service.ServiceReclamation;
 import service.ServiceUser;
+import java.io.IOException;
+import javafx.scene.Parent;
 
 import java.net.URL;
 import java.sql.Date;
@@ -49,12 +54,7 @@ public class modifierReclamationController implements Initializable {
         typeReclamationCBX.setPromptText("Reclamation à propos de : ");
         typeReclamationCBX.setItems(listtype);
     }
-    public void selectionReclamation(ActionEvent event) {
-        if (typeReclamationCBX.getValue().toString() == "oeuvre") {
-            //Stage stage = new Stage();
-            //rechercheBonPlansTFL.setOnKeyReleased((KeyEvent a) -> {listBonPlan();});
-        }
-    }
+
     private void showAlert(String message ,boolean b) {
         Alert alert;
         if (b)
@@ -81,11 +81,11 @@ public class modifierReclamationController implements Initializable {
         } else if (!text.matches("[a-zA-Z ]+")) {
             showAlert("La description ne peut contenir que des lettres et des espaces",false);
         }else {
-            //titlecheck.setImage(new Image("src/main/resources/com/example/PIDEV/assets/checkMark.png"));
-            //textecheckvalue.setImage(new Image("src/main/resources/com/example/PIDEV/assets/checkMark.png"));
+            //titlecheck.setImage(new Image("@assets/checkMark.png"));
+            //textecheckvalue.setImage(new Image("@assets/checkMark.png"));
 
             System.out.println("merci d'avoir bien redigé la reclamation ");
-            User u2 = new User("mariem","hammi",22442145,"mariem.hammi@gmil.com","simple user");
+            User u2 = new User(7,"mariem","hammi",22442145,"mariem.hammi@gmil.com","simple user");
             ServiceUser s =new ServiceUser();
 
             Reclamation r = new Reclamation();
@@ -94,10 +94,10 @@ public class modifierReclamationController implements Initializable {
             r.setDescription(description.getText());
             r.setDate_creation(date_sql);
             r.setEtat("processing");
-            r.setOwnerID(s.readById(reclamation.getId()));
+            //r.setOwnerID(s.readById(reclamation.getId()));
             r.setDate_treatment(date_sql);
             r.setNote(4);
-            r.setId(reclamation.getId());
+            r.setId(42);//reclamation.getId()
             sr.update(r);
 
             showAlert("Modification établie avec succée",true);
@@ -106,6 +106,12 @@ public class modifierReclamationController implements Initializable {
 
     }
     }
+
+
+
+
+
+
 }
 
 

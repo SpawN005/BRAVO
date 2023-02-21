@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="770.0" prefWidth="1125.0" style="-fx-background-color: #F4F4F2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.modifierReclamationController">
+<AnchorPane prefHeight="759.0" prefWidth="857.0" style="-fx-background-color: #F4F4F2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.modifierReclamationController">
     <children>
         <ComboBox fx:id="typeReclamationCBX" layoutX="89.0" layoutY="93.0" onAction="#selectionReclamation" prefHeight="26.0" prefWidth="191.0" promptText="Reclamation à propos de : " style="-fx-background-color: #647196;" />
 
-        <TextField fx:id="title" layoutX="269.0" layoutY="158.0" prefHeight="38.0" prefWidth="281.0" promptText="Sujet de la réclamation" AnchorPane.bottomAnchor="574.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="575.0" AnchorPane.topAnchor="158.0">
+        <TextField fx:id="title" layoutX="269.0" layoutY="158.0" prefHeight="27.0" prefWidth="276.0" promptText="Sujet de la réclamation" AnchorPane.bottomAnchor="574.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="312.0" AnchorPane.topAnchor="158.0">
             <font>
                 <Font name="System Bold Italic" size="13.0" />
             </font></TextField>
@@ -48,6 +48,11 @@
             <Image url="@assets/checkMark.png" />
          </image>
         </ImageView>
+      <ImageView fitHeight="73.0" fitWidth="72.0" layoutX="8.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/logo.png" />
+         </image>
+      </ImageView>
 
     </children>
 
