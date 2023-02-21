@@ -55,6 +55,8 @@ public class AddEventController implements Initializable {
     private Connection cnx = null;
     private ResultSet rs = null;
     private PreparedStatement pst = null;
+    Event e = new Event();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,9 +86,43 @@ public class AddEventController implements Initializable {
             }
 
         }
+    private void showAlert(String message ,boolean b) {
+        Alert alert;
+        if (b)
+            alert = new Alert(Alert.AlertType.INFORMATION);
+        else
+            alert = new Alert(Alert.AlertType.ERROR);
 
+
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+
+    }
         @FXML
         private void CreerEvent (ActionEvent event) {
+            String text = setTitre.getText();
+
+            if (text.isEmpty()) {
+                showAlert("Please enter a title",false);
+            } else if (!text.matches("[a-zA-Z ]+")) {
+                showAlert("Your title must contain only letters and spaces",false);
+            }
+            else if (setDescription.getText().isEmpty()) {
+                showAlert("Please enter a description",false);
+            } else if (!text.matches("[a-zA-Z ]+")) {
+                showAlert("Your description must contain only letters and spaces",false);
+            }
+            else if (selectedFile==null){
+                showAlert("Please enter an image",false);
+
+            }else {
+                File newFile = new File("src/main/resources/com/example/PIDEV/assets/" + selectedFile.getName());
+                try {
+                    Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
 
             Event e=new Event(setTitre.getText(),setDescription.getText(),Integer.parseInt(setNbPlace.getText()),setDD.getValue(),setDF.getValue(),settype.getText(), selectedFile.getName());
@@ -99,4 +135,4 @@ public class AddEventController implements Initializable {
 
 
 
-    }
+    }}
