@@ -10,7 +10,7 @@ public class Event {
     private int nb_placeMax;
     private LocalDate date_beg;
     private LocalDate date_end;
-    private int note;
+
     private String type_event;
 
     private String url;
@@ -21,27 +21,27 @@ public class Event {
 
     }
 
-    public Event(int id, String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, int note, String type_event,  String url) {
+    public Event(int id, String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end,  String type_event,  String url) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.nb_placeMax = nb_placeMax;
         this.date_beg = date_beg;
         this.date_end = date_end;
-        this.note = note;
+
         this.type_event = type_event;
 
         this.url = url;
 
     }
 
-    public Event(String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, int note, String type_event,  String url) {
+    public Event(String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, String type_event,  String url) {
         this.title = title;
         this.description = description;
         this.nb_placeMax = nb_placeMax;
         this.date_beg = date_beg;
         this.date_end = date_end;
-        this.note = note;
+
         this.type_event = type_event;
 
         this.url = url;
@@ -96,13 +96,7 @@ public class Event {
         this.date_end = date_end;
     }
 
-    public int getNote() {
-        return note;
-    }
 
-    public void setNote(int note) {
-        this.note = note;
-    }
 
     public String getType_event() {
         return type_event;
@@ -132,7 +126,7 @@ public class Event {
                 ", nb_placeMax=" + nb_placeMax +
                 ", date_beg=" + date_beg +
                 ", date_end=" + date_end +
-                ", note=" + note +
+
                 ", type_event='" + type_event + '\'' +
                  ", url='" + url + '\'' +
 

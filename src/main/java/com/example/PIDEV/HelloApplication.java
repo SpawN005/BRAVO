@@ -34,23 +34,21 @@ public class HelloApplication extends Application  {
         LocalDate d4 = LocalDate.of(2000, 11, 07);
 
 
-
+/*
 
         ServiceNoteEvent SN = new ServiceNoteEvent();
         ServiceEvent SE= new ServiceEvent();
 
         NoteEvent  NE1= new NoteEvent(5,SE.readById(8));
-        SN.insert(NE1);
+        SN.insert(NE1);*/
 
 
 
 
-       Event e1=new Event( "ahla wasahla","hhhhh",0, d1, d1, 10 , "ttt" ,"https://dev8tvkyziqz.cloudfront.net/1040x350/5e4a62f90ea94_Atawa_decoration_evenementielle_6_67fc28837a.jpg");
-        Event e2=new Event( "MARIOUMAAAA","kouchou kouchou",0, d2 ,d2,5, "dance" ,"Urbain Dance");
-        Event e3=new Event( "hjhj","hello ",5, d3 ,d3,20, "musique" ,"sama3ni");
-        Event e4 = new Event("dj", "hello ", 5, d4, d4, 20, "musique", "sama3ni");
 
 
+
+/*
         ServiceEvent sv = new ServiceEvent();
         // sv.insert(e1);
        // sv.insert(e2);
@@ -61,7 +59,7 @@ public class HelloApplication extends Application  {
         sv.readAll().forEach(System.out::println);
         // System.out.println(sv.readById(7));*/
 
-
+/*
               ServiceReservation SR= new ServiceReservation();
               ServiceUser SU = new ServiceUser();
 
@@ -72,7 +70,7 @@ public class HelloApplication extends Application  {
         ServiceReservation sr=new ServiceReservation();
         sr.insert(r1);
         sr.insert(r2);
-        sr.insert(r3);
+        sr.insert(r3);*/
 
        // sr.insert(r4);
         //sr.readAll().forEach(System.out::println);

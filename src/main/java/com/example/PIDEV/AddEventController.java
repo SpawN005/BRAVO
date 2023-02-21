@@ -14,12 +14,15 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.ServiceEvent;
+import utils.DataSource;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AddEventController implements Initializable {
@@ -49,6 +52,9 @@ public class AddEventController implements Initializable {
     private TextField setTitre;
     private ServiceEvent SE = new ServiceEvent();
 
+    private Connection cnx = null;
+    private ResultSet rs = null;
+    private PreparedStatement pst = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,7 +66,7 @@ public class AddEventController implements Initializable {
     }
         @FXML
         private void browse () {
-            System.out.println("aze");
+
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Upload an image");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png");
@@ -80,56 +86,17 @@ public class AddEventController implements Initializable {
         }
 
         @FXML
-        private void CreerEvent () {
+        private void CreerEvent (ActionEvent event) {
 
 
-            String text = setTitre.getText();
-            if (text.isEmpty()) {
-                showAlert("Veuillez ajouter un titre", false);
-            } else if (!text.matches("[a-zA-Z ]+")) {
-                showAlert("Le titre ne peut contenir ques des lettres et des espaces", false);
-            }
-            if (setDescription.getText().isEmpty()) {
-                showAlert("Veuillez ajouter une description", false);
-            } else if (!text.matches("[a-zA-Z ]+")) {
-                showAlert("La description ne peut contenir que des lettres et des espaces", false);
-            }
-            if (settype.getText().isEmpty()) {
-                showAlert("Veuillez ajouter un type", false);
-            } else if (!text.matches("[a-zA-Z ]+")) {
-                showAlert("Le type ne peut contenir que des lettres et des espaces", false);
-            } else {
-                Event e = new Event();
-                File newFile = new File("src/main/resources/com/example/PIDEV/assets/" + selectedFile.getName());
-                try {
-                    Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                e.setTitle(setTitre.getText());
-                e.setType_event(settype.getText());
+            Event e=new Event(setTitre.getText(),setDescription.getText(),Integer.parseInt(setNbPlace.getText()),setDD.getValue(),setDF.getValue(),settype.getText(), selectedFile.getName());
 
 
-                e.setDescription(setDescription.getText());
-                e.setUrl(selectedFile.getName());
-                e.setDate_beg(setDD.getValue());
-                e.setDate_end(setDF.getValue());
-                e.setNb_placeMax(Integer.parseInt(setNbPlace.getText()));
-                SE.insert(e);
-            }
+            SE.insert(e);
+
+
         }
 
 
-    private void showAlert(String s, boolean b) {
-        Alert alert;
-        if (b)
-            alert = new Alert(Alert.AlertType.INFORMATION);
-        else
-            alert = new Alert(Alert.AlertType.ERROR);
 
-
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-        alert.showAndWait();
-    }
     }
