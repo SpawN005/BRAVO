@@ -22,14 +22,14 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void insert(Blog b) {
-        String requete ="insert into blog (id,title,description,content,author) values (?,?,?,?,?)";
+        String requete ="insert into blog (title,description,content,author) values (?,?,?,?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setInt(1,b.getId());
+
             pst.setString(1, b.getTitle());
             pst.setString(2, b.getDescription());
             pst.setString(3, b.getContent());
-            pst.setInt(5,b.getAuthor().getId());
+            pst.setInt(4,b.getAuthor().getId());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -38,34 +38,36 @@ public class ServiceBlog implements IService <Blog> {
 
     }
 
+
     @Override
     public void delete(Blog b) {
+
         String requete = "delete from blog where id=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.setInt(1, b.getId());
+            pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("un probleme est survenu lors de la suppression du blog");
         }
         System.out.println("la suppression du blog a été effectuée avec succès ");
-
     }
 
     @Override
     public void update(Blog b) {
-        String requete =" update blog set title='?' and description='?' and content='?' where author='?'";
+        String requete =" update blog set title=? , description=? , content=? where author=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
             pst.setString(1, b.getTitle());
             pst.setString(2, b.getDescription());
             pst.setString(3, b.getContent());
+            pst.setInt(4, b.getAuthor().getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     @Override
@@ -94,7 +96,7 @@ public class ServiceBlog implements IService <Blog> {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
-        }
+    }
 
     @Override
     public Blog readById(int id) {
@@ -102,15 +104,16 @@ public class ServiceBlog implements IService <Blog> {
         String requete= "select * from blog where id="+id;
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setInt(1,id);
+//            pst.setInt(1, id);
             ResultSet rs= pst.executeQuery();
 
             while(rs.next()){
+
                 b.setId(id);
                 b.setTitle(rs.getString("title"));
                 b.setDescription(rs.getString("description"));
                 b.setContent(rs.getString("content"));
-                b.setAuthor(su.readById(id));
+                b.setAuthor(su.readById(rs.getInt("author")));
 
             }
 

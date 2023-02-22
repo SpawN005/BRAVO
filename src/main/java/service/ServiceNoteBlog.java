@@ -29,9 +29,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
             pst.executeUpdate();
 
         }catch(SQLException e){
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, e);
-
-
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -47,21 +45,23 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
         } catch (SQLException e ){
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, e);
         }
-
     }
+
 
     @Override
     public void update(NoteBlog nb) {
-        String requete= "UPDATE note SET note = ?, id_blog = ? WHERE id = ?";
-        try (PreparedStatement pst = conn.prepareStatement(requete)) {
+        String requete= "UPDATE note SET note = ? WHERE id = ? ";
 
+        try  {
+            PreparedStatement pst = conn.prepareStatement(requete);
             pst.setInt(1,nb.getNote());
-            pst.setInt(2,nb.getId_blog().getId());
+            pst.setInt(2,nb.getId());
             pst.executeUpdate();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
         List<NoteBlog> list = new ArrayList<>();
         String requete= "select * from note";
 
-         try {
+        try {
 
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(requete);
@@ -77,12 +77,13 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
                 NoteBlog nb= new NoteBlog(rs.getInt("id"),
                         rs.getInt("note"),
                         sb.readById(rs.getInt("id_blog"))
-                  );
- }
-         } catch (SQLException e) {
-             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, e);
-         }
-         return list;
+                );
+                list.add(nb);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return list;
     }
 
 
@@ -98,10 +99,8 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
                 nb.setId(id);
                 nb.setNote(rs.getInt("note"));
-                nb.setId_blog(sb.readById(id));
+                nb.setId_blog(sb.readById(rs.getInt("id_blog")));
             }
-
-
 
         } catch (SQLException e) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, e);

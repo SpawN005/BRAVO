@@ -27,6 +27,12 @@ public class Blog {
         this.author = author;
     }
 
+    public Blog(String title, String description, String content) {
+        this.title = title;
+        this.description = description;
+        this.content = content;
+    }
+
     public int getId() {
         return id;
     }

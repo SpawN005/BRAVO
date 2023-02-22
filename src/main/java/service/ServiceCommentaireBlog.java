@@ -22,7 +22,7 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
 
     @Override
     public void insert(CommentaireBlog c) {
-        String requete = "INSERT INTO commentaire (id, content,id_blog, user_id,) VALUES (?, ?, ?, ?)";
+        String requete = "INSERT INTO commentaire (id, content,id_blog, id_user) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
@@ -39,31 +39,34 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
 
     @Override
     public void delete(CommentaireBlog c) {
-        String requete = "delete from commentsOeuvre where id=?";
 
+        String requete = "delete from commentaire where id=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.setInt(1, c.getId());
-        } catch (SQLException var4) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("un probleme est survenu lors de la suppression du commentaire");
         }
-
+        System.out.println("la suppression du commentaire a été effectuée avec succès ");
     }
 
 
     @Override
     public void update(CommentaireBlog c) {
-        String requete= "UPDATE commentsOeuvre SET content = ?, id_blog = ?, id_user = ? WHERE id = ?";
+
+        String requete= "UPDATE commentaire SET content = ? WHERE id_user = ?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
             pst.setString(1, c.getContent());
-            pst.setInt(2, c.getId_blog().getId());
-            pst.setInt(3, c.getId_user().getId());
+            pst.setInt(2, c.getId_user().getId());
             pst.executeUpdate();
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
+
 
     }
 
@@ -93,12 +96,11 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
         }
 
         return c;
-
     }
 
     @Override
     public CommentaireBlog readById(int id) {
-        String requete = "select * from commentaire where `id`=?";
+        String requete = "select * from commentaire where id=?";
         CommentaireBlog cb =new CommentaireBlog();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
@@ -107,8 +109,8 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
             while(rs.next()) {
                 cb.setId(id);
                 cb.setContent(rs.getString("content"));
-                cb.setId_blog(sb.readById(id));
-                cb.setId_user(su.readById(id));
+                cb.setId_blog(sb.readById(rs.getInt("id_blog")));
+                cb.setId_user(su.readById(rs.getInt("id_user")));
             }
 
         } catch (SQLException var4) {
