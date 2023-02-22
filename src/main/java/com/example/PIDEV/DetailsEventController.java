@@ -24,6 +24,7 @@ import service.ServiceEvent;
 
 
 
+
 public class DetailsEventController implements Initializable {
 
     @FXML
@@ -58,9 +59,8 @@ public class DetailsEventController implements Initializable {
 
     @FXML
     private Label type_event;
+    private ServiceEvent SE;
     private Event event;
-
-    private ServiceEvent SE = new ServiceEvent();
 
 
     @Override
@@ -71,6 +71,7 @@ public class DetailsEventController implements Initializable {
     }
 
     public void SetEvent(Event e) {
+        double y=100;
         descriptionDetail.setText(e.getDescription());
         descriptionDetail.setWrappingWidth(400);
         title.setText(e.getTitle());
@@ -84,17 +85,9 @@ public class DetailsEventController implements Initializable {
         Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/" + e.getUrl());
         mainImage.setImage(image);
         event = new Event(e.getId(), e.getTitle(), e.getDescription(), e.getNb_placeMax(), e.getDate_beg(), e.getDate_end(), e.getType_event(), e.getUrl());
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailsOeuvre.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
 
-        DetailsEventController dc = loader.getController();
-        dc.SetEvent(event);
-        title.getScene().setRoot(root);
+
+
 
     }
 
@@ -114,6 +107,7 @@ public class DetailsEventController implements Initializable {
     }
     @FXML
     void delete() {
+        SE = new ServiceEvent();
 
         SE.delete(event);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));

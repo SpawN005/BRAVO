@@ -148,13 +148,13 @@ public class ModifyEventController implements Initializable {
             }
             Event e = new Event();
             e.setTitle(title.getText());
-            e.setDescription("testes");
+            e.setDescription(description.getText());
             e.setNb_placeMax(Integer.parseInt(nb_place.getText()));
             e.setDate_beg(DD.getValue());
             e.setDate_end(DF.getValue());
             e.setType_event(type.getText());
             e.setUrl(uploadImage.getText());
-            e.setId(32);
+            e.setId(30);
 
             SE.update(e);
 

@@ -44,20 +44,19 @@ public class AffichageEventController implements Initializable {
 
     ServiceEvent SE=new ServiceEvent();
 
-
     @FXML
 
-    protected void onImageClick(Event event) {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("DetailEvent.fxml"));
+    protected void onImageClick(Event e) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("DetailsEvent.fxml"));
         Parent root= null;
         try {
             root = loader.load();
-        } catch ( IOException e) {
-            throw new RuntimeException(e);
+        } catch ( IOException ex) {
+            throw new RuntimeException(ex);
         }
 
         DetailsEventController dc=loader.getController();
-        dc.SetEvent(event);
+        dc.SetEvent(e);
         feed.getScene().setRoot(root);
 
     }
@@ -110,7 +109,8 @@ public class AffichageEventController implements Initializable {
             description.setLayoutY(y+110);
             nb_max.setLayoutY(y);
             anchorPane.getChildren().addAll(paint,title1,title,description2,description,nb_max2,nb_max,DD2,DD,DF2,DF,type2,type);
-
+            anchorPane.setOnMouseClicked(mouseEvent -> onImageClick(event));
+            anchorPane.setStyle("-fx-cursor: hand;");
 
             feed.getChildren().addAll(anchorPane);
             x+=263.0;

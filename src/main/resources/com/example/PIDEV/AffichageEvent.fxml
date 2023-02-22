@@ -10,9 +10,7 @@
 
     <center>
         <ScrollPane fx:id="ScrollPane">
-            <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                <children>
-                </children></AnchorPane>
+            <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
         </ScrollPane>
     </center>
     <bottom>
