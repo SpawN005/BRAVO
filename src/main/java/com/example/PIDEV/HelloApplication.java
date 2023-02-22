@@ -33,19 +33,13 @@ public class HelloApplication extends Application  {
         LocalDate d3 = LocalDate.of(1998, 9, 29);
         LocalDate d4 = LocalDate.of(2000, 11, 07);
 
-
-/*
+        /*
 
         ServiceNoteEvent SN = new ServiceNoteEvent();
         ServiceEvent SE= new ServiceEvent();
 
         NoteEvent  NE1= new NoteEvent(5,SE.readById(8));
         SN.insert(NE1);*/
-
-
-
-
-
 
 
 /*
