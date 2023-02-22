@@ -88,6 +88,7 @@ public class modifierReclamationController implements Initializable {
 
             System.out.println("merci d'avoir bien redigé la reclamation ");
             User u2 = new User(7,"mariem","hammi",22442145,"mariem.hammi@gmil.com","simple user");
+            User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
             ServiceUser s =new ServiceUser();
 
             Reclamation r = new Reclamation();
@@ -96,16 +97,29 @@ public class modifierReclamationController implements Initializable {
             r.setDescription(description.getText());
             r.setDate_creation(date_sql);
             r.setEtat("processing");
-            r.setOwnerID(reclamation.getOwnerID());
+            r.setOwnerID(u3);
             r.setDate_treatment(date_sql);
             r.setNote(4);
             r.setId(42);//reclamation.getId()
-            sr.update(r);
+            sr.update2(r,42);
 
-            showAlert("Modification établie avec succée",true);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            showAlert("Modification réussie", true);
+
+            title.getScene().setRoot(root);
+
+        }
 
     }
-    }
+
 
 
 

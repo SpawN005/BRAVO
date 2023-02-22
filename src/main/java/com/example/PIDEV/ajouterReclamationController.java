@@ -1,4 +1,5 @@
 package com.example.PIDEV;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.Calendar;
@@ -7,9 +8,11 @@ import java.util.ResourceBundle;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -93,8 +96,18 @@ public class ajouterReclamationController implements Initializable {
             r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",s.readById(8),date_sql,8);
 
             sr.insert(r);
-            showAlert("Reclamation envoyée avec succees",true);
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            showAlert("Reclamation envoyée avec succee",true);
+
+            title.getScene().setRoot(root);
         }
     }
     }

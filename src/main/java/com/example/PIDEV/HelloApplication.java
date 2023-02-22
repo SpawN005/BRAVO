@@ -2,6 +2,7 @@ package com.example.PIDEV;
 import entity.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,31 +24,29 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        /*FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
-        stage.setTitle("Feed Page!");
-        stage.setScene(scene);
-        stage.show();*/
-
         /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 770);
         stage.setTitle("envoie de reclamation!");
         stage.setScene(scene2);
         stage.show();*/
 
+       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 770, 770);
+        stage.setTitle("envoie de reclamation!");
+        stage.setScene(scene2);
+        stage.show();*/
 
-
-        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("afficherReclamation.fxml"));
+        /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("afficherReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 600);
         stage.setTitle("affichage de reclamation !");
         stage.setScene(scene2);
-        stage.show();
+        stage.show();*/
 
-       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
+        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
         stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
-        stage.show();*/
+        stage.show();
 
     }
 
@@ -101,15 +100,16 @@ public class HelloApplication extends Application {
 
        User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
         ServiceUser s =new ServiceUser();
-        s.insert(u3);
+        //s.insert(u3);
         //s.insert(u2);
+        //System.out.println("la ligne suivante est "+s.readById(8));
       Reclamation r44 =new Reclamation("don","tres peu",date_sql,"on hold",s.readById(6),date_sql,0);
 
       //sr.insert(r44);
       //sr.update(r44);
        // sr.readAll().forEach(System.out::println);
 
-        //System.out.println("la ligne suivante est "+sr.readById(40));
+        //System.out.println("la ligne suivante est "+sr.readById(42));
 
         //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);

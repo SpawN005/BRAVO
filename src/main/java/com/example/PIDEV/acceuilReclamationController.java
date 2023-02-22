@@ -25,6 +25,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import service.ServiceReclamation;
 import entity.Reclamation;
+import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class acceuilReclamationController implements Initializable {
     @FXML
@@ -39,33 +46,20 @@ public class acceuilReclamationController implements Initializable {
     private Stage primaryStage;
 
 
-        public void listerReclamation() {
-            FXMLLoader loader=new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
-            Parent root= null;
-            try {
-                root = loader.load();
-                mainAnchorPane.getChildren().setAll(root);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            //afficherReclamationController arc = loader.getController();
-           // arc.SetReclamation(reclamation);
-           mainAnchorPane.getScene().setRoot(root);
+        public void listerReclamation() throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         }
 
-        public void envoyerReclamation() {
-            FXMLLoader loader=new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
-            Parent root= null;
-            try {
-                root = loader.load();
-                //mainAnchorPane.getChildren().setAll(root);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            //ajouterReclamationController mac = loader.getController();
-            mainAnchorPane.getScene().setRoot(root);
+        public void envoyerReclamation() throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         }
 
         public void afficherStatistique(ActionEvent event) {
