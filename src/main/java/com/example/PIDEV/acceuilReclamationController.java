@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -28,12 +29,17 @@ import entity.Reclamation;
 public class acceuilReclamationController implements Initializable {
     @FXML
     private AnchorPane mainAnchorPane;
+    private Button envoyer;
+    private Button afficher;
+    private Button stat;
     private Stage stage=new Stage();
     private ServiceReclamation sr;
     private Reclamation reclamation;
+    Stage window;
+    private Stage primaryStage;
 
 
-        public void listerReclamation(ActionEvent event) {
+        public void listerReclamation() {
             FXMLLoader loader=new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
             Parent root= null;
             try {
@@ -44,23 +50,22 @@ public class acceuilReclamationController implements Initializable {
             }
 
             //afficherReclamationController arc = loader.getController();
-            //arc.SetReclamation(reclamation);
-            //title.getScene().setRoot(root);
+           // arc.SetReclamation(reclamation);
+           mainAnchorPane.getScene().setRoot(root);
         }
 
-        public void envoyerReclamation(ActionEvent event) {
+        public void envoyerReclamation() {
             FXMLLoader loader=new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
             Parent root= null;
             try {
                 root = loader.load();
-                mainAnchorPane.getChildren().setAll(root);
+                //mainAnchorPane.getChildren().setAll(root);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
             //ajouterReclamationController mac = loader.getController();
-
-            //title.getScene().setRoot(root);
+            mainAnchorPane.getScene().setRoot(root);
         }
 
         public void afficherStatistique(ActionEvent event) {
@@ -69,6 +74,12 @@ public class acceuilReclamationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //envoyer.setOnMouseClicked(e->envoyerReclamation());
+        //afficher.setOnMouseClicked(e->listerReclamation());
+
+
+    }
+    public   void SetReclamation(Reclamation r){
 
     }
 }

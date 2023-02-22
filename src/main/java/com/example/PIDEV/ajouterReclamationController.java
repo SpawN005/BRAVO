@@ -90,7 +90,7 @@ public class ajouterReclamationController implements Initializable {
             User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
             ServiceUser s =new ServiceUser();
 
-            r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",s.readById(8),date_sql,0);
+            r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",s.readById(8),date_sql,8);
 
             sr.insert(r);
             showAlert("Reclamation envoyée avec succees",true);

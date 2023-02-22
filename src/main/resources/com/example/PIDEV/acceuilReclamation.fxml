@@ -9,15 +9,15 @@
 
 <AnchorPane prefWidth="1125.0" style="-fx-background-color: #F4F4F2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.acceuilReclamationController">
     <children>
-        <Button layoutX="352.0" layoutY="276.0" mnemonicParsing="false" onAction="#listerReclamation" prefWidth="171.0" style="-fx-background-color: #647196;" text="Liste des reclamations" textFill="#fffdfd" wrapText="true">
+        <Button id="afficher" layoutX="352.0" layoutY="276.0" mnemonicParsing="false" onAction="#listerReclamation" prefWidth="171.0" style="-fx-background-color: #647196;" text="Liste des reclamations" textFill="#fffdfd" wrapText="true">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-        <Button fx:id="statBtn" layoutX="269.0" layoutY="464.0" mnemonicParsing="false" onAction="#afficherStatistique" style="-fx-background-color: #647196;" text="Statistiques" textFill="#fffdfd">
+        <Button id="stat" layoutX="269.0" layoutY="464.0" mnemonicParsing="false" onAction="#afficherStatistique" style="-fx-background-color: #647196;" text="Statistiques" textFill="#fffdfd">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
-        <Button layoutX="96.0" layoutY="276.0" mnemonicParsing="false" onAction="#envoyerReclamation" prefWidth="171.0" style="-fx-background-color: #647196;" text="Envoyer Reclamation" textFill="WHITE">
+        <Button id="envoyer" layoutX="96.0" layoutY="276.0" mnemonicParsing="false" onAction="#envoyerReclamation" prefWidth="171.0" style="-fx-background-color: #647196;" text="Envoyer Reclamation" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>

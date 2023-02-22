@@ -104,8 +104,6 @@ public class modifierReclamationController implements Initializable {
 
             showAlert("Modification établie avec succée",true);
 
-
-
     }
     }
 

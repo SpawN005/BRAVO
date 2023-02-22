@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import service.ServiceReclamation;
 import service.ServiceUser;
 import entity.Reclamation;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,13 +29,10 @@ import javafx.scene.layout.AnchorPane;
 
 import javafx.fxml.FXML;
 import java.util.ArrayList;
-import javafx.util.Callback;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.util.Callback;
+
 import java.sql.Date;
 import javafx.stage.Stage; 
 
@@ -111,16 +109,21 @@ public class afficherReclamationController implements Initializable {
         Date_treatmentColumn.setCellValueFactory(new PropertyValueFactory<>("Date_treatment"));
         Date_treatmentColumn.setStyle("-fx-alignment: CENTER;");
 
-        TableViewReclamation= new TableView<>();
-        TableViewReclamation.setItems(getReclamation());
-        TableViewReclamation.getColumns().addAll(idColumn, titleColumn,descriptionColumn,date_creationColumn,etatColumn,Date_treatmentColumn);
+        TableColumn<Reclamation, Integer> noteColumn = new TableColumn<>("note");
 
-        VBox vbox = new VBox();
-        vbox.getChildren().addAll(TableViewReclamation);
-//        TableViewReclamation.getScene().setRoot(vbox);
-        //Scene scene=new Scene(vbox);
-        //window.setScene(scene);
-       // window.show();
+        noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
+        noteColumn.setStyle("-fx-alignment: CENTER;");
+
+        supprimerBTN.setOnAction(e->supprimerReclamation());
+        modifierBTN.setOnAction(e->modifierReclamationGUI());
+
+
+        TableViewReclamation.getColumns().addAll(idColumn, titleColumn,descriptionColumn,date_creationColumn,etatColumn,Date_treatmentColumn,noteColumn);
+
+        ObservableList<Reclamation> re=FXCollections.observableArrayList(sr.readAll());
+
+        TableViewReclamation.setItems(re);
+
 
     }
     private void showAlert(String message ,boolean b) {
@@ -135,26 +138,27 @@ public class afficherReclamationController implements Initializable {
         alert.showAndWait();
 
     }
-    public void supprimerReclamation(ActionEvent event) {
-         /*   sr = new ServiceReclamation();
-            sr.delete(reclamation);
-            FXMLLoader loader=new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
-            Parent root= null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+    public void supprimerReclamation() {
+        ObservableList<Reclamation> reclamationSelected,allreclamation;
+        allreclamation=TableViewReclamation.getItems();
+        reclamationSelected=TableViewReclamation.getSelectionModel().getSelectedItems();
+        //reclamationSelected.forEach(allreclamation::remove);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Voulez vous  vraiment supprimer cette reclamation");
+        Optional<ButtonType> action = alert.showAndWait();
+        if (action.get() == ButtonType.OK) {
+            new ServiceReclamation().delete2(allreclamation.get(0).getId());
+            //System.out.println(allreclamation.get(0).getId());
+            reclamationSelected.forEach(allreclamation::remove);
+        }
+        }
 
-            TableViewReclamation.getScene().setRoot(root);*/
-            }
 
 
 
-
-
-
-    public void modifierReclamationGUI(ActionEvent event) {
+    public void modifierReclamationGUI() {
         FXMLLoader loader=new FXMLLoader(getClass().getResource("modifierReclamation.fxml"));
         Parent root= null;
         try {
@@ -187,12 +191,9 @@ public class afficherReclamationController implements Initializable {
             hbox.getChildren().remove(typeRechercheStatus);
             hbox.getChildren().add(RechercheTextField);
         }
-
         TableViewReclamation.setItems(getReclamation());
 
     }
 
-    public void SetReclamation(Reclamation reclamation) {
 
-    }
 }
