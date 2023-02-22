@@ -41,6 +41,8 @@ public class modifierReclamationController implements Initializable {
     private Reclamation reclamation;
     private ServiceReclamation sr = new ServiceReclamation();
     public   void SetReclamation(Reclamation r){
+        User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
+        ServiceUser s =new ServiceUser();
         description.setText(r.getDescription());
         title.setText(r.getTitle());
 
@@ -94,7 +96,7 @@ public class modifierReclamationController implements Initializable {
             r.setDescription(description.getText());
             r.setDate_creation(date_sql);
             r.setEtat("processing");
-            //r.setOwnerID(s.readById(reclamation.getId()));
+            r.setOwnerID(reclamation.getOwnerID());
             r.setDate_treatment(date_sql);
             r.setNote(4);
             r.setId(42);//reclamation.getId()

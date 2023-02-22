@@ -1,5 +1,6 @@
 package com.example.PIDEV;
 
+import entity.User;
 import javafx.scene.control.*;
 import service.ServiceReclamation;
 import service.ServiceUser;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
@@ -23,7 +25,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+
 import javafx.fxml.FXML;
 import java.util.ArrayList;
 import javafx.util.Callback;
@@ -34,7 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import java.sql.Date;
-import javafx.stage.Stage;
+import javafx.stage.Stage; 
 
 public class afficherReclamationController implements Initializable {
 
@@ -57,15 +59,30 @@ public class afficherReclamationController implements Initializable {
     private static ComboBox<String> typeRechercheStatus;
     private ServiceReclamation sr = new ServiceReclamation();
     Reclamation reclamation;
-    ArrayList arrayList;
+    Stage window;
+    private Stage primaryStage;
+
+    public ObservableList<Reclamation> getReclamation(){
+        java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        ObservableList <Reclamation> Reclamations  = FXCollections.observableArrayList();
+        User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
+        ServiceUser s =new ServiceUser();
+
+        Reclamations.add(new Reclamation(14,"oeuvre","oeuvre non conforme",date_sql,"on hold",s.readById(8),date_sql,6));
+        Reclamations.add(new Reclamation(15,"dons","dons non conforme",date_sql,"on hold",s.readById(8),date_sql,5));
+        Reclamations.add(new Reclamation(16,"blogs","blog tres lent",date_sql,"on hold",s.readById(8),date_sql,5));
+        
+        return Reclamations ;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeRecherche.setItems(listeTypeRecherche);
         typeRecherche.setValue("Tout");
 
-        sr.readAll();
+        
+        window=primaryStage;
         TableColumn<Reclamation, Integer> idColumn = new TableColumn<>("id");
-;
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         idColumn.setStyle("-fx-alignment: CENTER;");
 
@@ -95,14 +112,15 @@ public class afficherReclamationController implements Initializable {
         Date_treatmentColumn.setStyle("-fx-alignment: CENTER;");
 
         TableViewReclamation= new TableView<>();
-        arrayList = (ArrayList) sr.readAll();
-
-    ObservableList observableList = FXCollections.observableArrayList(arrayList);
-        TableViewReclamation.setItems(observableList);
+        TableViewReclamation.setItems(getReclamation());
         TableViewReclamation.getColumns().addAll(idColumn, titleColumn,descriptionColumn,date_creationColumn,etatColumn,Date_treatmentColumn);
 
-        VBox root = new VBox();
-        root.getChildren().add(TableViewReclamation);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(TableViewReclamation);
+//        TableViewReclamation.getScene().setRoot(vbox);
+        //Scene scene=new Scene(vbox);
+        //window.setScene(scene);
+       // window.show();
 
     }
     private void showAlert(String message ,boolean b) {
@@ -118,8 +136,7 @@ public class afficherReclamationController implements Initializable {
 
     }
     public void supprimerReclamation(ActionEvent event) {
-            sr = new ServiceReclamation();
-        if (!TableViewReclamation.getSelectionModel().isEmpty()&&!selectionedReclamation.getEtat().equals("on hold")) {
+         /*   sr = new ServiceReclamation();
             sr.delete(reclamation);
             FXMLLoader loader=new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
             Parent root= null;
@@ -129,9 +146,9 @@ public class afficherReclamationController implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            TableViewReclamation.getScene().setRoot(root);
+            TableViewReclamation.getScene().setRoot(root);*/
             }
-        }
+
 
 
 
@@ -170,8 +187,8 @@ public class afficherReclamationController implements Initializable {
             hbox.getChildren().remove(typeRechercheStatus);
             hbox.getChildren().add(RechercheTextField);
         }
-        ObservableList observableList = FXCollections.observableArrayList(arrayList);
-        TableViewReclamation.setItems(observableList);
+
+        TableViewReclamation.setItems(getReclamation());
 
     }
 

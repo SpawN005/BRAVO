@@ -23,23 +23,19 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-       // Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
-        //stage.setTitle("Feed Page!");
-        //stage.setScene(scene);
-        //stage.show();
+       /* FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
+        stage.setTitle("Feed Page!");
+        stage.setScene(scene);
+        stage.show();*/
 
         /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("ajouterReclamation.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
+        Scene scene2 = new Scene(fxmlLoader2.load(), 770, 770);
         stage.setTitle("envoie de reclamation!");
         stage.setScene(scene2);
         stage.show();*/
 
-       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
-        stage.setTitle("modification de reclamation !");
-        stage.setScene(scene2);
-        stage.show();*/
+
 
         FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("afficherReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 770);
