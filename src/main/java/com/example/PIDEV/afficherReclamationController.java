@@ -115,7 +115,13 @@ public class afficherReclamationController implements Initializable {
         noteColumn.setStyle("-fx-alignment: CENTER;");
 
         supprimerBTN.setOnAction(e->supprimerReclamation());
-        modifierBTN.setOnAction(e->modifierReclamationGUI());
+        modifierBTN.setOnAction(e-> {
+            try {
+                modifierReclamationGUI();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
 
         TableViewReclamation.getColumns().addAll(idColumn, titleColumn,descriptionColumn,date_creationColumn,etatColumn,Date_treatmentColumn,noteColumn);
@@ -152,21 +158,29 @@ public class afficherReclamationController implements Initializable {
             new ServiceReclamation().delete2(allreclamation.get(0).getId());
             //System.out.println(allreclamation.get(0).getId());
             reclamationSelected.forEach(allreclamation::remove);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            showAlert("Reclamation envoyée avec succee",true);
+
+            //title.getScene().setRoot(root);
         }
         }
 
 
 
 
-    public void modifierReclamationGUI() {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("modifierReclamation.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void modifierReclamationGUI() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierReclamation.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
 
         //modifierReclamationController mrc = loader.getController();
         //mrc.SetReclamation(reclamation);

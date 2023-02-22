@@ -101,7 +101,7 @@ public class modifierReclamationController implements Initializable {
             r.setDate_treatment(date_sql);
             r.setNote(4);
             r.setId(42);//reclamation.getId()
-            sr.update2(r,42);
+            sr.update2(r,46);
 
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));

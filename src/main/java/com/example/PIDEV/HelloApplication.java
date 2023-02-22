@@ -30,7 +30,7 @@ public class HelloApplication extends Application {
         stage.setScene(scene2);
         stage.show();*/
 
-       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
+        /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 770);
         stage.setTitle("envoie de reclamation!");
         stage.setScene(scene2);
@@ -109,11 +109,12 @@ public class HelloApplication extends Application {
       //sr.update(r44);
        // sr.readAll().forEach(System.out::println);
 
-        //System.out.println("la ligne suivante est "+sr.readById(42));
+        //System.out.println("la ligne suivante est "+sr.readById(46));
 
         //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);
         //sr.update(r44);
+        //sr.delete2(48);
 
 
 
