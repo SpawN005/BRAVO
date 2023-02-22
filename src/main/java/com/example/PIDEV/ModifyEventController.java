@@ -31,7 +31,7 @@ public class ModifyEventController implements Initializable {
     private DatePicker DF;
 
     @FXML
-    private ImageView imageView;
+    private ImageView ImageView;
 
     @FXML
     private Button cancelButton;
@@ -60,28 +60,27 @@ public class ModifyEventController implements Initializable {
 
     private ServiceEvent SE = new ServiceEvent();
 
-    private PreparedStatement pst = null;
+
     private Event event;
+
     public void SetEvent(Event e) {
-        description.setText(event.getDescription());
+        description.setText(e.getDescription());
 
-        title.setText(event.getTitle());
-        type.setText(event.getType_event());
-        nb_place.setText(Integer.toString(event.getNb_placeMax()));
-        DD.setValue(event.getDate_beg());
-        DF.setValue(event.getDate_end());
-        uploadImage.setText(event.getUrl());
+        title.setText(e.getTitle());
+        type.setText(e.getType_event());
+        nb_place.setText(Integer.toString(e.getNb_placeMax()));
+        DD.setValue(e.getDate_beg());
+        DF.setValue(e.getDate_end());
+        uploadImage.setText(e.getUrl());
 
-
-        Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+event.getUrl());
-        imageView.setImage(image);
-        event =new Event(e.getId(),e.getTitle(),e.getDescription(),e.getNb_placeMax(),e.getDate_beg(),e.getDate_end(),e.getType_event(),e.getUrl());
+        ImageView.setImage(new Image("file:src/main/resources/com/example/PIDEV/assets/" + e.getUrl()));
+        event = new Event(e.getId(), e.getTitle(), e.getDescription(), e.getNb_placeMax(), e.getDate_beg(), e.getDate_end(), e.getType_event(), e.getUrl());
 
 
     }
 
     @FXML
-    void browse(ActionEvent event) {
+    void browse() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload an image");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png");
@@ -91,44 +90,42 @@ public class ModifyEventController implements Initializable {
             uploadImage.setText(selectedFile.getName());
 
 
-            imageView.setImage(new Image("file:" + selectedFile));
-            imageView.setFitWidth(200);
-            imageView.setFitHeight(150);
+            ImageView.setImage(new Image("file:" + selectedFile));
+            ImageView.setFitWidth(200);
+            ImageView.setFitHeight(150);
 
         }
     }
 
-        @FXML
-         void cancel () {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("feed.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            title.getScene().setRoot(root);
+    @FXML
+    void cancel() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        private void showAlert(String message ,boolean b) {
-            Alert alert;
-            if (b)
-                alert = new Alert(Alert.AlertType.INFORMATION);
-            else
-                alert = new Alert(Alert.AlertType.ERROR);
+        title.getScene().setRoot(root);
+    }
+
+    private void showAlert(String message, boolean b) {
+        Alert alert;
+        if (b)
+            alert = new Alert(Alert.AlertType.INFORMATION);
+        else
+            alert = new Alert(Alert.AlertType.ERROR);
 
 
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
 
-        }
-
-
-
+    }
 
 
     @FXML
-    void submit(ActionEvent event) {
+    void submit() {
         String text = title.getText();
 
         if (text.isEmpty()) {
@@ -143,44 +140,38 @@ public class ModifyEventController implements Initializable {
             showAlert("Please enter an image", false);
 
         } else {
-            Event e= new Event();
-            if (e.getUrl().isEmpty()) {
-
-                File newFile = new File("src/main/resources/com/example/PIDEV/assets/" + selectedFile.getName());
-                try {
-                    Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
+            File newFile = new File("src/main/resources/com/example/PIDEV/assets/" + selectedFile.getName());
+            try {
+                Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-                e.setTitle(title.getText());
-                e.setDescription(description.getText());
-                e.setNb_placeMax(Integer.parseInt(nb_place.getText()));
-                e.setDate_beg(DD.getValue());
-                e.setDate_end(DF.getValue());
-                e.setType_event(type.getText());
-                e.setUrl(uploadImage.getText());
+            Event e = new Event();
+            e.setTitle(title.getText());
+            e.setDescription("testes");
+            e.setNb_placeMax(Integer.parseInt(nb_place.getText()));
+            e.setDate_beg(DD.getValue());
+            e.setDate_end(DF.getValue());
+            e.setType_event(type.getText());
+            e.setUrl(uploadImage.getText());
+            e.setId(32);
 
+            SE.update(e);
 
-                SE.update(e);
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("feed.fxml"));
-                Parent root = null;
-                try {
-                    root = loader.load();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                showAlert("Registration success", true);
-
-                title.getScene().setRoot(root);
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
+
+            showAlert("Modification réussie", true);
+
+            title.getScene().setRoot(root);
+
         }
-
-
+    }
 
 
     @Override
@@ -193,6 +184,4 @@ public class ModifyEventController implements Initializable {
     }
 
 
-
-
-  }
+}

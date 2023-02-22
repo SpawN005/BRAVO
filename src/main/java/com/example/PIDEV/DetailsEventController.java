@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -20,15 +21,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import service.ServiceEvent;
-import service.ServiceOeuvre;
+
 
 
 public class DetailsEventController implements Initializable {
 
     @FXML
+    private Text DD;
+
+    @FXML
+    private Text DF;
+
+    @FXML
     private Label back;
 
-
+    @FXML
+    private Text descriptionDetail;
 
     @FXML
     private AnchorPane leftAnchor;
@@ -36,32 +44,28 @@ public class DetailsEventController implements Initializable {
     @FXML
     private ImageView mainImage;
 
-    private Label DF;
-    private Label nb_max;
-    private Label url;
-
+    @FXML
+    private Text nb_place;
 
     @FXML
     private AnchorPane rightAnchor;
 
     @FXML
-    private Label title;
+    private ScrollPane scrollPane;
+
     @FXML
-    private Text descriptionDetail;
+    private Label title;
+
+    @FXML
     private Label type_event;
-    private Label DD;
-
-
-
-private Event event;
+    private Event event;
 
     private ServiceEvent SE = new ServiceEvent();
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        back.setOnMouseClicked(e->backwardButton());
+        back.setOnMouseClicked(e -> backwardButton());
         back.setStyle("-fx-cursor: hand;");
 
     }
@@ -70,55 +74,50 @@ private Event event;
         descriptionDetail.setText(e.getDescription());
         descriptionDetail.setWrappingWidth(400);
         title.setText(e.getTitle());
-        type_event.setText(e.getType_event());;
-        nb_max.setText(Integer.toString(e.getNb_placeMax()));
+        type_event.setText(e.getType_event());
+
+        nb_place.setText(Integer.toString(e.getNb_placeMax()));
         DD.setText(e.getDate_beg().toString());
         DF.setText(e.getDate_end().toString());
-        url.setText(e.getUrl());
 
 
-        Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+e.getUrl());
+        Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/" + e.getUrl());
         mainImage.setImage(image);
-        event =new Event(e.getId(),e.getTitle(),e.getDescription(),e.getNb_placeMax(),e.getDate_beg(),e.getDate_end(),e.getType_event(),e.getUrl());
+        event = new Event(e.getId(), e.getTitle(), e.getDescription(), e.getNb_placeMax(), e.getDate_beg(), e.getDate_end(), e.getType_event(), e.getUrl());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailsOeuvre.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
+        DetailsEventController dc = loader.getController();
+        dc.SetEvent(event);
+        title.getScene().setRoot(root);
 
     }
+
+
     protected void backwardButton() {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
-        Parent root= null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+        Parent root = null;
         try {
             root = loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
 
         leftAnchor.getScene().setRoot(root);
 
     }
-
-
-    public void modify(ActionEvent actionEvent) {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModificationEvent.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        ModifyEventController mec = loader.getController();
-        mec.SetEvent(event);
-        title.getScene().setRoot(root);
-
-    }
     @FXML
-    public void delete(ActionEvent actionEvent) {
-SE = new ServiceEvent();
+    void delete() {
+
         SE.delete(event);
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
-        Parent root= null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+        Parent root = null;
         try {
             root = loader.load();
         } catch (IOException ex) {
@@ -130,4 +129,25 @@ SE = new ServiceEvent();
 
 
     }
+
+
+    @FXML
+    void modify() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ModificationEvent.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        ModifyEventController mec = loader.getController();
+        mec.SetEvent(event);
+        title.getScene().setRoot(root);
+
+    }
+
+
+
 }
+

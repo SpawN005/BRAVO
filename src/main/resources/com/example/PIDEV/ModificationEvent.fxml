@@ -25,7 +25,7 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <TextArea fx:id="description" layoutX="333.0" layoutY="187.0" prefHeight="74.0" prefWidth="434.0" />
-      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="462.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="463.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="430.0" layoutY="14.0" text="Modification de l'évenement" textFill="#b90c0c" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true">
          <font>
             <Font size="21.0" />
@@ -33,7 +33,7 @@
       </Label>
       <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="117.0" fitWidth="113.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../../../../../../../../logo.png" />
+            <Image url="@assets/logo.png" />
          </image>
       </ImageView>
       <TextField fx:id="type" layoutX="204.0" layoutY="115.0" prefHeight="26.0" prefWidth="175.0" />
