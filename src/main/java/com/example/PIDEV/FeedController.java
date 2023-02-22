@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import service.ServiceCommentaireOeuvre;
 import service.ServiceOeuvre;
 
 import java.io.IOException;
@@ -28,7 +30,7 @@ public class FeedController implements Initializable {
     @FXML
     private AnchorPane feed ;
     @FXML
-    private ScrollPane ScrollPane;
+    private ScrollPane scrollPane;
     AnchorPane anchorPane = null;
     ServiceOeuvre so=new ServiceOeuvre();
     List<Oeuvre> l=so.readAll();
@@ -52,8 +54,9 @@ public class FeedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        scrollPane.setPadding(new Insets(0,60,0,60));
         double  y = 274.0;
-        double x =58.0;
+        double x =0;
         for (Oeuvre o : l){
             anchorPane = new AnchorPane();
             Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
@@ -73,7 +76,17 @@ public class FeedController implements Initializable {
             feed.getChildren().addAll(anchorPane);
             x+=263.0;
         }
-        ScrollPane.setStyle("-fx-background-color: transparent;");
+
+        scrollPane.setStyle("-fx-background-color: transparent; -fx-font-size: 9;");
+        feed.setStyle("-fx-font-size: 12;");
+        double center = (feed.getBoundsInLocal().getWidth() - scrollPane.getViewportBounds().getWidth()) / 2;
+        scrollPane.setHvalue(center / feed.getBoundsInLocal().getWidth());
+
+
+
+
+
+
     }
 
 }

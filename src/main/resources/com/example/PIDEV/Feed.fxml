@@ -9,10 +9,11 @@
    <top><fx:include source="header.fxml" BorderPane.alignment="TOP_CENTER" /></top>
 
    <center>
-      <ScrollPane fx:id="ScrollPane">
+      <ScrollPane fx:id="scrollPane">
       <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-         </children></AnchorPane>
+         </children>
+      </AnchorPane>
       </ScrollPane>
    </center>
    <bottom>

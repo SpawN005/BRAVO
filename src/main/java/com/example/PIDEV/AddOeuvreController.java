@@ -89,7 +89,6 @@ public class AddOeuvreController implements Initializable {
     }
     @FXML
     private void browse()  {
-        System.out.println("aze");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload an image");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png");
