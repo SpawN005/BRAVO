@@ -1,21 +1,26 @@
 package com.example.PIDEV;
 
+import entity.CommentaireOeuvre;
 import entity.Oeuvre;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.scene.control.Label;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import service.ServiceCommentaireOeuvre;
 import service.ServiceOeuvre;
 
 
@@ -24,6 +29,9 @@ public class DetailsOeuvreController implements Initializable {
     @FXML
     private Label back;
 
+
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private Text descriptionDetail;
 
@@ -41,18 +49,25 @@ public class DetailsOeuvreController implements Initializable {
 
     @FXML
     private Label title;
-
+    @FXML
+    private AnchorPane commentAnchor;
     private ServiceOeuvre so;
     private Oeuvre oeuvre;
+
+    private ServiceCommentaireOeuvre sco;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         back.setOnMouseClicked(e->backwardButton());
         back.setStyle("-fx-cursor: hand;");
 
+
+
+
     }
 
     public void SetOeuvre(Oeuvre o) {
+        double y=100;
         descriptionDetail.setText(o.getDescription());
         descriptionDetail.setWrappingWidth(400);
         title.setText(o.getTitle());
@@ -60,7 +75,47 @@ public class DetailsOeuvreController implements Initializable {
         Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
         mainImage.setImage(image);
         oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());
+        sco = new ServiceCommentaireOeuvre();
+        List<CommentaireOeuvre> l = sco.readByOeuvre(oeuvre);
 
+        for (CommentaireOeuvre co:l){
+
+            Label comment = new Label(co.getComment());
+
+            comment.setLayoutY(y);
+
+            y+=20;
+
+            commentAnchor.getChildren().addAll(comment);
+
+
+
+        }
+        TextArea ta = new TextArea();
+        ta.setWrapText(true);
+        ta.setMaxWidth(433);
+        ta.setMaxHeight(100);
+        commentAnchor.getChildren().add(ta);
+        ta.setOnKeyPressed(e-> {
+            if (e.getCode() == KeyCode.ENTER){
+
+
+                sco.insert(new CommentaireOeuvre(oeuvre,    1,ta.getText(),new Timestamp(System.currentTimeMillis())));
+                ta.setText("");
+                FXMLLoader loader=new FXMLLoader(getClass().getResource("DetailsOeuvre.fxml"));
+                Parent root= null;
+                try {
+                    root = loader.load();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                DetailsOeuvreController dc=loader.getController();
+                dc.SetOeuvre(oeuvre);
+                title.getScene().setRoot(root);
+
+            }
+        });
 
     }
     protected void backwardButton() {

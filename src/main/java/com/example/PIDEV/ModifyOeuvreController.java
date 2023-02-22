@@ -160,7 +160,7 @@ public class ModifyOeuvreController implements Initializable {
         MenuItem menuItem1 = new MenuItem("Music");
         MenuItem menuItem2 = new MenuItem("Paint");
         MenuItem menuItem3 =new MenuItem("Sculpture");
-
+        description.setWrapText(true);
         categorie.getItems().addAll(menuItem1,menuItem2,menuItem3);
 
 

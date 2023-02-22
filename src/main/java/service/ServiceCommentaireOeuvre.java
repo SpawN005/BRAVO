@@ -107,10 +107,35 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
                 co.setTimestamp(rs.getTimestamp("timestamp"));
             }
 
-            } catch (SQLException var4) {
+        } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
         return co;
+    }
+
+
+    public List<CommentaireOeuvre> readByOeuvre(Oeuvre o) {
+        String requete = "select * from `commentsOeuvre` where `oeuvre_id`=? ORDER BY timestamp ASC";
+        List<CommentaireOeuvre> commentaireOeuvre = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(requete);
+            ps.setInt(1,o.getId());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                CommentaireOeuvre oeuvre= new CommentaireOeuvre(rs.getInt("id"),
+                        so.readById(rs.getInt("oeuvre_id")),
+                        rs.getInt("user_id"),
+                        rs.getString("comment"),
+                        rs.getTimestamp("timestamp")
+                );
+                commentaireOeuvre.add(oeuvre);
+            }
+
+            } catch (SQLException var4) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
+        }
+        return commentaireOeuvre;
 
     }
 }
