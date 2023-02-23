@@ -1,6 +1,7 @@
 package com.example.PIDEV;
 
 import entity.Oeuvre;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 import service.ServiceCommentaireOeuvre;
 import service.ServiceOeuvre;
 
@@ -74,9 +76,14 @@ public class FeedController implements Initializable {
             anchorPane.getChildren().addAll(paint,title,owner,description);
             anchorPane.setOnMouseClicked(mouseEvent -> onImageClick(o));
             anchorPane.setStyle("-fx-cursor: hand;");
+
+
+
             feed.getChildren().addAll(anchorPane);
             x+=263.0;
         }
+        double center = (feed.getBoundsInLocal().getWidth() - scrollPane.getViewportBounds().getWidth()) / 2;
+        scrollPane.setHvalue(center / feed.getBoundsInLocal().getWidth());
 
     }
 
@@ -101,7 +108,11 @@ public class FeedController implements Initializable {
             description.setLayoutY(y+36);
             anchorPane.getChildren().addAll(paint,title,owner,description);
             anchorPane.setOnMouseClicked(mouseEvent -> onImageClick(o));
+
             anchorPane.setStyle("-fx-cursor: hand;");
+
+       ;
+
             feed.getChildren().addAll(anchorPane);
             x+=263.0;
         }
@@ -123,5 +134,7 @@ public class FeedController implements Initializable {
 
 
     }
+
+
 
 }
