@@ -40,15 +40,18 @@ public class modifierReclamationController implements Initializable {
     private ImageView textecheckvalue;
     private Reclamation reclamation;
     private ServiceReclamation sr = new ServiceReclamation();
+    private Reclamation localreclamation;
     public   void SetReclamation(Reclamation r){
-        User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
-        ServiceUser s =new ServiceUser();
-        description.setText(r.getDescription());
-        title.setText(r.getTitle());
-
-        Date date_sql = new Date(Calendar.getInstance().getTime().getTime());
-
-        reclamation = new Reclamation(r.getId(), r.getTitle(), r.getDescription(), date_sql, r.getEtat(), r.getOwnerID(), date_sql, r.getNote());
+        localreclamation=r;
+        System.out.println("reclamtion---------------------"+localreclamation);
+//        User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
+//        ServiceUser s =new ServiceUser();
+//        description.setText(r.getDescription());
+//        title.setText(r.getTitle());
+//
+//        Date date_sql = new Date(Calendar.getInstance().getTime().getTime());
+//
+//        reclamation = new Reclamation(localreclamation.getId(), r.getTitle(), r.getDescription(), date_sql, r.getEtat(), r.getOwnerID(), date_sql, r.getNote());
 
     }
     @Override
@@ -93,15 +96,15 @@ public class modifierReclamationController implements Initializable {
 
             Reclamation r = new Reclamation();
 
-            r.setTitle(title.getText());
-            r.setDescription(description.getText());
-            r.setDate_creation(date_sql);
-            r.setEtat("processing");
-            r.setOwnerID(u3);
-            r.setDate_treatment(date_sql);
-            r.setNote(4);
-            r.setId(42);//reclamation.getId()
-            sr.update2(r,46);
+            localreclamation.setTitle(title.getText());
+            localreclamation.setDescription(description.getText());
+           // r.setDate_creation(date_sql);
+            localreclamation.setEtat("processing");
+            //r.setOwnerID(u3);
+            localreclamation.setDate_treatment(date_sql);
+            localreclamation.setNote(8);
+            //.setId(55);
+            sr.update(localreclamation);
 
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));

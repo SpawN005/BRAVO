@@ -58,6 +58,7 @@ public class HelloApplication extends Application {
 
         Reclamation r = new Reclamation("Oeuvre dart","jai pas pu rechercher les ouevres",date_sql,"on hold",date_sql,2);
         Reclamation r66 = new Reclamation("service","service tres lent",date_sql,"treated",date_sql,5);
+
         ServiceReclamation sr =new ServiceReclamation ();
 
         //sr.insert(r);
@@ -75,7 +76,7 @@ public class HelloApplication extends Application {
 
         //sr.RechercheTitle("artiste").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);
-        //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
+        sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
 
 
         TypeReclamation T = new TypeReclamation("prestation");
@@ -104,12 +105,16 @@ public class HelloApplication extends Application {
         //s.insert(u2);
         //System.out.println("la ligne suivante est "+s.readById(8));
       Reclamation r44 =new Reclamation("don","tres peu",date_sql,"on hold",s.readById(6),date_sql,0);
+        Reclamation rx =new Reclamation(50,"test","test",date_sql,"on hold",s.readById(8),date_sql,4);
+       // sr.insert(rx);
+      // sr.update(rx);
+       //sr.delete(rx);
 
       //sr.insert(r44);
       //sr.update(r44);
-       // sr.readAll().forEach(System.out::println);
+        //sr.readAll().forEach(System.out::println);
 
-        //System.out.println("la ligne suivante est "+sr.readById(46));
+        //System.out.println("la ligne suivante est "+sr.readById(50));
 
         //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);

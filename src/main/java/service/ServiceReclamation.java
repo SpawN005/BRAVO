@@ -93,7 +93,7 @@ public class ServiceReclamation implements IService<Reclamation>{
 
     @Override
     public void update(Reclamation reclamation) {
-        String requete = "UPDATE Reclamation SET title=?, description=?,date_creation=?, etat=?, ownerID=?, date_treatment=?,note=? WHERE id=?";
+        String requete = "UPDATE Reclamation SET title=?, description=?,date_creation=?, etat=?,  date_treatment=?,note=? WHERE id=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
@@ -101,10 +101,10 @@ public class ServiceReclamation implements IService<Reclamation>{
             ps.setString(2, reclamation.getDescription());
             ps.setDate(3, reclamation.getDate_creation());
             ps.setString(4, reclamation.getEtat());
-            ps.setInt(5, reclamation.getOwnerID().getId());
-            ps.setDate(6, reclamation.getDate_treatment());
-            ps.setInt(7,reclamation.getNote());
-            ps.setInt(8,reclamation.getId());
+           // ps.setInt(5, reclamation.getOwnerID().getId());
+            ps.setDate(5, reclamation.getDate_treatment());
+            ps.setInt(6,reclamation.getNote());
+            ps.setInt(7,reclamation.getId());
 
             ps.executeUpdate();
             System.out.println("une reclamation existante a été mise à jour ");
@@ -121,13 +121,13 @@ public class ServiceReclamation implements IService<Reclamation>{
             PreparedStatement ps = conn.prepareStatement(requete);
 
             ps.setString(1, r.getTitle());
-            ps.setString(2, r.getDescription());
+            ps.setString(2,r.getDescription() );
             ps.setDate(3, r.getDate_creation());
             ps.setString(4, r.getEtat());
             ps.setInt(5, r.getOwnerID().getId());
             ps.setDate(6, r.getDate_treatment());
             ps.setInt(7,r.getNote());
-            ps.setInt(8, r.getId());
+            ps.setInt(8,r.getId() );
 
             ps.executeUpdate();
             System.out.println("une reclamation existante a été mise à jour selon id ");

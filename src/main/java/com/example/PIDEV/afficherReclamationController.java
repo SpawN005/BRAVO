@@ -2,6 +2,7 @@ package com.example.PIDEV;
 
 import entity.User;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import service.ServiceReclamation;
 import service.ServiceUser;
 import entity.Reclamation;
@@ -59,7 +60,7 @@ public class afficherReclamationController implements Initializable {
     Reclamation reclamation;
     Stage window;
     private Stage primaryStage;
-
+    private Reclamation localreclamation;
     public ObservableList<Reclamation> getReclamation(){
         java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         ObservableList <Reclamation> Reclamations  = FXCollections.observableArrayList();
@@ -155,8 +156,9 @@ public class afficherReclamationController implements Initializable {
         alert.setContentText("Voulez vous  vraiment supprimer cette reclamation");
         Optional<ButtonType> action = alert.showAndWait();
         if (action.get() == ButtonType.OK) {
-            new ServiceReclamation().delete2(allreclamation.get(0).getId());
+            new ServiceReclamation().delete(localreclamation);
             //System.out.println(allreclamation.get(0).getId());
+            System.out.println(localreclamation);
             reclamationSelected.forEach(allreclamation::remove);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
             Parent root = null;
@@ -166,7 +168,7 @@ public class afficherReclamationController implements Initializable {
                 throw new RuntimeException(ex);
             }
 
-            showAlert("Reclamation envoyée avec succee",true);
+            showAlert("Reclamation supprimée avec succée",true);
 
             //title.getScene().setRoot(root);
         }
@@ -178,6 +180,9 @@ public class afficherReclamationController implements Initializable {
     public void modifierReclamationGUI() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierReclamation.fxml"));
         Parent root = loader.load();
+        modifierReclamationController controller=loader.getController();
+        controller.SetReclamation(localreclamation);
+        System.out.println("reclamation ::::::::::::::::::"+localreclamation);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
@@ -210,4 +215,8 @@ public class afficherReclamationController implements Initializable {
     }
 
 
+    public void getselectedreclamation(MouseEvent mouseEvent) {
+         localreclamation=TableViewReclamation.getSelectionModel().getSelectedItem();
+
+    }
 }
