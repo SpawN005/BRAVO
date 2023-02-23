@@ -151,7 +151,10 @@ public class DetailsOeuvreController implements Initializable {
     @FXML
     public void delete(ActionEvent actionEvent) {
         so = new ServiceOeuvre();
+        sco.deletebyOeuvre(oeuvre);
         so.delete(oeuvre);
+
+
         FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));
         Parent root= null;
         try {

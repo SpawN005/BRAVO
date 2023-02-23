@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -33,8 +34,11 @@ public class FeedController implements Initializable {
     private ScrollPane scrollPane;
     AnchorPane anchorPane = null;
     ServiceOeuvre so=new ServiceOeuvre();
-    List<Oeuvre> l=so.readAll();
-
+    List<Oeuvre> l;
+    @FXML
+    private TextField filtre;
+    double  y = 274.0;
+    double x =0;
     @FXML
     protected void onImageClick(Oeuvre o) {
         FXMLLoader loader=new FXMLLoader(getClass().getResource("DetailsOeuvre.fxml"));
@@ -50,13 +54,38 @@ public class FeedController implements Initializable {
         feed.getScene().setRoot(root);
 
     }
+    protected void filtre(String t) {
+        x=0;
+        feed.getChildren().clear();
+        l=so.RechercheTitre(t);
+        for (Oeuvre o : l){
+            anchorPane = new AnchorPane();
+            Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
+            ImageView paint= new ImageView(image);
+            Label title=new Label(o.getTitle());
+            Label owner=new Label(o.getOwner());
+            Label description=new Label(o.getDescription());
+            description.setWrapText(true);
+            description.setMaxWidth(200);
+            anchorPane.setLayoutX(x);
+            title.setLayoutY(y);
+            owner.setLayoutY(y+18);
+            description.setLayoutY(y+36);
+            anchorPane.getChildren().addAll(paint,title,owner,description);
+            anchorPane.setOnMouseClicked(mouseEvent -> onImageClick(o));
+            anchorPane.setStyle("-fx-cursor: hand;");
+            feed.getChildren().addAll(anchorPane);
+            x+=263.0;
+        }
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         scrollPane.setPadding(new Insets(0,60,0,60));
-        double  y = 274.0;
-        double x =0;
+
+        l = so.readAll();
         for (Oeuvre o : l){
             anchorPane = new AnchorPane();
             Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
@@ -81,6 +110,12 @@ public class FeedController implements Initializable {
         feed.setStyle("-fx-font-size: 12;");
         double center = (feed.getBoundsInLocal().getWidth() - scrollPane.getViewportBounds().getWidth()) / 2;
         scrollPane.setHvalue(center / feed.getBoundsInLocal().getWidth());
+
+
+        filtre.setOnKeyTyped(e->filtre(filtre.getText()));
+
+
+
 
 
 

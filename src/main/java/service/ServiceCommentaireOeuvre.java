@@ -48,6 +48,19 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
 
     }
 
+
+    public void deletebyOeuvre(Oeuvre oeuvre) {
+        String requete = "delete from commentsOeuvre where oeuvre_id="+oeuvre.getId();
+
+        try {
+            Statement st = this.conn.createStatement();
+            st.executeUpdate(requete);
+        } catch (SQLException var4) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
+        }
+
+    }
+
     @Override
     public void update(CommentaireOeuvre commentaireOeuvre) {
        String requete= "UPDATE commentsOeuvre SET oeuvre_id = ?, user_id = ?, comment = ?, timestamp = ? WHERE id = ?";
