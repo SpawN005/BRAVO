@@ -8,19 +8,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AddOeuvreController">
+<AnchorPane fx:id="pane" prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AddOeuvreController">
    <children>
-      <TextField fx:id="title" layoutX="433.0" layoutY="137.0" prefHeight="26.0" prefWidth="259.0" />
-      <Label layoutX="434.0" layoutY="119.0" text="Title" />
-      <Button fx:id="uploadImage" layoutX="433.0" layoutY="551.0" mnemonicParsing="false" onAction="#browse" prefHeight="26.0" prefWidth="259.0" text="Upload Image" />
-      <Button fx:id="submitButton" layoutX="436.0" layoutY="589.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
-      <MenuButton fx:id="categorie" layoutX="433.0" layoutY="364.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="259.0" text="Catégorie">
+      <TextField fx:id="title" layoutX="433.0" layoutY="83.0" prefHeight="26.0" prefWidth="259.0" />
+      <Label layoutX="434.0" layoutY="65.0" text="Title" />
+      <Button fx:id="uploadImage" layoutX="434.0" layoutY="502.0" mnemonicParsing="false" onAction="#browse" prefHeight="26.0" prefWidth="266.0" text="Upload Image" />
+      <Button fx:id="submitButton" layoutX="430.0" layoutY="716.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+      <MenuButton fx:id="categorie" layoutX="433.0" layoutY="318.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="259.0" text="Catégorie">
         <items>
         </items>
       </MenuButton>
-      <Button fx:id="cancelButton" layoutX="640.0" layoutY="589.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-      <Label layoutX="434.0" layoutY="169.0" text="Description" />
-      <TextArea fx:id="description" layoutX="433.0" layoutY="187.0" prefHeight="170.0" prefWidth="259.0" />
-      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="463.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="cancelButton" layoutX="648.0" layoutY="716.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+      <Label layoutX="434.0" layoutY="117.0" text="Description" />
+      <TextArea fx:id="description" layoutX="433.0" layoutY="135.0" prefHeight="170.0" prefWidth="259.0" />
+      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="467.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane fx:id="captchaContainer" layoutX="434.0" layoutY="541.0" prefHeight="150.0" prefWidth="266.0">
+         <children>
+            <TextField fx:id="captchaField" layoutX="52.0" layoutY="123.0" prefHeight="26.0" prefWidth="162.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

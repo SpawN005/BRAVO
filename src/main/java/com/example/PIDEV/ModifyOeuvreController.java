@@ -51,7 +51,7 @@ public class ModifyOeuvreController implements Initializable {
         title.setText(o.getTitle());
         categorie.setText(o.getCategory());
         uploadImage.setText(o.getUrl());
-        ImageView.setImage(new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl()));
+        ImageView.setImage(new Image("file:C:/xampp/htdocs/img/"+o.getUrl()));
         oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());
 
     }
@@ -120,9 +120,9 @@ public class ModifyOeuvreController implements Initializable {
 
         }else {
             Oeuvre o = new Oeuvre();
-            if (oeuvre.getUrl().isEmpty())
+            if (!oeuvre.getUrl().isEmpty())
             {
-                File newFile = new File("src/main/resources/com/example/PIDEV/assets/" + selectedFile.getName());
+                File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
                 try {
                     Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 

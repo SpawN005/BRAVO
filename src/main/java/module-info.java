@@ -9,6 +9,11 @@ module com.example.demo1 {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires javafx.media;
+    requires kaptcha;
+    requires java.desktop;
+    requires javafx.swing;
+    requires org.apache.commons.lang3;
+    requires java.net.http;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

@@ -72,7 +72,7 @@ public class DetailsOeuvreController implements Initializable {
         descriptionDetail.setWrappingWidth(400);
         title.setText(o.getTitle());
         owner.setText(o.getOwner());
-        Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
+        Image image = new Image("file:C:/xampp/htdocs/img/"+o.getUrl());
         mainImage.setImage(image);
         oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());
         sco = new ServiceCommentaireOeuvre();

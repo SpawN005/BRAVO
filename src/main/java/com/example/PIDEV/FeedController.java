@@ -1,7 +1,7 @@
 package com.example.PIDEV;
 
 import entity.Oeuvre;
-import javafx.animation.ScaleTransition;
+
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
 
 
 public class FeedController implements Initializable {
@@ -62,7 +63,7 @@ public class FeedController implements Initializable {
         l=so.RechercheTitre(t);
         for (Oeuvre o : l){
             anchorPane = new AnchorPane();
-            Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
+            Image image = new Image("file:C:/xampp/htdocs/img/"+o.getUrl());
             ImageView paint= new ImageView(image);
             Label title=new Label(o.getTitle());
             Label owner=new Label(o.getOwner());
@@ -90,12 +91,13 @@ public class FeedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         scrollPane.setPadding(new Insets(0,60,0,60));
 
         l = so.readAll();
         for (Oeuvre o : l){
             anchorPane = new AnchorPane();
-            Image image = new Image("file:src/main/resources/com/example/PIDEV/assets/"+o.getUrl());
+            Image image = new Image("file:C:/xampp/htdocs/img/"+o.getUrl());
             ImageView paint= new ImageView(image);
             Label title=new Label(o.getTitle());
             Label owner=new Label(o.getOwner());
