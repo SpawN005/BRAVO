@@ -62,7 +62,12 @@ public class acceuilReclamationController implements Initializable {
             stage.show();
         }
 
-        public void afficherStatistique(ActionEvent event) {
+        public void afficherStatistique(ActionEvent event) throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("chartReclamation.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
 
         }
 

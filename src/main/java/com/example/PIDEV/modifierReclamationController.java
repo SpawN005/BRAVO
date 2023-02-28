@@ -44,14 +44,14 @@ public class modifierReclamationController implements Initializable {
     public   void SetReclamation(Reclamation r){
         localreclamation=r;
         System.out.println("reclamtion---------------------"+localreclamation);
+
 //        User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
 //        ServiceUser s =new ServiceUser();
-//        description.setText(r.getDescription());
-//        title.setText(r.getTitle());
-//
-//        Date date_sql = new Date(Calendar.getInstance().getTime().getTime());
-//
-//        reclamation = new Reclamation(localreclamation.getId(), r.getTitle(), r.getDescription(), date_sql, r.getEtat(), r.getOwnerID(), date_sql, r.getNote());
+      title.setText(r.getTitle());
+      description.setText(r.getDescription());
+      Date date_sql = new Date(Calendar.getInstance().getTime().getTime());
+
+      reclamation = new Reclamation(localreclamation.getId(), r.getTitle(), r.getDescription(), date_sql, r.getEtat(), r.getOwnerID(), date_sql, r.getNote());
 
     }
     @Override
@@ -95,14 +95,13 @@ public class modifierReclamationController implements Initializable {
             ServiceUser s =new ServiceUser();
 
             Reclamation r = new Reclamation();
-
             localreclamation.setTitle(title.getText());
             localreclamation.setDescription(description.getText());
            // r.setDate_creation(date_sql);
-            localreclamation.setEtat("processing");
+            localreclamation.setEtat("on hold");
             //r.setOwnerID(u3);
             localreclamation.setDate_treatment(date_sql);
-            localreclamation.setNote(8);
+            localreclamation.setNote(1);
             //.setId(55);
             sr.update(localreclamation);
 

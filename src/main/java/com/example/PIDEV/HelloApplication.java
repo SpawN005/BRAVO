@@ -42,11 +42,17 @@ public class HelloApplication extends Application {
         stage.setScene(scene2);
         stage.show();*/
 
-        FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
+       FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
         stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
         stage.show();
+
+       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("chartReclamation.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
+        stage.setTitle("modification de reclamation !");
+        stage.setScene(scene2);
+        stage.show();*/
 
     }
 
@@ -76,7 +82,7 @@ public class HelloApplication extends Application {
 
         //sr.RechercheTitle("artiste").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);
-        sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
+        //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
 
 
         TypeReclamation T = new TypeReclamation("prestation");
@@ -112,18 +118,21 @@ public class HelloApplication extends Application {
 
       //sr.insert(r44);
       //sr.update(r44);
-        //sr.readAll().forEach(System.out::println);
 
-        //System.out.println("la ligne suivante est "+sr.readById(50));
+
+
+
+        //System.out.println("la ligne suivante est "+sr.readById(61));
+
 
         //sr.RechercheReclamations("Tout","on hold").forEach(System.out::println);
         //sr.RechercheTitle("art work").forEach(System.out::println);
+        //sr.readAll().forEach(System.out::println);
+        //sr.AfficherListeReclamationDESC().forEach(System.out::println);
+        //sr.AfficherListeReclamationASC().forEach(System.out::println);
+
         //sr.update(r44);
         //sr.delete2(48);
-
-
-
-
 
 
 

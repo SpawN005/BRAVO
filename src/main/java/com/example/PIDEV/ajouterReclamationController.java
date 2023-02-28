@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+import entity.TypeReclamation;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import service.ServiceReclamation;
 import entity.Reclamation;
+import service.ServiceTypeReclamation;
 import service.ServiceUser;
 
 
@@ -41,14 +43,18 @@ public class ajouterReclamationController implements Initializable {
 
     //private Stage stage;
     private ServiceReclamation sr = new ServiceReclamation();
+    private ServiceTypeReclamation tr=new ServiceTypeReclamation();
 
     @FXML
     private void selectionReclamation(ActionEvent event) {
-        if (typeReclamationCBX.getValue().toString() == "oeuvre") {
+       // if (typeReclamationCBX.getValue().toString() == "oeuvre") {
+            TypeReclamation t= new TypeReclamation(typeReclamationCBX.getValue());
+            tr.insert(t);
+
             //Stage stage = new Stage();
-            //rechercheBonPlansTFL.setOnKeyReleased((KeyEvent a) -> {listBonPlan();});
+            //..setOnKeyReleased((KeyEvent a) -> {listBonPlan();});
     }
-    }
+
     private void showAlert(String message ,boolean b) {
         Alert alert;
         if (b)

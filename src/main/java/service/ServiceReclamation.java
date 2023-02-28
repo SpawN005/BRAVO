@@ -7,6 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Collections;
+import java.util.Comparator;
+import javafx.scene.chart.PieChart;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import entity.Reclamation;
 import entity.User;
@@ -261,4 +266,62 @@ public class ServiceReclamation implements IService<Reclamation>{
         return list;
 
     }
+    public List<Reclamation> AfficherListeReclamationASC() {
+        String requete= "SELECT * FROM `Reclamation` ORDER BY date_creation ASC";
+        //Reclamation r = new Reclamation();
+        List<Reclamation> list = new ArrayList();
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                Reclamation r = new Reclamation();
+                r.setId(rs.getInt("id"));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                r.setDate_creation(rs.getDate("date_creation"));
+                r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
+                r.setDate_treatment(rs.getDate("date_treatment"));
+                r.setNote(rs.getInt("note"));
+                list.add(r);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return list;
+    }
+
+    public List<Reclamation> AfficherListeReclamationDESC() {
+        String requete= "SELECT * FROM `Reclamation` ORDER BY date_creation DESC";
+        List<Reclamation> list = new ArrayList();
+       // Reclamation r = new Reclamation();
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+             while (rs.next()) {
+                Reclamation r = new Reclamation();
+                r.setId(rs.getInt("id"));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                r.setDate_creation(rs.getDate("date_creation"));
+                r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
+                r.setDate_treatment(rs.getDate("date_treatment"));
+                r.setNote(rs.getInt("note"));
+                list.add(r);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return list;
+    }
+
 }
+
+
