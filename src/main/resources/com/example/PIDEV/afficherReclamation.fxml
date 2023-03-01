@@ -23,6 +23,7 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>
+
         <HBox fx:id="hbox" layoutX="34.0" layoutY="14.0" prefHeight="26.0" prefWidth="516.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="Recherche par :">

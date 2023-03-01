@@ -42,13 +42,13 @@ public class HelloApplication extends Application {
         stage.setScene(scene2);
         stage.show();*/
 
-       FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
+      FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
         stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
         stage.show();
 
-       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("chartReclamation.fxml"));
+       /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("chartReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
         stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
@@ -88,12 +88,15 @@ public class HelloApplication extends Application {
         TypeReclamation T = new TypeReclamation("prestation");
         TypeReclamation T1 = new TypeReclamation("dons");
         TypeReclamation T2 = new TypeReclamation("blogs");
+        TypeReclamation T3 = new TypeReclamation("oeuvre");
+        TypeReclamation T4 = new TypeReclamation("artwork");
+
         ServiceTypeReclamation Tr= new ServiceTypeReclamation();
         //Tr.insert(T);
         //Tr.insert(T1);
 
-        //Tr.insert(T2);
-
+        //Tr.insert(T1);
+        //Tr.insert(T3);
         //Tr.deleteType2(10);
         //Tr.delete(T);
         //Tr.readAll().forEach(System.out::println);

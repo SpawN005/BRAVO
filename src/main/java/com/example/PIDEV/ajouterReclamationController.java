@@ -27,7 +27,7 @@ public class ajouterReclamationController implements Initializable {
 
     @FXML
     private ComboBox<String> typeReclamationCBX;
-    ObservableList<String> listtype = FXCollections.observableArrayList("oeuvre", "blogs", "dons", "Autre");
+    ObservableList<String> listtype = FXCollections.observableArrayList("oeuvre", "blogs", "dons","event", "Autre");
 
     @FXML
     private TextField title;
@@ -48,12 +48,12 @@ public class ajouterReclamationController implements Initializable {
     @FXML
     private void selectionReclamation(ActionEvent event) {
        // if (typeReclamationCBX.getValue().toString() == "oeuvre") {
-            TypeReclamation t= new TypeReclamation(typeReclamationCBX.getValue());
-            tr.insert(t);
+         //   TypeReclamation t= new TypeReclamation(typeReclamationCBX.getValue());
+          //  tr.insert(t);
 
-            //Stage stage = new Stage();
-            //..setOnKeyReleased((KeyEvent a) -> {listBonPlan();});
+
     }
+
 
     private void showAlert(String message ,boolean b) {
         Alert alert;
@@ -102,6 +102,9 @@ public class ajouterReclamationController implements Initializable {
             r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",s.readById(8),date_sql,8);
 
             sr.insert(r);
+            //recuperation de la valeur du combo box et l'inserer dans la table type reclamation
+            TypeReclamation t= new TypeReclamation(typeReclamationCBX.getValue());
+            tr.insert(t);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
             Parent root = null;

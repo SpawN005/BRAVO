@@ -20,27 +20,17 @@ public class ServiceTypeReclamation implements IService<TypeReclamation>{
         conn=DataSource.getInstance().getCnx();	}
 
     public void insert(TypeReclamation t) {
-        String requete = "SELECT * FROM TypeReclamation WHERE typeReclamation= ? ";
+        String requete = "insert into TypeReclamation (typeReclamation) Values (?)";
         try {
-            PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setString(1,t.getTypeReclamation());
+            PreparedStatement ps = conn.prepareStatement(requete);
+            ps.setString(1, t.getTypeReclamation());
+            ps.executeUpdate();
+            System.out.println("un nouveau type de reclamation Ajouté");
 
-            ResultSet rs =pst.executeQuery();
-            if (rs.next()) {
-                System.out.println("desole, ce type de reclamation est deja existant");
-            } else {
-                // type non existant, vous pouvez procéder à l'insertion
-                String requete2 = "insert into TypeReclamation (typeReclamation) Values (?)";
-                PreparedStatement ps = conn.prepareStatement(requete2);
-                ps.setString(1, t.getTypeReclamation());
+    } catch (SQLException ex) {
+        Logger.getLogger(ServiceReclamation.class.getName()).log(Level.SEVERE, null, ex);
+    }}
 
-                ps.executeUpdate();
-                System.out.println("un nouveau type de reclamation Ajouté");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceReclamation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     public void delete(TypeReclamation t) {
         String req="DELETE FROM `TypeReclamation` WHERE id=?";

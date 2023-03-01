@@ -170,12 +170,8 @@ public class afficherReclamationController implements Initializable {
 
             showAlert("Reclamation supprimée avec succée",true);
 
-            //title.getScene().setRoot(root);
         }
         }
-
-
-
 
     public void modifierReclamationGUI() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierReclamation.fxml"));
@@ -187,15 +183,14 @@ public class afficherReclamationController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
 
-        //modifierReclamationController mrc = loader.getController();
-        //mrc.SetReclamation(reclamation);
-        //TableViewReclamation.getScene().setRoot(root);
+
 
     }
 
     public void list() {
         ArrayList arrayList = null;
         ServiceReclamation sr = new ServiceReclamation();
+        //combo box relative si on clique sur  l'etat
         if (typeRechercheStatus == null) {
             typeRechercheStatus = new ComboBox<String>();
         }
@@ -210,13 +205,21 @@ public class afficherReclamationController implements Initializable {
             hbox.getChildren().remove(typeRechercheStatus);
             hbox.getChildren().add(RechercheTextField);
         }
-        TableViewReclamation.setItems(getReclamation());
-
+        //TableViewReclamation.setItems(getReclamation());
+        if ((typeRecherche.getValue().toString().equals("etat") )) {
+            arrayList = (ArrayList) sr.RechercheReclamations(typeRecherche.getValue().toString(), typeRechercheStatus.getValue().toString());
     }
-
+        else if ((RechercheTextField.getText().equals("")) ) {
+            arrayList = (ArrayList) sr.readAll();}
+        else {
+            arrayList = (ArrayList) sr.RechercheReclamations(typeRecherche.getValue().toString(), RechercheTextField.getText());
+        }
+        ObservableList observableList = FXCollections.observableArrayList(arrayList);
+        TableViewReclamation.setItems(observableList);}
 
     public void getselectedreclamation(MouseEvent mouseEvent) {
          localreclamation=TableViewReclamation.getSelectionModel().getSelectedItem();
 
     }
+
 }

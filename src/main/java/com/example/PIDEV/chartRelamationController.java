@@ -5,31 +5,46 @@ import javafx.event.ActionEvent;
 //import com.itextpdf.text.Element;
 import javafx.fxml.Initializable;
 
+import java.sql.SQLException;
+import java.util.List;
 import utils.DataSource;
 import java.net.URL;
+
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.scene.*;
-import javafx.stage.Stage;
 
 
 import javafx.scene.chart.XYChart;
-import java.text.DecimalFormat;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.layout.StackPane;
+import javafx.stage.*;
+
 import javafx.scene.chart.PieChart;
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+
+import javafx.scene.chart.BarChart;
+import java.util.Map;
+import java.util.HashMap;
+import javafx.collections.ObservableList;
+
+
 
 
 public class chartRelamationController implements Initializable {
     @FXML
     private AnchorPane chartNode;
-    public XYChart.Series buildDataLineChart() {
-        XYChart.Series series = new XYChart.Series();
-        series.setName("Nombre de reclamations par jour");
-        XYChart.Series d;
 
+
+    public XYChart.Series DataLineChart() {
+
+        // Création de la série de données pour le graph
+        XYChart.Series<String, Number> series = new XYChart.Series();
+        series.setName("Nombre de reclamations par jour");
         try {
             String requete = "SELECT Reclamation.date_creation,COUNT(Reclamation.id) as nbr FROM Reclamation group by DAYNAME(Reclamation.date_creation)";
 
@@ -37,6 +52,7 @@ public class chartRelamationController implements Initializable {
             ResultSet rs = st.executeQuery(requete);
             while (rs.next())
             {
+                // Ajout des données à la série de données
                 series.getData().add(new XYChart.Data(rs.getString(1), rs.getInt(2)));
             }
 
@@ -44,52 +60,129 @@ public class chartRelamationController implements Initializable {
 
         } catch (Exception e) {
 
-            System.out.println("Error on DB connection BuildDataLineChart");
+            System.out.println("une erreur existante au niveau de datalinechart");
+            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
+        }
+        return series;
+    }
+
+
+    public void lineChart(ActionEvent event) {
+
+        // Création de l'axe des abscisses
+         CategoryAxis xAxis = new CategoryAxis();
+         xAxis.setLabel("Jour");
+         // Création de l'axe des ordonnées (nb réclamation)
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Nombre de réclamations");
+
+        // Création du graphique de type courbe
+        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+        lineChart.setTitle("Nombre de réclamations par jour");
+        lineChart.getData().add(DataLineChart());
+        StackPane root = new StackPane();
+        root.getChildren().add(lineChart);
+
+        // Création d'une nouvelle scène avec le graphique
+        Scene scene = new Scene(root, 800, 600);
+        // Création d'une nouvelle fenêtre
+        Stage stage = new Stage();
+        stage.setScene(scene);
+         // Affichage de la fenêtre
+        stage.show();
+
+    }
+    public void barChart(ActionEvent event) throws SQLException {
+        // Création des axes
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Type de réclamation");
+        yAxis.setLabel("Nombre de réclamations");
+
+        // Création du BarChart
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Nombre de réclamations par type");
+
+        String requete = "SELECT typeReclamation, COUNT(TypeReclamation.id) FROM TypeReclamation GROUP BY typeReclamation";
+        // Récupération des données depuis la base de données
+        Statement stmt = DataSource.getInstance().getCnx().createStatement();
+        ResultSet rs = stmt.executeQuery(requete);
+
+        // Ajout des données à la série de données
+        Map<String, Integer> dataMap = new HashMap<>();
+        while (rs.next()) {
+            String typeReclamation = rs.getString("typeReclamation");
+            int count = rs.getInt(2);
+            dataMap.put(typeReclamation, count);
+        }
+
+        ObservableList<XYChart.Series<String, Number>> barChartData = FXCollections.observableArrayList();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Réclamations");
+        for (String type : dataMap.keySet()) {
+            series.getData().add(new XYChart.Data<>(type, dataMap.get(type)));
+        }
+        barChartData.add(series);
+
+        barChart.setData(barChartData);
+        barChart.setLegendVisible(false);
+
+        // Création d'une nouvelle scène avec le BarChart
+        Scene scene = new Scene(new Group(barChart), 800, 600);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void globalChart(ActionEvent event) {
+        List<PieChart.Data> myList = new ArrayList<PieChart.Data>();
+        ResultSet rs = null;
+        PieChart.Data d;
+
+        try {
+
+            String requete = "SELECT Reclamation.etat,COUNT(Reclamation.id) as nbr FROM Reclamation group by Reclamation.etat";
+
+            Statement pst = DataSource.getInstance().getCnx().prepareStatement(requete);
+            rs = pst.executeQuery(requete);
+            while (rs.next()) {
+
+                if (rs.getObject(1) == null) {
+                    System.out.println(rs.getString(1));
+                    d = new PieChart.Data("Autre ", rs.getInt(2));
+                } else {
+                    d = new PieChart.Data(rs.getString(1), rs.getInt(2));
+                }
+
+                myList.add(d);
+
+            }
+            // Création d'un nouvel objet PieChart avec les données de la liste
+            PieChart chart = new PieChart(FXCollections.observableArrayList(myList));
+            chart.setTitle("Réclamations par Etat");
+            Scene scene = new Scene(new Group(chart), 800, 600);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+
+            System.out.println("Erreur de communication avec la bd");
             System.out.println(e.getStackTrace());
             System.out.println(e.getMessage());
 
         }
-        return series;
+
     }
+
     public void convertirPDF(ActionEvent event) {
-    }
-
-    public void lineChart(ActionEvent event) {
-        //LineChart<Date, Number> lineChart = new LineChart<>(dateAxis, numberAxis, series);
-        double total = 0;
-        DecimalFormat df2 = new DecimalFormat(".##");
-        Stage stage = new Stage();
-        Scene scene = new Scene(new Group());
-        stage.setTitle("Nombre de reclamations par jour");
-        stage.setWidth(600);
-        stage.setHeight(600);
-
-        //defining the axes
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Date");
-        //creating the chart
-        final LineChart<String,Number> lineChart =new LineChart(xAxis,yAxis);
-
-        lineChart.getData().add(buildDataLineChart());
-        ((Group) scene.getRoot()).getChildren().add(lineChart);
-        stage.setScene(scene);
-//     chartNode.getChildren().clear();
- //       chartNode.getChildren().setAll(lineChart);
-
-    }
-
-    public void detailleEvent(ActionEvent event) {
-    }
-
-    public void detailleOeuvre(ActionEvent event) {
-    }
-
-    public void globalChart(ActionEvent event) {
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
 }
