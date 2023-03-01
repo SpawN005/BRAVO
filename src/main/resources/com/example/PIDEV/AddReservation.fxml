@@ -4,7 +4,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,11 +11,6 @@
 
 <AnchorPane prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.ReservationController">
     <children>
-        <TextField fx:id="id_event" layoutX="625.0" layoutY="115.0" prefHeight="58.0" prefWidth="200.0" />
-        <Label layoutX="702.0" layoutY="89.0" text="Id event">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font></Label>
         <Button fx:id="submitButton" layoutX="339.0" layoutY="543.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
         <Button fx:id="cancelButton" layoutX="625.0" layoutY="543.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
         <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="463.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
@@ -30,12 +24,6 @@
                 <Image url="@assets/logo.png" />
             </image>
         </ImageView>
-        <TextField fx:id="id_participant" layoutX="200.0" layoutY="115.0" prefHeight="58.0" prefWidth="200.0" />
-        <Label layoutX="262.0" layoutY="89.0" text="Id participant">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Label>
         <Label layoutX="424.0" layoutY="235.0" text="Nombre de place">
             <font>
                 <Font name="System Bold" size="12.0" />

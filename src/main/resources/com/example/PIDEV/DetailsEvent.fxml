@@ -34,10 +34,6 @@
                         <Font name="Georgia Pro" size="18.0" />
                     </font>
                 </Text>
-                <Label fx:id="back" layoutX="14.0" layoutY="5.0" text="BACK">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Label>
 
                 <Button layoutX="264.0" layoutY="365.0" mnemonicParsing="false" onAction="#modify" prefHeight="49.0" prefWidth="94.0" text="Modify" />
                 <Button layoutX="425.0" layoutY="365.0" mnemonicParsing="false" onAction="#delete" prefHeight="49.0" prefWidth="94.0" text="Delete" />
@@ -87,6 +83,7 @@
                </font>
             </Label>
             <Button layoutX="84.0" layoutY="365.0" mnemonicParsing="false" onAction="#reserve" prefHeight="49.0" prefWidth="94.0" text="Reserve" />
+            <Button fx:id="btn_back" mnemonicParsing="false" onAction="#goBack" text="back" />
             </children>
         </AnchorPane>
    </center>

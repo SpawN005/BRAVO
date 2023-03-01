@@ -14,9 +14,9 @@ import service.ServiceUser;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class HelloApplication extends Application  {
+public class HelloApplication  extends Application {
 
-    @Override
+   @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AffichageEvent.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
@@ -26,7 +26,7 @@ public class HelloApplication extends Application  {
     }
 
     public static void main(String[] args) {
-        launch();
+       launch(args);
 
         LocalDate d1 = LocalDate.of(2023, 02, 18);
         LocalDate d2 = LocalDate.of(2023, 03, 20);
@@ -42,7 +42,7 @@ public class HelloApplication extends Application  {
         SN.insert(NE1);*/
 
 
-/*
+
         ServiceEvent sv = new ServiceEvent();
         // sv.insert(e1);
        // sv.insert(e2);
@@ -50,8 +50,10 @@ public class HelloApplication extends Application  {
         // sv.deleteById(e2,0);
         // sv.updateById(e2,8);
         //sv.update(e1);
-        sv.readAll().forEach(System.out::println);
+       // sv.readAll().forEach(System.out::println);
         // System.out.println(sv.readById(7));*/
+        System.out.println(sv.filterByType("azer"));
+
 
 /*
               ServiceReservation SR= new ServiceReservation();

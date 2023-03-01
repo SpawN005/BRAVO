@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
@@ -21,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import service.ServiceEvent;
 import service.ServiceReservation;
 
@@ -35,7 +38,18 @@ public class DetailsEventController implements Initializable {
 
     @FXML
     private Label back;
-
+    @FXML
+    private Button btn_back;
+    @FXML
+    void goBack(ActionEvent event) throws IOException {
+        Stage stage = (Stage) btn_back.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("AffichageEvent.fxml"));
+        primaryStage.setTitle("hello again");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
     @FXML
     private Text descriptionDetail;
 
@@ -67,8 +81,8 @@ public class DetailsEventController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        back.setOnMouseClicked(e -> backwardButton());
-        back.setStyle("-fx-cursor: hand;");
+
+
 
     }
 
@@ -94,19 +108,7 @@ public class DetailsEventController implements Initializable {
     }
 
 
-    protected void backwardButton() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-
-        leftAnchor.getScene().setRoot(root);
-
-    }
     @FXML
     void delete() {
         SE = new ServiceEvent();
@@ -144,9 +146,7 @@ public class DetailsEventController implements Initializable {
     }
     @FXML
     void reserve() {
-        SR = new ServiceReservation();
 
-        SR.insert(reservation);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddReservation.fxml"));
         Parent root = null;
         try {

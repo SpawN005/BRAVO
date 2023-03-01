@@ -3,6 +3,7 @@ package com.example.PIDEV;
 
 import entity.Event;
 import entity.Oeuvre;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +32,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AffichageEventController implements Initializable {
+    @FXML
+    private TextField chercher_type;
+
 
     @FXML
     private ScrollPane scrollPane;
@@ -40,7 +45,7 @@ public class AffichageEventController implements Initializable {
 
     @FXML
     private BorderPane pane;
-
+Event e = new Event();
 
     ServiceEvent SE=new ServiceEvent();
 
@@ -61,11 +66,14 @@ public class AffichageEventController implements Initializable {
 
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        List<Event> list=SE.readAll();
+
         double  y = 274.0;
         double x =200;
+
         for (Event event : list){
             anchorPane= new AnchorPane();
             anchorPane.setLayoutX(x);

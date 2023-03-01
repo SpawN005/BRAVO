@@ -164,7 +164,7 @@ public class ServiceEvent implements IService<Event> {
 
             if(rs.next()) {
 
-                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getString(8),rs.getString(9));
+                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getString(7),rs.getString(8));
                 return e;
             }
 
@@ -174,5 +174,50 @@ public class ServiceEvent implements IService<Event> {
         }
 
         return e;
+    }
+    public List<Event> filterByType(String type) {
+        List<Event> events = new ArrayList<>();
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+
+            String query = "SELECT * FROM event WHERE type_event = ?";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, type);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Event event = new Event();
+                event.setId(rs.getInt("id"));
+                event.setTitle(rs.getString("title"));
+                event.setDescription(rs.getString("description"));
+                event.setNb_placeMax(rs.getInt("nb_placeMax"));
+                event.setDate_beg(rs.getDate("date_beg").toLocalDate());
+                event.setDate_end(rs.getDate("date_end").toLocalDate());
+                event.setType_event(rs.getString("type_event"));
+                event.setUrl(rs.getString("url"));
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return events;
     }
 }

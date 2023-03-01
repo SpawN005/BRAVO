@@ -2,6 +2,7 @@ package com.example.PIDEV;
 
 import entity.Event;
 import entity.Reservation;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,11 +45,12 @@ public class ReservationController implements Initializable {
 
 
     private Reservation reservation;
-    private ServiceEvent SE =new ServiceEvent();
-    private ServiceUser SU = new ServiceUser();
+
     private ServiceReservation SR= new ServiceReservation();
 
 Reservation r= new Reservation();
+User u= new User();
+Event e= new Event();
 
 
     @FXML
@@ -94,23 +96,24 @@ Reservation r= new Reservation();
 
         int nbPlaces = nbPlace.getValue();
 
+
         // Vérifier si le nombre de places est valide
         if (nbPlaces <= 0) {
             // Afficher un message d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Nombre de places invalide");
-            alert.setContentText("Veuillez sélectionner un nombre de places valide.");
-            alert.showAndWait();
-            return;
+
+           showAlert("Nombre de places invalide", false);
         }
 
-        Reservation r= new Reservation(SU.readById(reservation.getId_participant().getId()),SE.readById(reservation.getId_event().getId()),checkBox.isSelected(),nbPlace.getValue());
+        ServiceUser SU =new ServiceUser();
+
+        ServiceEvent SE= new ServiceEvent();
+
+        Reservation r= new Reservation();
+        r.setId_participant(SU.readById(2));
+       r.setId_event(SE.readById(36));
+     r.setConfirmed(checkBox.isSelected());
+        r.setNb_place(nbPlace.getValue());
         SR.insert(r);
-
-
-
-
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
@@ -120,12 +123,10 @@ Reservation r= new Reservation();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Réservation effectuée");
-        alert.setContentText("Vous avez réservé " + nbPlaces + " places.");
-        alert.showAndWait();
-        submitButton.getScene().setRoot(root);
+        showAlert("Réservation effectuée", true);
+        showAlert("Vous avez réservé " + nbPlaces + " places.",true);
+
+        id_event.getScene().setRoot(root);
 
     }
 
@@ -146,9 +147,11 @@ Reservation r= new Reservation();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<Integer> ListNbPlace = FXCollections.observableArrayList(1, 2, 3, 4, 5);
+        ObservableList<Integer> ListNbPlace = FXCollections.observableArrayList(0,1, 2, 3, 4, 5);
         nbPlace.setItems(ListNbPlace);
-        id_participant.getText();
-        id_event.getText();
+        //id_participant.getText();
+
+
+
     }
 }
