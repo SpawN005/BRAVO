@@ -57,10 +57,10 @@ public class HelloApplication extends Application  {
               ServiceReservation SR= new ServiceReservation();
               ServiceUser SU = new ServiceUser();
 
-        Reservation r1=new Reservation(SU.readById(1),SE.readById(3),true,8);
-        Reservation r2=new Reservation(SU.readById(2),SE.readById(6), false,60);
-        Reservation r3=new Reservation(SU.readById(5),SE.readById(8),false,7);
-        Reservation r4=new Reservation(SU.readById(6),SE.readById(3), true,50);
+        Reservation r1=new Reservation(SU.readById(1),SU.readById(3),true,8);
+        Reservation r2=new Reservation(SU.readById(2),SU.readById(6), false,60);
+        Reservation r3=new Reservation(SU.readById(5),SU.readById(8),false,7);
+        Reservation r4=new Reservation(SU.readById(6),SU.readById(3), true,50);
         ServiceReservation sr=new ServiceReservation();
         sr.insert(r1);
         sr.insert(r2);

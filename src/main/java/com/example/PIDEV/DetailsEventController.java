@@ -2,6 +2,7 @@ package com.example.PIDEV;
 
 import entity.Event;
 import entity.Oeuvre;
+import entity.Reservation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import service.ServiceEvent;
-
-
+import service.ServiceReservation;
 
 
 public class DetailsEventController implements Initializable {
@@ -61,6 +61,8 @@ public class DetailsEventController implements Initializable {
     private Label type_event;
     private ServiceEvent SE;
     private Event event;
+    private Reservation reservation;
+    private ServiceReservation SR;
 
 
     @Override
@@ -140,6 +142,24 @@ public class DetailsEventController implements Initializable {
         title.getScene().setRoot(root);
 
     }
+    @FXML
+    void reserve() {
+        SR = new ServiceReservation();
+
+        SR.insert(reservation);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddReservation.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+
+        title.getScene().setRoot(root);
+
+    }
+
 
 
 

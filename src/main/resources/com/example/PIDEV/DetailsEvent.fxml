@@ -13,79 +13,80 @@
     <left>
         <AnchorPane fx:id="leftAnchor" prefHeight="394.0" prefWidth="350.0" style="-fx-background-color: #F4F4F2;" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fx:id="mainImage" fitHeight="350.0" fitWidth="350.0" layoutX="75.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="mainImage" fitHeight="350.0" fitWidth="350.0" layoutX="14.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
             </children></AnchorPane>
     </left>
    <center>
         <AnchorPane fx:id="rightAnchor" prefHeight="385.0" prefWidth="601.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="title" layoutX="225.0" layoutY="41.0" text="Label">
+                <Label fx:id="title" layoutX="233.0" layoutY="41.0" text="Label">
                     <font>
-                        <Font size="32.0" />
+                        <Font name="Georgia" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="type_event" layoutX="239.0" layoutY="110.0" text="Label">
+                <Label fx:id="type_event" layoutX="247.0" layoutY="109.0" text="Label">
                     <font>
-                        <Font size="20.0" />
+                        <Font name="Georgia" size="20.0" />
                     </font>
                 </Label>
-                <Text fx:id="descriptionDetail" fill="#65635f" layoutX="244.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                <Text fx:id="descriptionDetail" fill="#181817" layoutX="254.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                     <font>
-                        <Font size="20.0" />
+                        <Font name="Georgia Pro" size="18.0" />
                     </font>
                 </Text>
-                <Label fx:id="back" layoutX="63.0" layoutY="5.0" text="BACK">
+                <Label fx:id="back" layoutX="14.0" layoutY="5.0" text="BACK">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
 
-                <Button layoutX="177.0" layoutY="365.0" mnemonicParsing="false" onAction="#modify" prefHeight="49.0" prefWidth="94.0" text="Modify" />
+                <Button layoutX="264.0" layoutY="365.0" mnemonicParsing="false" onAction="#modify" prefHeight="49.0" prefWidth="94.0" text="Modify" />
                 <Button layoutX="425.0" layoutY="365.0" mnemonicParsing="false" onAction="#delete" prefHeight="49.0" prefWidth="94.0" text="Delete" />
-            <Text fx:id="DF" fill="#65635f" layoutX="478.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+            <Text fx:id="DF" fill="#232221" layoutX="472.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Georgia Pro" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="DD" fill="#65635f" layoutX="123.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+            <Text fx:id="DD" fill="#0b0a0a" layoutX="206.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Georgia Pro" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="nb_place" fill="#65635f" layoutX="478.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+            <Text fx:id="nb_place" fill="#262524" layoutX="254.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Georgia Pro" size="18.0" />
                </font>
             </Text>
-            <Label layoutX="93.0" layoutY="56.0" text="Titre :">
+            <Label layoutX="57.0" layoutY="51.0" prefHeight="24.0" prefWidth="53.0" text="Titre :" textFill="#e12b2b">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="95.0" layoutY="116.0" text="Type évenement :">
+            <Label layoutX="57.0" layoutY="111.0" text="Type évenement :" textFill="#e12b2b">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="97.0" layoutY="184.0" text="Déscription :">
+            <Label layoutX="57.0" layoutY="170.0" text="Déscription :" textFill="#e12b2b">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="29.0" layoutY="233.0" text="Date début :">
+            <Label layoutX="59.0" layoutY="236.0" text="Date début :" textFill="#e12b2b">
                <font>
-                  <Font name="Arial Nova Bold" size="12.0" />
+                  <Font name="Arial Nova Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="399.0" layoutY="232.0" text="Date fin :">
+            <Label layoutX="380.0" layoutY="232.0" text="Date fin :" textFill="#e12b2b">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="357.0" layoutY="282.0" text="Nombre de place :">
+            <Label layoutX="59.0" layoutY="291.0" text="Nombre de place :" textFill="#e12b2b">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
+            <Button layoutX="84.0" layoutY="365.0" mnemonicParsing="false" onAction="#reserve" prefHeight="49.0" prefWidth="94.0" text="Reserve" />
             </children>
         </AnchorPane>
    </center>

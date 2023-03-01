@@ -154,7 +154,7 @@ public class ModifyEventController implements Initializable {
             e.setDate_end(DF.getValue());
             e.setType_event(type.getText());
             e.setUrl(uploadImage.getText());
-            e.setId(30);
+            e.setId(event.getId());
 
             SE.update(e);
 
