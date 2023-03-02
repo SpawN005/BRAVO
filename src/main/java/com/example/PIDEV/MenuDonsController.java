@@ -33,36 +33,41 @@ public class MenuDonsController implements Initializable {
 
     @FXML
     private Button btnOverview;
-
-    @FXML
-    private Button USERID;
-
     @FXML
     private Button ADDBTN;
+
+    @FXML
+    private Button SETTINGS;
 
     @FXML
     private Button STATSBTN;
 
     @FXML
-    private Button SETTINGS;
+    private Button USERID;
+
+
+    @FXML
+    private HBox cardlayout;
+
+    @FXML
+    private Pane pnlMenus;
+
+    @FXML
+    private Pane pnlMyDon;
+
+
+    @FXML
+    private Pane pnlOverview;
 
     @FXML
     private Pane pnlCustomer;
 
     @FXML
     private Pane pnlOrders;
-
-    @FXML
-    private Pane pnlOverview;
-
-    @FXML
-    private Pane pnlMenus;
-
-    @FXML
-    private HBox cardlayout;
     private List<Dons> recentlyAdded;
 
-    ServiceDons sd= new ServiceDons();
+    ServiceDons sd = new ServiceDons();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Dons> donations = sd.readAll();
@@ -105,7 +110,6 @@ public class MenuDonsController implements Initializable {
             x+=500; */
 
 
-
     } /*
     // METHODE JDIDA
     private List<Dons> recentlyAdded(){
@@ -117,9 +121,6 @@ public class MenuDonsController implements Initializable {
         ld.add(dons);
 return ld;
     } */
-
-
-
 
 
     public void handleClicks(ActionEvent actionEvent) {
@@ -146,10 +147,20 @@ return ld;
             pnlOverview.setStyle("-fx-background-color : #f7f7f7");
             pnlOverview.toFront();
         }
-        if(actionEvent.getSource()==USERID)
-        {
-            pnlOrders.setStyle("-fx-background-color : #464F67");
-            pnlOrders.toFront();
+        if (actionEvent.getSource() == USERID) {
+            try {
+                // Load the new FXML file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyDons.fxml"));
+                Parent root = loader.load();
+
+                // Create a new scene with the loaded FXML file
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

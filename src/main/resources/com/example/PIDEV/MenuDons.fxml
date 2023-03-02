@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.MenuDonsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.MenuDonsController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="590.0" prefWidth="256.0" style="-fx-background-color: #5c1010;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -49,7 +49,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="USERID" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" style="-fx-background-color: #5c1010;" stylesheets="@assets/style.css" text="Profile">
+            <Button fx:id="USERID" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" style="-fx-background-color: #5c1010;" stylesheets="@assets/style.css" text="My Donations">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -101,9 +101,6 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlCustomer" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" />
-            <Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" />
             <Pane fx:id="pnlOverview" prefHeight="554.0" prefWidth="793.0" style="-fx-background-color: white;">
                <children>
                   <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: white; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
@@ -117,13 +114,16 @@
                         <Image url="@assets/search.png" />
                      </image>
                   </ImageView>
-                  <ScrollPane layoutX="4.0" layoutY="108.0" prefHeight="205.0" prefWidth="787.0">
+                  <ScrollPane layoutX="4.0" layoutY="108.0" prefHeight="466.0" prefWidth="787.0">
                      <content>
-                        <HBox fx:id="cardlayout" prefHeight="207.0" prefWidth="802.0" />
+                        <HBox fx:id="cardlayout" prefHeight="452.0" prefWidth="1045.0" />
                      </content>
                   </ScrollPane>
                </children>
             </Pane>
+            <Pane fx:id="pnlMyDon" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="pnlOrders" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="pnlMenus" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </StackPane>
    </children>

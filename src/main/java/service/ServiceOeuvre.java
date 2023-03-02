@@ -44,7 +44,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public void update(Oeuvre oeuvre) {
-        String requete = "update artwork set title="+oeuvre.getTitle()+", description="+oeuvre.getDescription()+", owner"+oeuvre.getOwner()+", catégorie="+oeuvre.getCategory()+", url="+oeuvre.getUrl()+"where id="+oeuvre.getId();
+        String requete = "update artwork set title='"+oeuvre.getTitle()+"', description='"+oeuvre.getDescription()+"', owner='"+oeuvre.getOwner()+"', catégorie='"+oeuvre.getCategory()+"', url='"+oeuvre.getUrl()+"' where id="+oeuvre.getId();
         try {
             Statement st = this.conn.createStatement();
             st.executeUpdate(requete);
@@ -79,7 +79,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
     @Override
     public Oeuvre readById(int id) {
         String requete = "select * from `artwork` where `id`=?";
-            Oeuvre o =new Oeuvre();
+        Oeuvre o =new Oeuvre();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ps.setInt(1,id);

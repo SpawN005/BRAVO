@@ -85,24 +85,24 @@ public class AddDonsController {
         String errorMessage = "";
 
         if (titleField.getText() == null || titleField.getText().isEmpty()) {
-            errorMessage += "Title field is required.\n";
+            errorMessage += "Title is required.\n";
         }
         if (descriptionArea.getText() == null || descriptionArea.getText().isEmpty()) {
-            errorMessage += "Description field is required.\n";
+            errorMessage += "Description is required.\n";
         }
         if (dateCreationPicker.getValue() == null || dateCreationPicker.getValue().toString().isEmpty()) {
-            errorMessage += "Date field is required.\n";
+            errorMessage += "Date is required.\n";
         }
         if (dateExpirationPicker.getValue() == null || dateExpirationPicker.getValue().toString().isEmpty()) {
-            errorMessage += "Date field is required.\n";
+            errorMessage += "Date is required.\n";
         }
         if (amountField.getText() == null || amountField.getText().isEmpty()) {
-            errorMessage += "Amount field is required.\n";
+            errorMessage += "Amount is required.\n";
         } else {
             try {
                 Integer.parseInt(amountField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Amount must be an integer.\n";
+                errorMessage += "Amount must be a number.\n";
             }
         }
 
