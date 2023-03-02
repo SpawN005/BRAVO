@@ -18,8 +18,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("addDons.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 520, 500);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MenuDons.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1050, 576);
         stage.setTitle("tun'ART");
         stage.setScene(scene);
         stage.show();

@@ -124,20 +124,20 @@ return ld;
 
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == ADDBTN) {
-                try {
-                    // Load the new FXML file
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AddDons.fxml"));
-                    Parent root = loader.load();
+            try {
+                // Load the new FXML file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("AddDons.fxml"));
+                Parent root = loader.load();
 
-                    // Create a new scene with the loaded FXML file
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                // Create a new scene with the loaded FXML file
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
         if (actionEvent.getSource() == STATSBTN) {
             pnlMenus.setStyle("-fx-background-color : #53639F");
             pnlMenus.toFront();
