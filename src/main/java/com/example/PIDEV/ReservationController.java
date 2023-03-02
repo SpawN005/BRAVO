@@ -51,6 +51,7 @@ public class ReservationController implements Initializable {
 Reservation r= new Reservation();
 User u= new User();
 Event e= new Event();
+ServiceEvent SE= new ServiceEvent();
 
 
     @FXML
@@ -91,9 +92,7 @@ Event e= new Event();
 
     @FXML
     private void submit() {
-        // Mise à jour des propriétés de la réservation avec les valeurs actuelles des champs
-
-
+int nbplace = nbPlace.getValue();
         int nbPlaces = nbPlace.getValue();
 
 
@@ -115,18 +114,41 @@ Event e= new Event();
         r.setNb_place(nbPlace.getValue());
         SR.insert(r);
 
+        Event e = SE.readById(r.getId_event().getId());
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+        if (e != null) {
+            // L'événement a été trouvé
+            int maxPlaces = e.getNb_placeMax(); // Nombre de places maximum de l'événement
+            int reservedPlaces = r.getNb_place(); // Nombre de places réservées pour cet événement
+            int availablePlaces = maxPlaces - reservedPlaces; // Nombre de places disponibles pour cet événement
+
+            // Affichage des informations sur l'événement
+            showAlert("L'événement " + e.getTitle() + " a " + maxPlaces + " places maximum.", true);
+            showAlert("Il y a actuellement " + reservedPlaces + " places réservées pour cet événement.", true);
+            showAlert("Il reste " + availablePlaces + " places disponibles pour cet événement.",true);
+
+
+            e.setNb_placeMax(availablePlaces);
+            SE.update(e);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+
+            nbPlace.getScene().setRoot(root);
+
+        } else {
+            // pas de ^nace pour cet event
+            showAlert("Il ne reste plus de places disponibles pour cet événement", false);
+
         }
-        showAlert("Réservation effectuée", true);
-        showAlert("Vous avez réservé " + nbPlaces + " places.",true);
 
-        id_event.getScene().setRoot(root);
+
 
     }
 
@@ -154,4 +176,6 @@ Event e= new Event();
 
 
     }
+
+
 }
