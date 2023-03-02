@@ -1,43 +1,36 @@
 package com.example.PIDEV;
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.event.ActionEvent;
-//import com.itextpdf.text.Element;
-import javafx.fxml.Initializable;
 
-import java.sql.SQLException;
-import java.util.List;
-import utils.DataSource;
-import java.net.URL;
-
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ResourceBundle;
-import javafx.scene.*;
-
-
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.layout.StackPane;
-import javafx.stage.*;
-
-import javafx.scene.chart.PieChart;
-import java.util.ArrayList;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
 import javafx.collections.FXCollections;
-
-import javafx.scene.chart.BarChart;
-import java.util.Map;
-import java.util.HashMap;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.*;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import utils.DataSource;
 
-
-
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
 
 public class chartRelamationController implements Initializable {
     @FXML
-    private AnchorPane chartNode;
+    private AnchorPane chartPane;
+    private PieChart pieChart;
+
+    Stage window;
+    private Stage primaryStage;
 
 
     public XYChart.Series DataLineChart() {
@@ -68,7 +61,7 @@ public class chartRelamationController implements Initializable {
     }
 
 
-    public void lineChart(ActionEvent event) {
+    public void lineChart(ActionEvent event) throws IOException {
 
         // Création de l'axe des abscisses
          CategoryAxis xAxis = new CategoryAxis();
@@ -84,16 +77,19 @@ public class chartRelamationController implements Initializable {
         StackPane root = new StackPane();
         root.getChildren().add(lineChart);
 
-        // Création d'une nouvelle scène avec le graphique
+        chartPane.getChildren().add(lineChart);
+
+        /* //Création d'une nouvelle scène avec le graphique
         Scene scene = new Scene(root, 800, 600);
         // Création d'une nouvelle fenêtre
         Stage stage = new Stage();
         stage.setScene(scene);
          // Affichage de la fenêtre
-        stage.show();
+        stage.show();*/
+
 
     }
-    public void barChart(ActionEvent event) throws SQLException {
+    public void barChart(ActionEvent event) throws SQLException, IOException {
         // Création des axes
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -127,13 +123,26 @@ public class chartRelamationController implements Initializable {
 
         barChart.setData(barChartData);
         barChart.setLegendVisible(false);
+        // Ajout du BarChart au conteneur chartPane
+        chartPane.getChildren().add(barChart);
 
         // Création d'une nouvelle scène avec le BarChart
-        Scene scene = new Scene(new Group(barChart), 800, 600);
-
+       /*Scene scene = new Scene(new Group(barChart), 800, 600);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
+
+
+        // Supprimer le PieChart existant s'il y en a un
+        /*for (Node node : chartPane.getChildren()) {
+            if (node instanceof PieChart) {
+                chartPane.getChildren().clear();
+                break;
+            }
+        }
+        Créer et ajouter le nouveau BarChart
+        chartPane.getChildren().add(barChart);*/
+
 
     }
 
@@ -156,17 +165,17 @@ public class chartRelamationController implements Initializable {
                 } else {
                     d = new PieChart.Data(rs.getString(1), rs.getInt(2));
                 }
-
                 myList.add(d);
-
             }
             // Création d'un nouvel objet PieChart avec les données de la liste
             PieChart chart = new PieChart(FXCollections.observableArrayList(myList));
             chart.setTitle("Réclamations par Etat");
-            Scene scene = new Scene(new Group(chart), 800, 600);
+            /*Scene scene = new Scene(new Group(chart), 800, 600);
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.show();
+            stage.show();*/
+            chartPane.getChildren().add(chart); // ajout du PieChart au conteneur chartPane
+
         } catch (Exception e) {
 
             System.out.println("Erreur de communication avec la bd");
@@ -177,7 +186,21 @@ public class chartRelamationController implements Initializable {
 
     }
 
-    public void convertirPDF(ActionEvent event) {
+    public void convertirPDF(ActionEvent event) throws IOException {
+        WritableImage chartImage = chartPane.snapshot(new SnapshotParameters(), null);
+
+// Création du document PDF
+        String outputPdfPath = "C:/Users/ferie/OneDrive/Bureau/document.pdf";
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputPdfPath));
+        Document document = new Document(pdfDocument);
+
+// Conversion de l'image en PDF
+        BufferedImage bufferedImage = new BufferedImage((int) chartImage.getWidth(), (int) chartImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+       // Image pdfImage = new Image(ImageDataFactory.create(SwingFXUtils.fromFXImage(chartImage, bufferedImage)));
+        //document.add(pdfImage);
+
+// Fermeture du document
+        document.close();
     }
 
     @Override

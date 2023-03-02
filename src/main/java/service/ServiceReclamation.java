@@ -1,23 +1,14 @@
 package service;
 
+import entity.Reclamation;
+import utils.DataSource;
+
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.sql.*;
-
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Collections;
-import java.util.Comparator;
-import javafx.scene.chart.PieChart;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import entity.Reclamation;
-import entity.User;
-
-import service.ServiceUser;
-import utils.DataSource;
 
 public class ServiceReclamation implements IService<Reclamation>{
     ServiceUser su=new ServiceUser();
@@ -320,6 +311,83 @@ public class ServiceReclamation implements IService<Reclamation>{
         }
 
         return list;
+    }
+    public List<Reclamation> AfficherListeReclamationByownerId(int ownerid) {
+        String requete = "SELECT * from Reclamation where title like '%" + ownerid + "%'";
+        List<Reclamation> list = new ArrayList();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                Reclamation r = new Reclamation();
+                r.setId(rs.getInt("id"));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                r.setDate_creation(rs.getDate("date_creation"));
+                r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
+                // r.setDate_treatment(rs.getDate("date_treatment"));
+                if (rs.getDate("date_treatment") != null) {
+                    java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                    r.setDate_treatment(date_sql);
+                } else {
+                    r.setDate_treatment(rs.getDate("date_treatment"));
+                }
+                r.setNote(rs.getInt("note"));
+                list.add(r);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
+    }
+    public List<Reclamation> rechercheReclamationsOwnerId(String type, String valeur,int ownerId) {
+        List<Reclamation> list = new ArrayList<Reclamation>();
+        String requete = null;
+        try {
+            if (type.equals("title")) {
+                requete = "SELECT * from Reclamation where title like '%" + valeur + "%' and ownerId=" + ownerId + ";";
+            } else if (type.equals("description")) {
+                requete = "SELECT * from Reclamation where description like '%" + valeur + "%'and ownerId=" + ownerId + ";";
+            } else if (type.equals("etat")) {
+                requete = "SELECT * from Reclamation where etat like '%" + valeur + "%'and ownerId=" + ownerId + ";";
+            } else if (type.equals("Tout")) {
+                requete = "SELECT * from Reclamation where title like '%" + valeur + "%' or description like '%" + valeur + "%' or etat like '%" + valeur + "%'and ownerId=" + ownerId + "; ";
+            }
+
+            PreparedStatement pst = conn.prepareStatement(requete);
+            ResultSet rs = pst.executeQuery(requete);
+            while (rs.next()) {
+                Reclamation r = new Reclamation();
+                r.setId(rs.getInt("id"));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                //r.setDate_creation(rs.getDate("date_creation"));
+                if (rs.getDate("date_creation") != null) {
+                    java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                    r.setDate_treatment(date_sql);
+                } else {
+                    r.setDate_treatment(rs.getDate("date_treatment"));
+                }
+                r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
+
+                //r.setDate_treatment(rs.getDate("date_treatment"));
+                if (rs.getDate("date_treatment") != null) {
+                    java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                    r.setDate_treatment(date_sql);
+                } else {
+                    r.setDate_treatment(rs.getDate("date_treatment"));
+                }
+                r.setNote(rs.getInt("note"));
+                list.add(r);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
+
     }
 
 }

@@ -1,24 +1,19 @@
 package com.example.PIDEV;
-import entity.User;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.sql.Date;
-
-import java.util.Calendar;
 
 import entity.Reclamation;
 import entity.TypeReclamation;
+import entity.User;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import service.ServiceReclamation;
 import service.ServiceTypeReclamation;
 import service.ServiceUser;
 import utils.DataSource;
+
+import java.io.IOException;
+import java.util.Calendar;
 
 public class HelloApplication extends Application {
 
@@ -30,19 +25,19 @@ public class HelloApplication extends Application {
         stage.setScene(scene2);
         stage.show();*/
 
-        /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
+       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("modifierReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 770);
         stage.setTitle("envoie de reclamation!");
         stage.setScene(scene2);
         stage.show();*/
 
-        /*FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("afficherReclamation.fxml"));
-        Scene scene2 = new Scene(fxmlLoader2.load(), 1125, 600);
-        stage.setTitle("affichage de reclamation !");
+       /* FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("afficherMesReclamations.fxml"));
+        Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
+        stage.setTitle("affichage de mes reclamations !");
         stage.setScene(scene2);
         stage.show();*/
 
-      FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
+     FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("acceuilReclamation.fxml"));
         Scene scene2 = new Scene(fxmlLoader2.load(), 770, 600);
         stage.setTitle("modification de reclamation !");
         stage.setScene(scene2);
@@ -133,6 +128,9 @@ public class HelloApplication extends Application {
         //sr.readAll().forEach(System.out::println);
         //sr.AfficherListeReclamationDESC().forEach(System.out::println);
         //sr.AfficherListeReclamationASC().forEach(System.out::println);
+
+        //sr.AfficherListeReclamationByownerId(8).forEach(System.out::println);
+       // sr.rechercheReclamationsOwnerId("tout","on hold",8).forEach(System.out::println);
 
         //sr.update(r44);
         //sr.delete2(48);

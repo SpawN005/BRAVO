@@ -7,32 +7,23 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import service.ServiceReclamation;
 import service.ServiceUser;
-import utils.DataSource;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.ResourceBundle;
-public class afficherReclamationController implements Initializable {
 
+public class afficherMesReclamationController implements Initializable {
 
     @FXML
     private TableView<Reclamation> TableViewReclamation;
@@ -40,18 +31,16 @@ public class afficherReclamationController implements Initializable {
     private Button supprimerBTN;
     @FXML
     private Button modifierBTN;
-    @FXML
-    private Button  TraiterBTN;
     static Reclamation selectionedReclamation;
     @FXML
-    private ComboBox<String> typeRecherche;
-    ObservableList<String> listeTypeRecherche = FXCollections.observableArrayList("Tout", "title", "description", "etat");
+   // private ComboBox<String> typeRecherche;
+   // ObservableList<String> listeTypeRecherche = FXCollections.observableArrayList("Tout", "title", "description", "etat");
 
-    @FXML
-    private TextField RechercheTextField;
-    @FXML
-    private HBox hbox;
-    private static ComboBox<String> typeRechercheStatus;
+
+   // private TextField RechercheTextField;
+
+  //  private HBox hbox;
+   // private static ComboBox<String> typeRechercheStatus;
     private ServiceReclamation sr = new ServiceReclamation();
     Reclamation reclamation;
     Stage window;
@@ -66,38 +55,13 @@ public class afficherReclamationController implements Initializable {
         Reclamations.add(new Reclamation(14,"oeuvre","oeuvre non conforme",date_sql,"on hold",s.readById(8),date_sql,6));
         Reclamations.add(new Reclamation(15,"dons","dons non conforme",date_sql,"on hold",s.readById(8),date_sql,5));
         Reclamations.add(new Reclamation(16,"blogs","blog tres lent",date_sql,"on hold",s.readById(8),date_sql,5));
-        
+
         return Reclamations ;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        typeRecherche.setItems(listeTypeRecherche);
-        typeRecherche.setValue("Tout");
-
-        typeRecherche.setOnAction((event) -> {
-            String selectedValue = typeRecherche.getValue();
-            if (selectedValue.equals("etat") && !selectedValue.isEmpty()) {
-                String requete = "SELECT COUNT(id) as nbr1 FROM Reclamation WHERE etat LIKE 'on hold'";
-                int nombreReclamationsEnAttente = 0;
-                try {
-                    // Établir la connexion à la base de données
-                    Statement st = DataSource.getInstance().getCnx().createStatement();
-                    ResultSet rs = st.executeQuery(requete);
-
-                    // Récupérer le nombre de réclamations en attente à partir de l'objet ResultSet
-                    if (rs.next()) {
-                        nombreReclamationsEnAttente = rs.getInt("nbr1");
-
-                }// Fermer la connexion à la base de données
-                    rs.close();
-                    st.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-                String message = "Il y a " + nombreReclamationsEnAttente + " réclamations en attente.";
-                displayPopup(message);
-            }});
+       // typeRecherche.setItems(listeTypeRecherche);
+       // typeRecherche.setValue("Tout");
 
         window=primaryStage;
         TableColumn<Reclamation, Integer> idColumn = new TableColumn<>("id");
@@ -136,9 +100,9 @@ public class afficherReclamationController implements Initializable {
         noteColumn.setStyle("-fx-alignment: CENTER;");
 
         supprimerBTN.setOnAction(e->supprimerReclamation());
-        TraiterBTN.setOnAction(e-> {
+        modifierBTN.setOnAction(e-> {
             try {
-                traiterReclamationGUI();
+                modifierReclamationGUI();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -147,7 +111,7 @@ public class afficherReclamationController implements Initializable {
 
         TableViewReclamation.getColumns().addAll(idColumn, titleColumn,descriptionColumn,date_creationColumn,etatColumn,Date_treatmentColumn,noteColumn);
 
-        ObservableList<Reclamation> re=FXCollections.observableArrayList(sr.readAll());
+        ObservableList<Reclamation> re=FXCollections.observableArrayList(sr.AfficherListeReclamationByownerId(8));
 
         TableViewReclamation.setItems(re);
 
@@ -180,7 +144,7 @@ public class afficherReclamationController implements Initializable {
             //System.out.println(allreclamation.get(0).getId());
             System.out.println(localreclamation);
             reclamationSelected.forEach(allreclamation::remove);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherMesReclamations.fxml"));
             Parent root = null;
             try {
                 root = loader.load();
@@ -191,7 +155,7 @@ public class afficherReclamationController implements Initializable {
             showAlert("Reclamation supprimée avec succée",true);
 
         }
-        }
+    }
 
     public void modifierReclamationGUI() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("modifierReclamation.fxml"));
@@ -203,9 +167,11 @@ public class afficherReclamationController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
 
+
+
     }
 
-    public void list() {
+    /*public void list() {
         ArrayList arrayList = null;
         ServiceReclamation sr = new ServiceReclamation();
         //combo box relative si on clique sur  l'etat
@@ -225,53 +191,17 @@ public class afficherReclamationController implements Initializable {
         }
         //TableViewReclamation.setItems(getReclamation());
         if ((typeRecherche.getValue().toString().equals("etat") )) {
-            arrayList = (ArrayList) sr.RechercheReclamations(typeRecherche.getValue().toString(), typeRechercheStatus.getValue().toString());
-    }
+            arrayList = (ArrayList) sr.rechercheReclamationsOwnerId(typeRecherche.getValue().toString(), typeRechercheStatus.getValue().toString(),8);
+        }
         else if ((RechercheTextField.getText().equals("")) ) {
-            arrayList = (ArrayList) sr.readAll();}
+            arrayList = (ArrayList) sr.AfficherListeReclamationByownerId(8);}
         else {
-            arrayList = (ArrayList) sr.RechercheReclamations(typeRecherche.getValue().toString(), RechercheTextField.getText());
+            arrayList = (ArrayList) sr.rechercheReclamationsOwnerId(typeRecherche.getValue().toString(), RechercheTextField.getText(),8);
         }
         ObservableList observableList = FXCollections.observableArrayList(arrayList);
-        TableViewReclamation.setItems(observableList);}
+        TableViewReclamation.setItems(observableList);}*/
 
     public void getselectedreclamation(MouseEvent mouseEvent) {
-         localreclamation=TableViewReclamation.getSelectionModel().getSelectedItem();
-
-    }
-        private void displayPopup(String message) {
-            // Créer une nouvelle fenêtre pop-up
-            Stage popupWindow = new Stage();
-            popupWindow.initModality(Modality.APPLICATION_MODAL);
-            popupWindow.setTitle("Fenêtre pop-up");
-
-            // Créer un label pour afficher le message
-            Label label = new Label(message);
-            label.setAlignment(Pos.CENTER);
-            label.setPadding(new Insets(10));
-
-            // Ajouter le label à la scène
-            Scene scene = new Scene(label);
-            popupWindow.setScene(scene);
-
-            // Afficher la fenêtre pop-up
-            popupWindow.showAndWait();
-
-        }
-
-    public void traiterReclamationGUI() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("traiterReclamation.fxml"));
-        Parent root = loader.load();
-        TraiterReclamationController controller=loader.getController();
-        controller.SetReclamation(localreclamation);
-        System.out.println("reclamation ::::::::::::::::::"+localreclamation);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        localreclamation=TableViewReclamation.getSelectionModel().getSelectedItem();
     }
 }
-
-
-
-
-
