@@ -1,0 +1,93 @@
+/* 
+    Author     : Rebhy
+*/
+.primary-color-profile{
+    -fx-background-color: #13123a
+}
+
+.secondary-color-profile{
+    -fx-background-color: #00002c
+}
+
+.text-input{
+        -fx-background-color: rgba(0,0,0,0);
+        -fx-border-width: 0 0 1 0;
+        -fx-border-color: #242551;
+            -fx-text-fill: whitesmoke;
+
+
+}
+.button_edit{
+    -fx-background-color: #242551;
+    -fx-background-radius: 30;
+
+    
+}
+.parent{
+    -fx-background-color: transparent;
+}
+.pane{
+   -fx-background-color: #5c1010; 
+}
+.trans-btn-white-border{
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-text-fill: whitesmoke;
+}
+.white-pane{
+    -fx-background-color: #5c1010;
+}
+.blue-panel{
+    -fx-background-color: #151928;
+}
+.tf_box{
+    -fx-background-color: transparent;
+    -fx-border-color: #DEDEE4;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-text-fill: #ffffff;
+
+}
+.tf{
+    -fx-background-color: transparent; 
+    
+}
+.blue-btn{
+    -fx-background-color: #eee7e7;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #000000;
+}
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+
+
+
+
+.primary-color-profile{
+    -fx-background-color: #13123a
+}
+
+
+
