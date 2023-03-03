@@ -1,85 +1,249 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import entity.User;
+import entity.PasswordHasher;
+
 import java.util.List;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import entity.User;
 import utils.DataSource;
 
+
+/**
+ *
+ * @author wiemhjiri
+ */
 public class ServiceUser implements IService<User> {
-    private Connection conn = DataSource.getInstance().getCnx();
+
+    private Connection conn;
 
     public ServiceUser() {
+        conn = DataSource.getInstance().getCnx();
     }
 
-    public void insert(User t) {
-        String var10000 = t.getNom();
-        String requete = "insert into personne (nom,prenom,age) values ('" + var10000 + "','" + t.getPrenom() + "'," + t.getAge() + ")";
-
-        try {
-            Statement st = this.conn.createStatement();
-            st.executeUpdate(requete);
-        } catch (SQLException var4) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
-        }
-
-    }
-
-    public void insertPst(User p) {
-        String requete = "insert into personne(nom,prenom,age) values(?,?,?)";
-
-        try {
-            PreparedStatement pst = this.conn.prepareStatement(requete);
-            pst.setString(1, p.getNom());
-            pst.setString(2, p.getPrenom());
-            pst.setInt(3, p.getAge());
-            pst.executeUpdate();
-        } catch (SQLException var4) {
-            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, (String)null, var4);
-        }
-
-    }
-
-    public void delete(User t) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void update(User t) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<User> readAll() {
-        List<User> list = new ArrayList();
-        String requete = "select * from personne";
-
-        try {
-            Statement st = this.conn.createStatement();
-            ResultSet rs = st.executeQuery(requete);
-
-            while(rs.next()) {
-                User p = new User(rs.getInt("id"), rs.getString(2), rs.getString("prenom"), rs.getInt("age"));
-                list.add(p);
+        @Override
+        public void insert(User t) {
+            String requete = "insert into user (firstName,lastName,phoneNumber,email,role,PASSWORD) values "
+                    + "('" + t.getFirstName() + "','" + t.getLastName() + "'," + t.getPhoneNumber() + "'," + t.getEmail() + "'," + t.getRole() + "'," + t.getPassword()+")";
+            try {
+                Statement st = conn.createStatement();
+                st.executeUpdate(requete);
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException var6) {
-            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, (String)null, var6);
         }
 
-        return list;
-    }
+public void insertPst(User user) {
+    try  {
+        conn.setAutoCommit(false); // start transaction
 
-    public User readById(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Insert new user and role
+        String query = "INSERT INTO user (firstName, lastName, phoneNumber, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
+        PasswordHasher hasher = new PasswordHasher();
+
+        PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, user.getFirstName());
+        statement.setString(2, user.getLastName());
+        statement.setInt(3, user.getPhoneNumber());
+        statement.setString(4, user.getEmail());
+        statement.setString(5, hasher.hashPassword(user.getPassword()));
+        statement.setString(6, user.getRole());
+        int rows = statement.executeUpdate();
+        if (rows != 1) {
+            throw new SQLException  ("User and role insert failed");
+        }
+
+        // Get the generated id for the user
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            int userId = generatedKeys.getInt(1);
+
+            // Insert new role for user
+            String roleQuery = "INSERT INTO role (role, user_id) VALUES (?, ?)";
+            PreparedStatement roleStatement = conn.prepareStatement(roleQuery);
+            roleStatement.setString(1, user.getRole());
+            roleStatement.setInt(2, userId);
+            int roleRows = roleStatement.executeUpdate();
+            if (roleRows != 1) {
+                throw new SQLException("Role insert failed");
+            }
+        } else {
+            throw new SQLException("User insert failed to return ID");
+        }
+
+        conn.commit(); // end transaction
+
+    } catch (SQLException e) {
+        System.err.println("Error inserting new user and role: " + e.getMessage());
+        try {
+            conn.rollback(); // undo changes
+        } catch (SQLException ex) {
+            System.err.println("Error rolling back transaction: " + ex.getMessage());
+        }
     }
+}
+
+
+        @Override
+    public User readById(int id) {
+        String query = "SELECT * FROM user WHERE id=?";
+        User user = null;
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFirstName(resultSet.getString("firstName"));
+                user.setLastName(resultSet.getString("lastName"));
+                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setEmail(resultSet.getString("email"));
+                user.setRole(resultSet.getString("role"));
+                user.setPassword(resultSet.getString("password"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return user;
+    }
+    
+    @Override
+public List<User> readAll() {
+    List<User> userList = new ArrayList<>();
+    String query = "SELECT * FROM user";
+    try (PreparedStatement statement = conn.prepareStatement(query)) {
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            User user = new User();
+            user.setId(resultSet.getInt("id"));
+            user.setFirstName(resultSet.getString("firstName"));
+            user.setLastName(resultSet.getString("lastName"));
+            user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+            user.setEmail(resultSet.getString("email"));
+            user.setRole(resultSet.getString("role"));
+            user.setPassword(resultSet.getString("password"));
+            userList.add(user);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return userList;
+}
+
+
+
+@Override
+public void update(User t) {
+    String requete = "UPDATE user SET firstName=?, lastName=?, phoneNumber=?, password=?, image=? WHERE id=?";
+    try (PreparedStatement ps = conn.prepareStatement(requete)) {
+        ps.setString(1, t.getFirstName());
+        ps.setString(2, t.getLastName());
+        ps.setInt(3, t.getPhoneNumber());
+        ps.setString(4, t.getPassword());
+        ps.setString(5, t.getimage());
+
+        ps.setInt(6, t.getId());
+        ps.executeUpdate();
+    } catch (SQLException ex) {
+        Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+        @Override
+            public void delete(User t) {
+                try {
+                    // Delete user's role(s)
+                    String deleteRoleQuery = "DELETE FROM role WHERE user_id = ?";
+                    PreparedStatement deleteRoleStatement = conn.prepareStatement(deleteRoleQuery);
+                    deleteRoleStatement.setInt(1, t.getId());
+                    deleteRoleStatement.executeUpdate();
+
+                    // Delete user
+                    String deleteUserQuery = "DELETE FROM user WHERE id = ?";
+                    PreparedStatement deleteUserStatement = conn.prepareStatement(deleteUserQuery);
+                    deleteUserStatement.setInt(1, t.getId());
+                    deleteUserStatement.executeUpdate();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+
+
+            
+public boolean deleteUser(int userId) {
+    boolean success = false;
+    Servicerole servicerole = new Servicerole();
+    servicerole.deleteRoleByUserId(userId);
+
+    try {
+        Connection conn = DataSource.getInstance().getCnx();
+
+        String sql = "DELETE FROM user WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, userId);
+        int rowsDeleted = stmt.executeUpdate();
+        
+        if (rowsDeleted > 0) {
+            success = true;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return success;
+}
+
+public void deleteRoleByUserId(int user_Id) {
+    try {
+        String query = "DELETE FROM role WHERE user_id = ?";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, user_Id);
+        statement.executeUpdate();
+        System.out.println("Roles deleted successfully for user with id " + user_Id);
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+}
+public void deleteUserByEmail(String email) throws SQLException {
+    try {
+        // Disable auto-commit mode to run the two statements in a transaction
+        conn.setAutoCommit(false);
+
+        // Delete the user's roles first
+        try (PreparedStatement deleteRolesStmt = conn.prepareStatement("DELETE FROM role WHERE user_id = (SELECT id FROM user WHERE email = ?)")) {
+            deleteRolesStmt.setString(1, email);
+            int numDeletedRoles = deleteRolesStmt.executeUpdate();
+            System.out.println(numDeletedRoles + " roles deleted for user with email " + email);
+        }
+
+        // Delete the user itself
+        try (PreparedStatement deleteUserStmt = conn.prepareStatement("DELETE FROM user WHERE email = ?")) {
+            deleteUserStmt.setString(1, email);
+            int numDeletedUsers = deleteUserStmt.executeUpdate();
+            System.out.println(numDeletedUsers + " users deleted with email " + email);
+        }
+
+        // Commit the transaction
+        conn.commit();
+    } catch (SQLException ex) {
+        // Rollback the transaction if there was an error
+        conn.rollback();
+        ex.printStackTrace();
+    }
+}
+
+
+
+
+
+
+
+
+
 }

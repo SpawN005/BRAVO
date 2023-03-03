@@ -69,7 +69,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
                 list.add(o);
             }
         } catch (SQLException var6) {
-            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, (String)null, var6);
+            Logger.getLogger(ServiceOeuvre.class.getName()).log(Level.SEVERE, (String)null, var6);
         }
 
         return list;

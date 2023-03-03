@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import service.ServiceCommentaireOeuvre;
 import service.ServiceNoteOeuvre;
 import service.ServiceOeuvre;
@@ -22,9 +24,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("addOeuvre.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("tun'ART");
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
         Media audio = new Media(Main.class.getResource("audio/audio.mp3").toString());
         MediaPlayer mediaPlayer = new MediaPlayer(audio);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);

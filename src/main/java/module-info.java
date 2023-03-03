@@ -2,18 +2,26 @@ module com.example.demo1 {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.graphics;
+    requires javafx.base;
+    requires javafx.media;
+    requires javafx.swing;
+
+
+
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
-    requires javafx.media;
+
     requires kaptcha;
     requires java.desktop;
-    requires javafx.swing;
+
     requires org.apache.commons.lang3;
     requires java.net.http;
+    requires javax.mail.api;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;
@@ -23,4 +31,7 @@ module com.example.demo1 {
     opens service to javafx.fxml;
     exports entity;
     opens entity to javafx.fxml;
+
+
+
 }
