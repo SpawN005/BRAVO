@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,16 +22,16 @@
    <right>
       <AnchorPane fx:id="rightAnchor" prefHeight="385.0" prefWidth="601.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="title" layoutX="245.0" layoutY="40.0" text="Label">
+            <Text fx:id="title" layoutX="245.0" layoutY="40.0" text="Label">
                <font>
                   <Font size="48.0" />
                </font>
-            </Label>
-            <Label fx:id="owner" layoutX="245.0" layoutY="110.0" text="Label">
+            </Text>
+            <Text fx:id="owner" layoutX="245.0" layoutY="110.0" text="Label">
                <font>
-                  <Font size="25.0" />
+                  <Font size="24.0" />
                </font>
-            </Label>
+            </Text>
             <Text fx:id="descriptionDetail" fill="#65635f" layoutX="245.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                <font>
                   <Font size="24.0" />
@@ -42,9 +43,10 @@
                   <Image url="@assets/black.png" />
                </image>
             </ImageView>
-            <Button layoutX="245.0" layoutY="325.0" mnemonicParsing="false" onAction="#modify" text="Modify" />
-            <Button layoutX="315.0" layoutY="325.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
-            <ScrollPane fx:id="scrollPane" layoutX="107.0" layoutY="359.0" prefHeight="200.0" prefWidth="450.0"><AnchorPane fx:id="commentAnchor" prefHeight="70.0" prefWidth="384.0" /></ScrollPane>
+            <Button layoutX="235.0" layoutY="314.0" mnemonicParsing="false" onAction="#modify" text="Modify" />
+            <Button layoutX="316.0" layoutY="314.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
+            <ScrollPane fx:id="scrollPane" layoutX="104.0" layoutY="468.0" prefHeight="121.0" prefWidth="450.0"><AnchorPane fx:id="commentAnchor" prefHeight="70.0" prefWidth="384.0" /></ScrollPane>
+            <TextArea fx:id="ta" layoutX="104.0" layoutY="369.0" prefHeight="95.0" prefWidth="450.0" />
          </children>
       </AnchorPane>
    </right>

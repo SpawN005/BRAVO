@@ -1,5 +1,6 @@
 package com.example.PIDEV;
 import entity.CommentaireOeuvre;
+import entity.NoteOeuvre;
 import entity.Oeuvre;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import service.ServiceCommentaireOeuvre;
+import service.ServiceNoteOeuvre;
 import service.ServiceOeuvre;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

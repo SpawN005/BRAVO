@@ -1,5 +1,6 @@
 package com.example.PIDEV;
-
+import entity.NoteOeuvre;
+import org.controlsfx.control.Rating;
 import entity.CommentaireOeuvre;
 import entity.Oeuvre;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import service.ServiceCommentaireOeuvre;
+import service.ServiceNoteOeuvre;
 import service.ServiceOeuvre;
 
 
@@ -34,6 +36,8 @@ public class DetailsOeuvreController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private Text descriptionDetail;
+    @FXML
+    private TextArea ta;
 
     @FXML
     private AnchorPane leftAnchor;
@@ -42,24 +46,31 @@ public class DetailsOeuvreController implements Initializable {
     private ImageView mainImage;
 
     @FXML
-    private Label owner;
+    private Text owner;
 
     @FXML
     private AnchorPane rightAnchor;
 
     @FXML
-    private Label title;
+    private Text title;
     @FXML
     private AnchorPane commentAnchor;
     private ServiceOeuvre so;
     private Oeuvre oeuvre;
 
     private ServiceCommentaireOeuvre sco;
-
+    private ServiceNoteOeuvre sno;
+    Rating rating = new Rating();
+    NoteOeuvre no;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         back.setOnMouseClicked(e->backwardButton());
         back.setStyle("-fx-cursor: hand;");
+
+        rating.setMax(5);
+
+
+
 
 
 
@@ -67,7 +78,9 @@ public class DetailsOeuvreController implements Initializable {
     }
 
     public void SetOeuvre(Oeuvre o) {
-        double y=100;
+        ServiceNoteOeuvre sno = new ServiceNoteOeuvre();
+        rating.setRating(sno.readAvg(o));
+        double y=0;
         descriptionDetail.setText(o.getDescription());
         descriptionDetail.setWrappingWidth(400);
         title.setText(o.getTitle());
@@ -77,7 +90,9 @@ public class DetailsOeuvreController implements Initializable {
         oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());
         sco = new ServiceCommentaireOeuvre();
         List<CommentaireOeuvre> l = sco.readByOeuvre(oeuvre);
-
+        rightAnchor.getChildren().add(rating);
+    rating.setLayoutX(245);
+        rating.setLayoutY(125);
         for (CommentaireOeuvre co:l){
 
             Label comment = new Label(co.getComment());
@@ -91,11 +106,8 @@ public class DetailsOeuvreController implements Initializable {
 
 
         }
-        TextArea ta = new TextArea();
+
         ta.setWrapText(true);
-        ta.setMaxWidth(433);
-        ta.setMaxHeight(100);
-        commentAnchor.getChildren().add(ta);
         ta.setOnKeyPressed(e-> {
             if (e.getCode() == KeyCode.ENTER){
 
@@ -116,7 +128,10 @@ public class DetailsOeuvreController implements Initializable {
 
             }
         });
-
+        rating.setOnMouseClicked(e-> {
+            no = new NoteOeuvre(oeuvre,1,rating.getRating());
+            sno.insert(no);
+        });
     }
     protected void backwardButton() {
         FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));
@@ -126,8 +141,6 @@ public class DetailsOeuvreController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
 
         leftAnchor.getScene().setRoot(root);
 
