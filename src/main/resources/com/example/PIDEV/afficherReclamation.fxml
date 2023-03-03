@@ -45,11 +45,8 @@
                 </TextField>
             </children>
         </HBox>
-        <Button layoutX="515.0" layoutY="374.0" mnemonicParsing="false" onAction="#list" style="-fx-background-color: #647196;" text="Refresh" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="29.0">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Button>
-        <Button fx:id="PDFbtn" layoutX="200.0" layoutY="375.0" mnemonicParsing="false" onAction="#convertTopdf" style="-fx-background-color: #647196;" text="PDF" textFill="WHITE">
+
+        <Button fx:id="PDFbtn" layoutX="200.0" layoutY="374.0" mnemonicParsing="false" onAction="#convertTopdf" style="-fx-background-color: #647196;" text="PDF" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="29.0">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font>

@@ -90,6 +90,7 @@ public class afficherReclamationController implements Initializable {
             if (selectedValue.equals("etat") && !selectedValue.isEmpty()) {
                 String requete = "SELECT COUNT(id) as nbr1 FROM Reclamation WHERE etat LIKE 'on hold'";
                 int nombreReclamationsEnAttente = 0;
+
                 try {
                     // Établir la connexion à la base de données
                     Statement st = DataSource.getInstance().getCnx().createStatement();
@@ -106,7 +107,7 @@ public class afficherReclamationController implements Initializable {
                     e.printStackTrace();
                 }
 
-                String message = "Il y a " + nombreReclamationsEnAttente + " réclamations en attente.";
+                String message = "Vous avez " + nombreReclamationsEnAttente + " réclamations en attente!";
                 displayPopup(message);
             }});
 
