@@ -1,9 +1,15 @@
 package com.example.PIDEV;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import entity.Reclamation;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +17,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -21,12 +30,12 @@ import service.ServiceReclamation;
 import service.ServiceUser;
 import utils.DataSource;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
@@ -57,6 +66,8 @@ public class afficherReclamationController implements Initializable {
     Stage window;
     private Stage primaryStage;
     private Reclamation localreclamation;
+    @FXML
+    private Button PDFbtn;
     public ObservableList<Reclamation> getReclamation(){
         java.sql.Date date_sql = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         ObservableList <Reclamation> Reclamations  = FXCollections.observableArrayList();
@@ -269,7 +280,50 @@ public class afficherReclamationController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-}
+
+    public void convertTopdf(ActionEvent event)throws FileNotFoundException, IOException {
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("C:\\Users\\ferie\\OneDrive\\Bureau\\Reclamation.pdf"));
+            Document doc = new Document(pdfDoc, PageSize.A4);
+
+            try {
+                // Get all events from the database
+                String query = "SELECT * FROM Reclamation";
+                PreparedStatement pst = DataSource.getInstance().getCnx().prepareStatement(query);
+                ResultSet rs = pst.executeQuery();
+
+                // Add event information to the PDF
+                doc.add(new Paragraph("Liste des reclamations:"));
+                doc.add(new Paragraph("------------------------\n"));
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String title = rs.getString("title");
+                    Date dateCreation = rs.getDate("date_creation");
+                    String etat = rs.getString("etat");
+                    Date dateTreatment = rs.getDate("date_treatment");
+                    int note = rs.getInt("note");
+
+                    doc.add(new Paragraph("id de reclam  : " + id));
+                    doc.add(new Paragraph("titre de reclamation  : " + title));
+                    doc.add(new Paragraph("La date de creation : " + dateCreation));
+                    doc.add(new Paragraph("l'etat de la reclamation  : " + etat));
+                    doc.add(new Paragraph("La date de traitement: " + dateTreatment));
+                    doc.add(new Paragraph("La note : " + note));
+
+                    doc.add(new Paragraph("\n"));
+                }
+
+                doc.close();
+                Desktop.getDesktop().open(new File("C:\\Users\\ferie\\OneDrive\\Bureau\\Reclamation.pdf"));
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
 
 
 
