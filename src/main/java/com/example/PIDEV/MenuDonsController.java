@@ -7,19 +7,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXMLLoader.*;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import service.ServiceDons;
 import service.ServiceDons;
@@ -41,13 +40,16 @@ public class MenuDonsController implements Initializable {
 
     @FXML
     private Button STATSBTN;
+    @FXML
+    private GridPane container;
+
 
     @FXML
     private Button USERID;
 
 
     @FXML
-    private HBox cardlayout;
+    private VBox cardlayout;
 
     @FXML
     private Pane pnlMenus;
@@ -64,6 +66,8 @@ public class MenuDonsController implements Initializable {
 
     @FXML
     private Pane pnlOrders;
+    @FXML
+    private TextField Searchfield;
     private List<Dons> recentlyAdded;
 
     ServiceDons sd = new ServiceDons();
@@ -71,23 +75,28 @@ public class MenuDonsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Dons> donations = sd.readAll();
-        double y = 60;
-        double x = 100;
+        int column = 0;
+        int row = 1;
         for (Dons donation : donations) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DonCard.fxml"));
                 VBox card = loader.load();
                 DonationInfoController controller = loader.getController();
                 controller.setData(donation);
-                card.setLayoutX(x);
-                card.setLayoutY(y);
+                if(column ==3){
+                    column = 0;
+                    ++row;
+                }
+                container.add(card,column++, row);
+                GridPane.setMargin(card, new Insets(10));
                 card.setCursor(Cursor.HAND);
-                cardlayout.getChildren().add(card);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            x += 500;
         } /*
+
+
         List<Dons>l =sd.readAll();
         double  y = 60;
         double x =100;
