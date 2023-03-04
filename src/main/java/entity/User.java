@@ -10,6 +10,7 @@ public class User {
     private String password;
     private String image;
 
+
     // Constructors
     public User() {
     }
@@ -34,22 +35,30 @@ public class User {
 }
 
 
+
+
+
+
+    public User(String firstName, String lastName, int phoneNumber, String email, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.role = role;
+
+    }
+
+    public User(int aInt, String string, String string0, String string1, int aInt0, String string2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public User(String firstName, String lastName, int phoneNumber, String email, String role, String password) {
-        this.id = -1; // -1 indicates that the id has not yet been set by the database
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.role = role;
         this.password = password;
-    }
-
-    public User(int aInt, String string, String string0, String string1, String string2, String string3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public User(int aInt, String string, String string0, String string1, int aInt0, String string2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     // Getters and Setters
@@ -60,6 +69,7 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getFirstName() {
         return firstName;

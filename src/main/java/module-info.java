@@ -15,13 +15,18 @@ module com.example.demo1 {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires java.desktop;
+
+
 
     requires kaptcha;
-    requires java.desktop;
+
 
     requires org.apache.commons.lang3;
     requires java.net.http;
     requires javax.mail.api;
+    requires kernel;
+    requires layout;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

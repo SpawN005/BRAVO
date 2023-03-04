@@ -28,6 +28,7 @@ public class ServiceUser implements IService<User> {
         conn = DataSource.getInstance().getCnx();
     }
 
+
         @Override
         public void insert(User t) {
             String requete = "insert into user (firstName,lastName,phoneNumber,email,role,PASSWORD) values "
@@ -87,7 +88,14 @@ public void insertPst(User user) {
         } catch (SQLException ex) {
             System.err.println("Error rolling back transaction: " + ex.getMessage());
         }
+
+
     }
+
+
+
+
+
 }
 
 

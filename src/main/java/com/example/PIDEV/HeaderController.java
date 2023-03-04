@@ -78,7 +78,19 @@ public class HeaderController implements Initializable {
 
 
     }
+    @FXML
+    void reclamation(MouseEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("afficherMesReclamations.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        logout_btn.getScene().setRoot(root);
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

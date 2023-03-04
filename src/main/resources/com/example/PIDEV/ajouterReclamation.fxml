@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="671.0" prefWidth="860.0" style="-fx-background-color: #F4F4F2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.ajouterReclamationController">
+
+    <children>
+    <ComboBox fx:id="typeReclamationCBX" layoutX="89.0" layoutY="93.0" onAction="#selectionReclamation" prefHeight="26.0" prefWidth="191.0" promptText="Reclamation à propos de : " style="-fx-background-color: #647196;" />
+
+    <TextField fx:id="title" layoutX="269.0" layoutY="158.0" prefHeight="27.0" prefWidth="262.0" promptText="Sujet de la réclamation" AnchorPane.bottomAnchor="574.0" AnchorPane.leftAnchor="269.0" AnchorPane.rightAnchor="329.0" AnchorPane.topAnchor="158.0">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font></TextField>
+        <Label layoutX="230.0" layoutY="167.0" text="titre" />
+        <TextArea fx:id="description" layoutX="232.0" layoutY="245.0" prefHeight="200.0" prefWidth="355.0" promptText="Veuillez rediger votre reclamation ">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font></TextArea>
+      <Button fx:id="btn" layoutX="606.0" layoutY="511.0" mnemonicParsing="false" onAction="#ajouterReclamationGUI" style="-fx-background-color: #647196;" text="Envoyer" textFill="#fff7f7">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Label layoutX="170.0" layoutY="259.0" text="texte" />
+      <Label layoutX="242.0" layoutY="14.0" text="Gestion des reclamations " textAlignment="CENTER" textFill="#b51212" textOverrun="LEADING_ELLIPSIS">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="27.0" fitWidth="29.0" layoutX="186.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/sujet.png" />
+         </image>
+      </ImageView>
+      <ImageView id="titlecheck" fitHeight="27.0" fitWidth="29.0" layoutX="574.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/checkMark.png" />
+         </image>
+      </ImageView>
+      <ImageView id="textecheckvalue" fitHeight="27.0" fitWidth="29.0" layoutX="606.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/checkMark.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="81.0" fitWidth="81.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/logo.png" />
+         </image>
+      </ImageView>
+
+    </children>
+</AnchorPane>

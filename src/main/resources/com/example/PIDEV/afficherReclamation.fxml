@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="btnGestionAffichage" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.afficherReclamationController">
+    <children>
+        <TableView fx:id="TableViewReclamation" editable="true" layoutX="190.0" layoutY="33.0" onMouseClicked="#getselectedreclamation" onSort="#traiterReclamationGUI" prefHeight="338.0" prefWidth="410.0" style="-fx-background-color: #b51212;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+
+        </TableView>
+        <Button fx:id="TraiterBTN" layoutX="121.0" layoutY="365.0" mnemonicParsing="false" onAction="#traiterReclamationGUI" style="-fx-background-color: #647196;" text="Traiter" textFill="WHITE" AnchorPane.bottomAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+        <Button fx:id="supprimerBTN" layoutX="34.0" layoutY="365.0" mnemonicParsing="false" onAction="#supprimerReclamation" style="-fx-background-color: #647196;" text="Supprimer" textFill="WHITE" AnchorPane.bottomAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+
+        <HBox fx:id="hbox" layoutX="34.0" layoutY="14.0" prefHeight="26.0" prefWidth="516.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Recherche par :">
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+                </Label>
+                <ComboBox fx:id="typeRecherche" onAction="#list" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #647196;" />
+                <TextField fx:id="RechercheTextField" onKeyReleased="#list" prefHeight="26.0" prefWidth="370.0" promptText="Rechercher par : ">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+                </TextField>
+            </children>
+        </HBox>
+
+        <Button fx:id="PDFbtn" layoutX="200.0" layoutY="374.0" mnemonicParsing="false" onAction="#convertTopdf" style="-fx-background-color: #647196;" text="PDF" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="29.0">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Button>
+    </children>
+
+</AnchorPane>

@@ -13,14 +13,15 @@
             <Image url="@assets/logo.png" />
         </image>
     </ImageView>
-    <Label contentDisplay="TOP" layoutX="702.0" layoutY="62.0" onMouseClicked="#painting" text="Paintings ">
+    <Label contentDisplay="TOP" layoutX="661.0" layoutY="62.0" onMouseClicked="#painting" text="Paintings ">
 
    </Label>
-   <Label contentDisplay="TOP" layoutX="772.0" layoutY="62.0" onMouseClicked="#blogs" text="Blogs" />
-   <Label contentDisplay="TOP" layoutX="842.0" layoutY="62.0" onMouseClicked="#events" text="Events" />
-   <Label contentDisplay="TOP" layoutX="982.0" layoutY="62.0" onMouseClicked="#account" text="My account" />
-   <Label contentDisplay="TOP" layoutX="912.0" layoutY="62.0" onMouseClicked="#donations" text="Donation" />
+   <Label contentDisplay="TOP" layoutX="727.0" layoutY="62.0" onMouseClicked="#blogs" text="Blogs" />
+   <Label contentDisplay="TOP" layoutX="779.0" layoutY="62.0" onMouseClicked="#events" text="Events" />
+   <Label contentDisplay="TOP" layoutX="918.0" layoutY="62.0" onMouseClicked="#account" text="Profile" />
+   <Label contentDisplay="TOP" layoutX="842.0" layoutY="62.0" onMouseClicked="#donations" text="Donation" />
    <Label fx:id="logout_btn" contentDisplay="TOP" layoutX="1052.0" layoutY="62.0" onMouseClicked="#logout" text="Log out" />
+   <Label contentDisplay="TOP" layoutX="970.0" layoutY="62.0" onMouseClicked="#reclamation" text="My Tickets" />
    <padding>
       <Insets left="20.0" right="20.0" />
    </padding>
