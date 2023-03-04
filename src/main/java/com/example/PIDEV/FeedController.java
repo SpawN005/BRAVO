@@ -66,7 +66,7 @@ public class FeedController implements Initializable {
             Image image = new Image("file:C:/xampp/htdocs/img/"+o.getUrl());
             ImageView paint= new ImageView(image);
             Label title=new Label(o.getTitle());
-            Label owner=new Label(o.getOwner());
+            Label owner=new Label(o.getOwner().getFirstName()+" "+o.getOwner().getLastName());
             Label description=new Label(o.getDescription());
 
             description.setWrapText(true);
@@ -101,7 +101,7 @@ public class FeedController implements Initializable {
             Image image = new Image("file:C:/xampp/htdocs/img/"+o.getUrl());
             ImageView paint= new ImageView(image);
             Label title=new Label(o.getTitle());
-            Label owner=new Label(o.getOwner());
+            Label owner=new Label(o.getOwner().getFirstName()+" "+o.getOwner().getLastName());
             Label description=new Label(o.getDescription());
             description.setWrapText(true);
             description.setMaxWidth(200);

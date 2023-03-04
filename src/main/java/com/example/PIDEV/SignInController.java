@@ -85,6 +85,8 @@ public void signIn() throws IOException {
         alert.setContentText("The email or password is incorrect.");
         alert.showAndWait();
     } else {
+        LoggedInUser loggedInUser = new LoggedInUser();
+        loggedInUser.setUser(user);
         Alert successAlert = new Alert(AlertType.INFORMATION);
         successAlert.setTitle("Welcome");
         successAlert.setHeaderText("Welcome " + user.getFirstName() + " " + user.getLastName() + "!");

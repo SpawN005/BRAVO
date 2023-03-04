@@ -6,9 +6,9 @@ public class LoggedInUser {
 
     private static LoggedInUser instance = null;
 
-    private User user;
+    private static User user;
 
-    private LoggedInUser() {
+    public LoggedInUser() {
     }
 
     public static LoggedInUser getInstance() {

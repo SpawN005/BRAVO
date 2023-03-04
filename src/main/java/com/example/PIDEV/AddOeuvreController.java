@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import service.LoggedInUser;
 import service.ServiceOeuvre;
 
 
@@ -29,6 +30,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class AddOeuvreController implements Initializable {
+    LoggedInUser loggedInUser= new LoggedInUser();
     @FXML
     private Button cancelButton;
     @FXML
@@ -167,7 +169,7 @@ public class AddOeuvreController implements Initializable {
                 throw new RuntimeException(e);
             }
             o.setTitle(title.getText());
-            o.setOwner("AHMED");
+            o.setOwner(loggedInUser.getUser());
 
             o.setDescription(description.getText());
             o.setUrl(selectedFile.getName());

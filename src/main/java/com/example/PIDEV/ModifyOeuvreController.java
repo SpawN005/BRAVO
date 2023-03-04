@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import service.LoggedInUser;
 import service.ServiceOeuvre;
 
 import java.io.File;
@@ -20,7 +21,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class ModifyOeuvreController implements Initializable {
-
+    LoggedInUser loggedInUser= new LoggedInUser();
     @FXML
     private ImageView ImageView;
 
@@ -132,7 +133,7 @@ public class ModifyOeuvreController implements Initializable {
             }
 
             o.setTitle(title.getText());
-            o.setOwner("AHMED");
+            o.setOwner(loggedInUser.getUser());
             o.setUrl(uploadImage.getText());
             o.setDescription(description.getText());
             o.setCategory(categorie.getText());

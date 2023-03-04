@@ -84,7 +84,7 @@ public class DetailsOeuvreController implements Initializable {
         descriptionDetail.setText(o.getDescription());
         descriptionDetail.setWrappingWidth(400);
         title.setText(o.getTitle());
-        owner.setText(o.getOwner());
+        owner.setText(o.getOwner().getFirstName()+" "+o.getOwner().getLastName());
         Image image = new Image("file:C:/xampp/htdocs/img/"+o.getUrl());
         mainImage.setImage(image);
         oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());

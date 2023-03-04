@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import service.LoggedInUser;
 import service.ServiceUser;
 
 public class LoggedInController implements Initializable {

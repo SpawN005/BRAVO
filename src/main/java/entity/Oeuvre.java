@@ -4,7 +4,7 @@ public class Oeuvre {
     private int id;
     private String title;
     private String description;
-    private String owner;
+    private User owner;
     private String category;
 
     private String url;
@@ -12,7 +12,7 @@ public class Oeuvre {
     public Oeuvre() {
     }
 
-    public Oeuvre(String title, String description, String owner, String category, String url) {
+    public Oeuvre(String title, String description, User owner, String category, String url) {
         this.title = title;
         this.description = description;
         this.owner = owner;
@@ -20,7 +20,7 @@ public class Oeuvre {
         this.url=url;
     }
 
-    public Oeuvre(int id, String title, String description, String owner, String category, String url) {
+    public Oeuvre(int id, String title, String description, User owner, String category, String url) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -41,7 +41,7 @@ public class Oeuvre {
         return description;
     }
 
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 
@@ -65,7 +65,7 @@ public class Oeuvre {
         this.description = description;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
