@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="btnGestionAffichage" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.afficherMesReclamationController">
+<AnchorPane id="AnchorPane" fx:id="btnGestionAffichage" prefHeight="770.0" prefWidth="1125.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.afficherMesReclamationController">
     <children>
         <TableView fx:id="TableViewReclamation" editable="true" layoutX="190.0" layoutY="33.0" onMouseClicked="#getselectedreclamation" prefHeight="338.0" prefWidth="410.0" style="-fx-background-color: #b51212;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
 
@@ -20,7 +20,7 @@
             <font>
                 <Font name="System Bold" size="13.0" />
             </font></Button>
-        <Button layoutX="515.0" layoutY="374.0" mnemonicParsing="false" style="-fx-background-color: #647196;" text="Refresh" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="29.0">
+        <Button layoutX="515.0" layoutY="374.0" mnemonicParsing="false" onAction="#refresh" style="-fx-background-color: #647196;" text="Refresh" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="29.0">
             <font>
                 <Font name="System Bold" size="13.0" />
             </font></Button>
@@ -29,6 +29,11 @@
             <Image url="@assets/black.png" />
          </image>
       </ImageView>
+      <Button fx:id="addReclamation" layoutX="967.0" layoutY="3.0" mnemonicParsing="false" onAction="#ajouterReclamation" style="-fx-background-color: #647196;" text="Ajouter Reclamation" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
     </children>
 
 </AnchorPane>

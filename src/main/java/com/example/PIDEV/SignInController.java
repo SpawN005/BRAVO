@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -89,17 +90,31 @@ public void signIn() throws IOException {
         loggedInUser.setUser(user);
         Alert successAlert = new Alert(AlertType.INFORMATION);
         successAlert.setTitle("Welcome");
-        successAlert.setHeaderText("Welcome " + user.getFirstName() + " " + user.getLastName() + "!");
-        successAlert.setContentText("You have successfully logged in. Your role is : " + user.getPassword()+ ".");
+        successAlert.setHeaderText("Welcome " + loggedInUser.getUser().getFirstName() + " " + loggedInUser.getUser().getLastName() + "!");
+        successAlert.setContentText("You have successfully logged in. Your role is : " + loggedInUser.getUser().getRole()+ ".");
         successAlert.showAndWait();
-       
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Feed.fxml"));
+        FXMLLoader loader = null;
+       if (!(Objects.equals(loggedInUser.getUser().getRole(), "admin")))
+       {
+            loader = new FXMLLoader(getClass().getResource("Feed.fxml"));
+
+       }else {
+            loader = new FXMLLoader(getClass().getResource("acceuilReclamation.fxml"));
+
+       }
         Parent root= null;
         try {
             root = loader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.show();
+        Stage currentStage = (Stage) signinBtn.getScene().getWindow();
+        currentStage.close();
         
 
 
@@ -109,12 +124,6 @@ public void signIn() throws IOException {
         Label lnamelabel = (Label) root.lookup("#lnamelabel");
         lnamelabel.setText(user.getLastName()); */
 
-        Scene scene = new Scene(root);
-        Stage newStage = new Stage();
-        newStage.setScene(scene);
-        newStage.show();
-        Stage currentStage = (Stage) signinBtn.getScene().getWindow();
-        currentStage.close();
     }
 }
 

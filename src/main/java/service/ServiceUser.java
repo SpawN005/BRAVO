@@ -248,7 +248,29 @@ public void deleteUserByEmail(String email) throws SQLException {
 
 
 
+    public List<User> RandomArtists()  {
+        List<User> userList = new ArrayList<>();
+        String query = "SELECT * FROM user where role='Artist' ORDER BY RAND() LIMIT 3 ;";
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    User user = new User();
+                    user.setId(resultSet.getInt("id"));
+                    user.setFirstName(resultSet.getString("firstName"));
+                    user.setLastName(resultSet.getString("lastName"));
+                    user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setRole(resultSet.getString("role"));
+                    user.setPassword(resultSet.getString("password"));
+                    user.setimage(resultSet.getString("image"));
+                    userList.add(user);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return userList;
 
+    }
 
 
 

@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import service.ServiceReclamation;
 import service.ServiceUser;
 import java.io.IOException;
@@ -106,17 +107,9 @@ public class modifierReclamationController implements Initializable {
             sr.update(localreclamation);
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
 
-            showAlert("Modification réussie", true);
-
-            title.getScene().setRoot(root);
+            Stage stage = (Stage) title.getScene().getWindow();
+            stage.close();
 
         }
 

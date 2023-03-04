@@ -17,6 +17,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import service.LoggedInUser;
 import service.ServiceReclamation;
 import entity.Reclamation;
 import service.ServiceTypeReclamation;
@@ -95,28 +97,21 @@ public class ajouterReclamationController implements Initializable {
            //textecheckvalue.setImage(new Image("C:\Users\ferie\OneDrive\Bureau\Nouveau dossier\BRAVO\src\main\resources\com\example\PIDEV\assets\checkMark.png"));
 
             System.out.println("merci d'avoir bien redigé la reclamation ");
-            User u2 = new User("mariem","hammi",22442145,"mariem.hammi@gmil.com","simple user");
-            User u3 = new User("malik","rmedi",22442166,"malik.rmadi@gmil.com","simple user");
-            ServiceUser s =new ServiceUser();
+            LoggedInUser loggedInUser = new LoggedInUser();
 
-            r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",s.readById(8),date_sql,8);
+            r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",loggedInUser.getUser(),date_sql,8);
 
             sr.insert(r);
             //recuperation de la valeur du combo box et l'inserer dans la table type reclamation
             TypeReclamation t= new TypeReclamation(typeReclamationCBX.getValue());
             tr.insert(t);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+
 
             showAlert("Reclamation envoyée avec succee",true);
 
-            title.getScene().setRoot(root);
+            Stage stage = (Stage) title.getScene().getWindow();
+            stage.close();
         }
     }
     }

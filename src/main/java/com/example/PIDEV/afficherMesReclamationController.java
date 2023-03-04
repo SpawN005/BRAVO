@@ -29,6 +29,8 @@ public class afficherMesReclamationController implements Initializable {
     @FXML
     private TableView<Reclamation> TableViewReclamation;
     @FXML
+    private Button addReclamation;
+    @FXML
     private Button supprimerBTN;
     @FXML
     private Button modifierBTN;
@@ -171,6 +173,27 @@ public class afficherMesReclamationController implements Initializable {
 
 
     }
+    public void ajouterReclamation() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ajouterReclamation.fxml"));
+        Parent root = loader.load();
+        System.out.println("reclamation ::::::::::::::::::"+localreclamation);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+
+
+    }
+    public void refresh() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherMesReclamations.fxml"));
+        Parent root = loader.load();
+        System.out.println("reclamation ::::::::::::::::::"+localreclamation);
+        TableViewReclamation.getScene().setRoot(root);
+
+
+
+    }
+
     @FXML
     void backArrow(MouseEvent event) {
         FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));

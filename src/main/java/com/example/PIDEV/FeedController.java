@@ -2,6 +2,7 @@ package com.example.PIDEV;
 
 import entity.Oeuvre;
 
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -15,10 +16,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import service.LoggedInUser;
 import service.ServiceCommentaireOeuvre;
 import service.ServiceOeuvre;
+import service.ServiceUser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +31,24 @@ import java.util.ResourceBundle;
 
 
 public class FeedController implements Initializable {
+
+    @FXML
+    private ImageView img1;
+
+    @FXML
+    private ImageView img2;
+
+    @FXML
+    private ImageView img3;
+
+    @FXML
+    private Text name1;
+
+    @FXML
+    private Text name2;
+
+    @FXML
+    private Text name3;
     @FXML
     private Button addOeuvre_btn;
     @FXML
@@ -38,6 +59,7 @@ public class FeedController implements Initializable {
     private ScrollPane scrollPane;
     AnchorPane anchorPane = null;
     ServiceOeuvre so=new ServiceOeuvre();
+    ServiceUser su = new ServiceUser();
     List<Oeuvre> l;
     @FXML
     private TextField filtre;
@@ -137,7 +159,16 @@ public class FeedController implements Initializable {
 
 
 
-
+        List<User> lu = su.RandomArtists();
+        Image image = new Image("file:C:\\Users\\jasse\\Desktop\\version 1.2\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\Icons\\"+lu.get(0).getimage());
+        img1.setImage(image);
+        name1.setText(lu.get(0).getFirstName()+" "+lu.get(0).getLastName());
+         image = new Image("file:C:\\Users\\jasse\\Desktop\\version 1.2\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\Icons\\"+lu.get(1).getimage());
+        img2.setImage(image);
+        name2.setText(lu.get(1).getFirstName()+" "+lu.get(1).getLastName());
+         image = new Image("file:C:\\Users\\jasse\\Desktop\\version 1.2\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\Icons\\"+lu.get(2).getimage());
+        img3.setImage(image);
+        name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
 
 
 

@@ -6,13 +6,13 @@ public class TypeReclamation {
     public TypeReclamation() {}
 
     public TypeReclamation(int id, String typeReclamation) {
-        super();
+
         this.id = id;
         this.typeReclamation = typeReclamation;
     }
 
     public TypeReclamation(String typeReclamation) {
-        super();
+
         this.typeReclamation = typeReclamation;
     }
 
