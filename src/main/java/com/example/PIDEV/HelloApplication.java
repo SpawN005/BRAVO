@@ -16,16 +16,15 @@ import utils.DataSource;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+   @Override
 
-    @Override
-
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DetailsBLog1.0.fxml"));
+    /*public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DetailsBlog1.0.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
-        stage.setTitle("Feed Page!");
+       stage.setTitle("Feed Page!");
         stage.setScene(scene);
         stage.show();
-    }
+    }*/
 
     /*public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ModifierBlog.fxml"));
@@ -36,18 +35,17 @@ public class HelloApplication extends Application {
     }*/
 
 
-
-    /*public void start(Stage stage) throws IOException {
+   public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AffichageBlog.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("Feed Page!");
         stage.setScene(scene);
         stage.show();
-    }*/
+    }
 
 
 
-    /*public void start(Stage stage) throws IOException {
+   /*public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AddBlog.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("Feed Page!");
@@ -65,23 +63,25 @@ public class HelloApplication extends Application {
         ServiceCommentaireBlog cb= new ServiceCommentaireBlog();
         ServiceNoteBlog snb = new ServiceNoteBlog();
 
-        User us1 = new User("myriam","hammi",24242424,"abcdefg","role1");
-        User us2 = new User("feriel","sahbi",28282828, "abcdefgh","role2");
+        User us1 = new User("myriam","hammi",24242424,"myriam.hammi@gmail.com","role1");
+        User us2 = new User("feriel","sahbi",28282828, "feriel.sahbi@gmail.com","role2");
 
-//        u.insert(us1);
-//        u.insert(us2);
+        /*u.insert(us1);*/
+        /*u.insert(us2);*/
 //        System.out.println(u.readAll());
 //        System.out.println(u.readById(26));
 
-        Blog b1=new Blog("test1","testtest","test1234567890",u.readById(26));
-        Blog b2 = new Blog("test2","testtesttest1234","test123456",u.readById(27));
+        //Blog b1=new Blog("test1","testtest","test123",u.readById(30));
 
-//        b.insert(b1); //c'est bon
-//        b.insert(b2); //c'est bon
-//        System.out.println(b.readAll()); c'est bon
-//        System.out.println(b.readById(78)); c'est bon
-//          b.delete(b.readById(78));  c'est bon
-//          b.update(b1); //c'est bon
+        // Blog b2 = new Blog("test2","testtesttest","test1234",u.readById(31));
+
+        //b.insert(b1); //c'est bon
+        //b.insert(b2); //c'est bon
+        //System.out.println(b.readAll()); //c'est bon
+      // System.out.println(b.readById(82)); //c'est bon
+        // b.delete(b.readById(83)); // c'est bon
+ //         b.update(b1); //c'est bon*
+       // System.out.println(b.recherchePartitre("dianes painting blog"));
 
 
         CommentaireBlog cb1= new CommentaireBlog("woow124",b.readById(79),u.readById(26));

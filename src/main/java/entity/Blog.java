@@ -5,32 +5,34 @@ public class Blog {
     private String title;
     private String description;
     private String content;
+    private String url;
     private User author;
-    //private int author;
 
     public Blog() {
     }
 
-    public Blog(int id, String title, String description, String content, User author) {
-        // public Blog(int id, String title, String description, String content, int author) {
+    public Blog(int id, String title, String description, String content,String url, User author) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
+        this.url=url;
         this.author = author;
     }
 
-    public Blog(String title, String description, String content, User author) {
+    public Blog(String title, String description, String content,String url, User author) {
         this.title = title;
         this.description = description;
         this.content = content;
+        this.url=url;
         this.author = author;
     }
 
-    public Blog(String title, String description, String content) {
+    public Blog(String title, String description, String content, String url) {
         this.title = title;
         this.description = description;
         this.content = content;
+        this.url = url;
     }
 
     public int getId() {
@@ -65,19 +67,27 @@ public class Blog {
         this.content = content;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public User getAuthor() {
         return author;
     }
 
     public void setAuthor(User author) {
-
         this.author = author;
     }
 
     @Override
     public String toString() {
-        return "Blog{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", author=" + author + '}';
+        return "Blog{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", author=" + author + ", url=" + url + '}';
     }
+
 
 
 

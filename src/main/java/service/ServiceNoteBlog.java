@@ -1,5 +1,6 @@
 package service;
 
+import entity.Blog;
 import entity.NoteBlog;
 import entity.User;
 import utils.DataSource;
@@ -20,11 +21,11 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void insert(NoteBlog nb) {
-        String requete="INSERT INTO note(note,id_blog) values(?,?)";
+        String requete="INSERT INTO noteblog(note,id_blog) values(?,?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
-            pst.setInt(1, nb.getNote());
+            pst.setDouble(1, nb.getNote());
             pst.setInt(2, nb.getId_blog().getId());
             pst.executeUpdate();
 
@@ -36,7 +37,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void delete(NoteBlog nb) {
-        String requete = "delete from note where id=?";
+        String requete = "delete from noteblog where id=?";
 
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
@@ -50,11 +51,11 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void update(NoteBlog nb) {
-        String requete= "UPDATE note SET note = ? WHERE id = ? ";
+        String requete= "UPDATE noteblog SET note = ? WHERE id = ? ";
 
         try  {
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setInt(1,nb.getNote());
+            pst.setDouble(1,nb.getNote());
             pst.setInt(2,nb.getId());
             pst.executeUpdate();
 
@@ -67,7 +68,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
     @Override
     public List<NoteBlog> readAll() {
         List<NoteBlog> list = new ArrayList<>();
-        String requete= "select * from note";
+        String requete= "select * from noteblog";
 
         try {
 
@@ -75,7 +76,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
             ResultSet rs = st.executeQuery(requete);
             while(rs.next()){
                 NoteBlog nb= new NoteBlog(rs.getInt("id"),
-                        rs.getInt("note"),
+                        rs.getDouble("note"),
                         sb.readById(rs.getInt("id_blog"))
                 );
                 list.add(nb);
@@ -89,7 +90,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public NoteBlog readById(int id) {
-        String requete="select * from note where id=?";
+        String requete="select * from noteblog where id=?";
         NoteBlog nb= new NoteBlog();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
@@ -98,7 +99,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
             while(rs.next()) {
 
                 nb.setId(id);
-                nb.setNote(rs.getInt("note"));
+                nb.setNote(rs.getDouble("note"));
                 nb.setId_blog(sb.readById(rs.getInt("id_blog")));
             }
 
@@ -107,4 +108,24 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
         }
         return nb;
     }
+
+    public float readAvg(Blog b) {
+
+        String requete = "select AVG(note) from noteblog where id_blog= ?";
+        float note=0;
+        try {
+            PreparedStatement ps = conn.prepareStatement(requete);
+            ps.setInt(1,b.getId());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                note= rs.getFloat(1);
+            }
+
+        } catch (SQLException var4) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
+        }
+        return note;
+    }
+
+
 }

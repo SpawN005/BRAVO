@@ -3,11 +3,15 @@ package service;
 import entity.Blog;
 import utils.DataSource;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
+
 
 
 public class ServiceBlog implements IService <Blog> {
@@ -22,14 +26,15 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void insert(Blog b) {
-        String requete ="insert into blog (title,description,content,author) values (?,?,?,?)";
+        String requete ="insert into blog (id,title,description,content,url,author) values (?,?,?,?,?,?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
-
-            pst.setString(1, b.getTitle());
-            pst.setString(2, b.getDescription());
-            pst.setString(3, b.getContent());
-            pst.setInt(4,b.getAuthor().getId());
+            pst.setInt(1,b.getId());
+            pst.setString(2, b.getTitle());
+            pst.setString(3, b.getDescription());
+            pst.setString(4, b.getContent());
+            pst.setString(5, b.getUrl());
+            pst.setInt(6,b.getAuthor().getId());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -45,7 +50,7 @@ public class ServiceBlog implements IService <Blog> {
         String requete = "delete from blog where id=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setInt(1, b.getId());
+            pst.setInt(1,b.getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,19 +61,22 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void update(Blog b) {
-        String requete =" update blog set title=? , description=? , content=? where author=?";
+        String requete =" update blog set title=? , description=? , content=?, url=? where id=? author=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
             pst.setString(1, b.getTitle());
             pst.setString(2, b.getDescription());
             pst.setString(3, b.getContent());
-            pst.setInt(4, b.getAuthor().getId());
+            pst.setString(4, b.getUrl());
+            pst.setInt(4, b.getId());
+            pst.setInt(6, b.getAuthor().getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 
     @Override
     public List<Blog> readAll() {
@@ -85,6 +93,7 @@ public class ServiceBlog implements IService <Blog> {
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("content"),
+                        rs.getString("url"),
                         su.readById(rs.getInt("author"))
                 );
 
@@ -113,6 +122,7 @@ public class ServiceBlog implements IService <Blog> {
                 b.setTitle(rs.getString("title"));
                 b.setDescription(rs.getString("description"));
                 b.setContent(rs.getString("content"));
+                b.setUrl(rs.getString("url"));
                 b.setAuthor(su.readById(rs.getInt("author")));
 
             }
@@ -122,5 +132,31 @@ public class ServiceBlog implements IService <Blog> {
         }
         return b;
     }
+
+
+    public List<Blog> recherchePartitre(String title){
+        List<Blog> list = new ArrayList<>();
+        String requete = "select * from blog where title like '%"+title+"%'";
+        try {
+            Statement st= conn.createStatement();
+
+            ResultSet rs=st.executeQuery(requete);
+            while (rs.next()){
+                Blog b = new Blog(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("content"),
+                        rs.getString("url"),
+                        su.readById(rs.getInt("author")));
+                list.add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+
+    }
+
+
 
 }

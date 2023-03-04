@@ -2,19 +2,19 @@ package entity;
 
 public class NoteBlog {
     private int id;
-    private int note;
+    private double note;
     private Blog id_blog;
 
     public NoteBlog() {
     }
 
-    public NoteBlog(int id, int note, Blog id_blog) {
+    public NoteBlog(int id, double note, Blog id_blog) {
         this.id = id;
         this.note = note;
         this.id_blog = id_blog;
     }
 
-    public NoteBlog(int note, Blog id_blog) {
+    public NoteBlog(double note, Blog id_blog) {
         this.note = note;
         this.id_blog = id_blog;
     }
@@ -27,11 +27,11 @@ public class NoteBlog {
         this.id = id;
     }
 
-    public int getNote() {
+    public double getNote() {
         return note;
     }
 
-    public void setNote(int note) {
+    public void setNote(double note) {
         this.note = note;
     }
 
