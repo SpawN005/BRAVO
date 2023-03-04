@@ -113,7 +113,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="searchButton" fitHeight="17.0" fitWidth="16.0" layoutX="749.0" layoutY="53.0" onMouseClicked="#handleSearch" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@assets/search.png" />
                      </image>

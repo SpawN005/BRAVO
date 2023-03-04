@@ -104,6 +104,37 @@ public class ServiceDons implements IService<Dons> {
         }
         return o;
     }
+    public List<Dons> searchByTitle(String title) {
+        List<Dons> searchResults = new ArrayList<>();
+        String requete = "SELECT * FROM donation WHERE title LIKE ?";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(requete);
+            pstmt.setString(1, "%" + title + "%");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Dons dons = new Dons(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getTimestamp("date_creation"),
+                        rs.getTimestamp("date_expiration"),
+                        rs.getInt("amount"),
+                        rs.getString("owner")
+                );
+                searchResults.add(dons);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDons.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return searchResults;
+    }
+
+
+
+
 
 
 

@@ -8,4 +8,5 @@ public interface IService <T>{
     void update(T t);
     List<T> readAll();
     T readById(int id);
+
 }

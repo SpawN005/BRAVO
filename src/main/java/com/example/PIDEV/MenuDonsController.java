@@ -12,6 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -46,7 +47,8 @@ public class MenuDonsController implements Initializable {
 
     @FXML
     private Button USERID;
-
+    @FXML
+    private ImageView searchButton;
 
     @FXML
     private VBox cardlayout;
@@ -68,16 +70,41 @@ public class MenuDonsController implements Initializable {
     private Pane pnlOrders;
     @FXML
     private TextField Searchfield;
+
     private List<Dons> recentlyAdded;
 
     ServiceDons sd = new ServiceDons();
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Dons> donations = sd.readAll();
+        Image image = new Image(getClass().getResourceAsStream("assets/search.png"));
+        searchButton.setImage(image);
+        searchButton.setCursor(Cursor.HAND);
+
+        // Add event handler for the search button
+        searchButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                handleSearch(new ActionEvent());
+            }
+        });
+
+        loadDonations("");
+    }
+
+    public void handleSearch(ActionEvent event) {
+        String searchQuery = Searchfield.getText().trim();
+        loadDonations(searchQuery);
+    }
+
+    private void loadDonations(String searchQuery) {
+        ServiceDons serviceDons = new ServiceDons();
+        List<Dons> searchResults = serviceDons.searchByTitle(searchQuery);
+
+        container.getChildren().clear(); // clear previous cards
+
         int column = 0;
         int row = 1;
-        for (Dons donation : donations) {
+        for (Dons donation : searchResults) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DonCard.fxml"));
                 VBox card = loader.load();
@@ -94,32 +121,10 @@ public class MenuDonsController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } /*
+        }
+    }
 
-
-        List<Dons>l =sd.readAll();
-        double  y = 60;
-        double x =100;
-        for (Dons d : l ){
-            AnchorPane anchorPane = new AnchorPane();
-            Label title=new Label(d.getTitle());
-            Label description=new Label(d.getDescription());
-            Label amount=new Label(String.valueOf(d.getAmount()));
-            Label owner=new Label(d.getOwner());
-            description.setWrapText(true);
-            description.setMaxWidth(200);
-            anchorPane.setLayoutX(x);
-            title.setLayoutY(y);
-            description.setLayoutY(y+10);
-            amount.setLayoutY(y+20);
-            owner.setLayoutY(y+36);;
-            anchorPane.getChildren().addAll(title,description,amount,owner);
-            anchorPane.setStyle("-fx-cursor: hand;");
-            cardlayout.getChildren().addAll(anchorPane);
-            x+=500; */
-
-
-    } /*
+ /*
     // METHODE JDIDA
     private List<Dons> recentlyAdded(){
         List<Dons> ld = new ArrayList<>();
