@@ -1,5 +1,6 @@
 package com.example.PIDEV;
 
+import entity.Email;
 import entity.Event;
 import entity.Reservation;
 import entity.User;
@@ -16,7 +17,9 @@ import service.ServiceEvent;
 import service.ServiceReservation;
 import service.ServiceUser;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -91,7 +94,7 @@ ServiceEvent SE= new ServiceEvent();
     }
 
     @FXML
-    private void submit() {
+    private void submit() throws MessagingException, UnsupportedEncodingException {
 int nbplace = nbPlace.getValue();
         int nbPlaces = nbPlace.getValue();
 
@@ -108,15 +111,20 @@ int nbplace = nbPlace.getValue();
         ServiceEvent SE= new ServiceEvent();
 
         Reservation r= new Reservation();
-        r.setId_participant(SU.readById(5));
-        r.setId_event(SE.readById(38));
+        r.setId_participant(SU.readById(7));
+       // r.setId_event(event.getId());
+        r.setId_event(SE.readById(39));
         r.setConfirmed(checkBox.isSelected());
         r.setNb_place(nbPlace.getValue());
         SR.insert(r);
 
         Event e = SE.readById(r.getId_event().getId());
-
+        User currentUser = new User("ghailene","boughzala",123456789,"myriam123.hammi@gmail.com",
+                "étudiant");
         if (e != null) {
+
+
+
             // L'événement a été trouvé
             int maxPlaces = e.getNb_placeMax(); // Nombre de places maximum de l'événement
             int reservedPlaces = r.getNb_place(); // Nombre de places réservées pour cet événement
@@ -130,6 +138,16 @@ int nbplace = nbPlace.getValue();
 
             e.setNb_placeMax(availablePlaces);
             SE.update(e);
+            String recepient = currentUser.getEmail();
+            String subject = "Confirmation de la réservation";
+            String recepientEmail= recepient;
+            String message_content="Votre réservation a été bien éffectué";
+
+          Email email= new Email();
+            email.sendEmail(recepientEmail,subject,message_content);
+
+
+
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
             Parent root = null;
@@ -143,7 +161,7 @@ int nbplace = nbPlace.getValue();
             nbPlace.getScene().setRoot(root);
 
         } else {
-            // pas de ^nace pour cet event
+            // pas de place pour cet event
             showAlert("Il ne reste plus de places disponibles pour cet événement", false);
 
         }

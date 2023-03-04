@@ -8,6 +8,7 @@ module com.example.demo1 {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires java.mail;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

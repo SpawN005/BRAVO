@@ -6,12 +6,25 @@ import entity.Reservation;
 
 import entity.User;
 import utils.DataSource;
+import javax.mail.Authenticator;
+
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.*;
+import javax.mail.PasswordAuthentication;
+
+import javax.mail.Session;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 
 
 public class ServiceReservation implements IService<Reservation> {
@@ -158,5 +171,5 @@ ServiceEvent SE = new ServiceEvent();
 
 
 
-    }
+}
 

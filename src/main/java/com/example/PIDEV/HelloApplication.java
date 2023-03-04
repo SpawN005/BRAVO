@@ -1,4 +1,5 @@
 package com.example.PIDEV;
+import entity.Email;
 import entity.Event;
 import entity.NoteEvent;
 import entity.Reservation;
@@ -12,9 +13,10 @@ import service.ServiceReservation;
 import service.ServiceUser;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 
-public class HelloApplication  extends Application {
+public class HelloApplication extends Application  {
 
    @Override
     public void start(Stage stage) throws IOException {
@@ -25,8 +27,9 @@ public class HelloApplication  extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-       launch(args);
+    public static void main(String[] args) throws UnsupportedEncodingException {
+
+        launch(args);
 
         LocalDate d1 = LocalDate.of(2023, 02, 18);
         LocalDate d2 = LocalDate.of(2023, 03, 20);
@@ -52,7 +55,7 @@ public class HelloApplication  extends Application {
         //sv.update(e1);
        // sv.readAll().forEach(System.out::println);
         // System.out.println(sv.readById(7));*/
-        System.out.println(sv.filterByType("azer"));
+        //System.out.println(sv.filterByType("azer"));
 
 
 /*
@@ -71,6 +74,8 @@ public class HelloApplication  extends Application {
        // sr.insert(r4);
         //sr.readAll().forEach(System.out::println);
        // sr.update(r2);
+      //  Email email= new Email();
+       // email.sendEmail();
 
 
     };
