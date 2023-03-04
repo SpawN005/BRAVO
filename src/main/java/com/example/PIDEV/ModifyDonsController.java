@@ -75,41 +75,7 @@ public class ModifyDonsController implements Initializable {
 
     @FXML
     void updatebtn(ActionEvent event) {
-       /* Dons selectedDons = tableDonations.getSelectionModel().getSelectedItem();
 
-        if (selectedDons != null) {
-            // get the new values from the form
-            String title = colTitle.getText();
-            String description = colDescription.getText();
-            int amount = parseInt(colAmount.getText());
-            String owner = colOwner.getText();
-            LocalDate creationDate = LocalDate.parse(colDateCreation.getCellData(selectedDons));
-            LocalDate expirationDate = LocalDate.parse(colDateExpiration.getCellData(selectedDons));
-
-            // update the selected donation with the new values
-            selectedDons.setTitle(title);
-            selectedDons.setDescription(description);
-            selectedDons.setAmount(amount);
-            selectedDons.setOwner(owner);
-            selectedDons.setDate_creation(new Timestamp(creationDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)));
-            selectedDons.setDate_expiration(new Timestamp(expirationDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)));
-
-            // update the donation in the database
-            serviceDons.update(selectedDons);
-
-            // show a success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Donation updated successfully");
-            alert.showAndWait();
-
-        } else {
-            // show an error message if no donation is selected
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a donation to update");
-            alert.showAndWait();
-        } */
     }
 
 

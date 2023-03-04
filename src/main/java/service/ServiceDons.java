@@ -51,8 +51,8 @@ public class ServiceDons implements IService<Dons> {
             PreparedStatement pstmt = this.conn.prepareStatement(requete);
             pstmt.setString(1, dons.getTitle());
             pstmt.setString(2, dons.getDescription());
-            pstmt.setDate(3, new java.sql.Date(dons.getDate_creation().getTime()));
-            pstmt.setDate(4, new java.sql.Date(dons.getDate_expiration().getTime()));
+            pstmt.setDate(3, java.sql.Date.valueOf(dons.getDate_creation()));
+            pstmt.setDate(4, java.sql.Date.valueOf(dons.getDate_expiration()));
             pstmt.setInt(5, dons.getAmount());
             pstmt.setString(6, dons.getOwner());
             pstmt.setInt(7, dons.getId());
@@ -72,7 +72,7 @@ public class ServiceDons implements IService<Dons> {
             ResultSet rs = st.executeQuery(requete);
 
             while(rs.next()) {
-                Dons o= new Dons(rs.getInt("id"), rs.getString("title"),  rs.getString("description"), rs.getTimestamp("date_creation"), rs.getTimestamp("date_expiration"),  rs.getInt("amount"), rs.getString("owner"));
+                Dons o= new Dons(rs.getInt("id"), rs.getString("title"),  rs.getString("description"), rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate(), rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate(),  rs.getInt("amount"), rs.getString("owner"));
                 list.add(o);
             }
         } catch (SQLException var6) {
@@ -93,8 +93,8 @@ public class ServiceDons implements IService<Dons> {
             while(rs.next()){  o.setId(id);
                 o.setTitle(rs.getString("title"));
                 o.setDescription(rs.getString("description"));
-                o.setDate_creation(rs.getTimestamp("date_creation"));
-                o.setDate_expiration(rs.getTimestamp("date_expiration"));
+                o.setDate_creation(rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate());
+                o.setDate_expiration(rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate());
                 o.setAmount(rs.getInt("amount"));
                 o.setOwner(rs.getString("owner"));}
 
@@ -118,8 +118,8 @@ public class ServiceDons implements IService<Dons> {
                         rs.getInt("id"),
                         rs.getString("title"),
                         rs.getString("description"),
-                        rs.getTimestamp("date_creation"),
-                        rs.getTimestamp("date_expiration"),
+                        rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate(),
+                        rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate(),
                         rs.getInt("amount"),
                         rs.getString("owner")
                 );

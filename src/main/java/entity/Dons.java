@@ -1,6 +1,8 @@
 package entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Dons {
@@ -8,8 +10,8 @@ public class Dons {
     private int id;
    private String title;
    private String description;
-    private Timestamp date_creation;
-    private Timestamp date_expiration;
+    private LocalDate date_creation;
+    private LocalDate date_expiration;
     private int amount;
     private String owner;
 
@@ -17,7 +19,7 @@ public class Dons {
     public Dons() {
     }
 
-    public Dons(int id, String title, String description, Timestamp date_creation, Timestamp date_expiration, int amount, String owner) {
+    public Dons(int id, String title, String description, LocalDate date_creation, LocalDate date_expiration, int amount, String owner) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -27,7 +29,7 @@ public class Dons {
         this.owner = owner;
     }
 
-    public Dons(String title, String description, Timestamp date_creation, Timestamp date_expiration, int amount, String owner) {
+    public Dons(String title, String description, LocalDate date_creation, LocalDate date_expiration, int amount, String owner) {
         this.title = title;
         this.description = description;
         this.date_creation = date_creation;
@@ -42,7 +44,7 @@ public class Dons {
         this.amount = amount;
     }
 
-    public Dons(String title, String description, Date date, Date dateExpiration, int amount) {
+    public Dons(String title, String description, LocalDate dateCreation, LocalDate dateExpiration, int amount) {
     }
 
     public int getId() {
@@ -69,19 +71,19 @@ public class Dons {
         this.description = description;
     }
 
-    public Timestamp getDate_creation() {
+    public LocalDate getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(Timestamp date_creation) {
+    public void setDate_creation(LocalDate date_creation) {
         this.date_creation = date_creation;
     }
 
-    public Timestamp getDate_expiration() {
+    public LocalDate getDate_expiration() {
         return date_expiration;
     }
 
-    public void setDate_expiration(Timestamp date_expiration) {
+    public void setDate_expiration(LocalDate date_expiration) {
         this.date_expiration = date_expiration;
     }
 

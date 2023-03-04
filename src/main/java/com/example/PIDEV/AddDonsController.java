@@ -3,6 +3,7 @@ package com.example.PIDEV;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import entity.Dons;
 import javafx.fxml.FXML;
@@ -52,29 +53,26 @@ public class AddDonsController {
         this.don = don;
         titleField.setText(don.getTitle());
         descriptionArea.setText(don.getDescription());
-        dateCreationPicker.setValue(don.getDate_creation().toLocalDateTime().toLocalDate());
-        dateExpirationPicker.setValue(don.getDate_expiration().toLocalDateTime().toLocalDate());
+        dateCreationPicker.setValue(don.getDate_creation());
+        dateExpirationPicker.setValue(don.getDate_expiration());
         amountField.setText(Integer.toString(don.getAmount()));
     }
 
     @FXML
     private void handleSubmit() {
- if(isInputValid()){
-     String title = titleField.getText();
-     String description = descriptionArea.getText();
-     LocalDate creationDate = dateCreationPicker.getValue();
-     LocalDate expirationDate = dateExpirationPicker.getValue();
+        if (isInputValid()) {
+            String title = titleField.getText();
+            String description = descriptionArea.getText();
+            LocalDate creationDate = dateCreationPicker.getValue();
+            LocalDate expirationDate = dateExpirationPicker.getValue();
 
-     Timestamp timestamp = Timestamp.valueOf(expirationDate.atStartOfDay());
-     int amount = Integer.parseInt(amountField.getText());
-     Timestamp now = new Timestamp(System.currentTimeMillis());
-     don = new Dons(title, description,now, timestamp,amount,"amir");
-     serviceDons.insert(don);
- }
-
-
-
+            int amount = Integer.parseInt(amountField.getText());
+            don = new Dons(title, description, creationDate, expirationDate, amount, "amir");
+            serviceDons.insert(don);
+        }
     }
+
+
 
     @FXML
     private void handleCancel() {
