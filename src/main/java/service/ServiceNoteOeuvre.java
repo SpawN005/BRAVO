@@ -76,4 +76,15 @@ public class ServiceNoteOeuvre implements IService<NoteOeuvre> {
         }
         return note;
     }
+
+    public void deletebyOeuvre(Oeuvre oeuvre) {
+        String requete = "delete from noteOeuvre where id_oeuvre="+oeuvre.getId();
+
+        try {
+            Statement st = this.conn.createStatement();
+            st.executeUpdate(requete);
+        } catch (SQLException var4) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
+        }
+    }
 }

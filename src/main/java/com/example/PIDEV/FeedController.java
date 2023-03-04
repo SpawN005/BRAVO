@@ -2,6 +2,7 @@ package com.example.PIDEV;
 
 import entity.Oeuvre;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -9,15 +10,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+import service.LoggedInUser;
 import service.ServiceCommentaireOeuvre;
 import service.ServiceOeuvre;
 
@@ -29,6 +28,8 @@ import java.util.ResourceBundle;
 
 
 public class FeedController implements Initializable {
+    @FXML
+    private Button addOeuvre_btn;
     @FXML
     private BorderPane pane;
     @FXML
@@ -128,6 +129,11 @@ public class FeedController implements Initializable {
 
         filtre.setOnKeyTyped(e->filtre(filtre.getText()));
 
+        LoggedInUser loggedInUser = new LoggedInUser();
+        if (!(loggedInUser.getUser().getRole().equalsIgnoreCase("artist"))){
+            System.out.println(loggedInUser.getUser().getRole());
+            addOeuvre_btn.setVisible(false);
+        }
 
 
 
@@ -135,6 +141,20 @@ public class FeedController implements Initializable {
 
 
 
+
+
+    }
+    @FXML
+    void addOeuvre(ActionEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("addOeuvre.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        feed.getScene().setRoot(root);
 
     }
 

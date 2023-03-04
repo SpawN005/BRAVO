@@ -18,7 +18,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public void insert(Oeuvre oeuvre) {
-        String requete = "insert into artwork (title,description,owner,catégorie,url) values ('" + oeuvre.getTitle() + "','" + oeuvre.getDescription() + "','"+ oeuvre.getOwner()+"','"+oeuvre.getCategory()+"','"+oeuvre.getUrl()+"')";
+        String requete = "insert into artwork (title,description,owner,catégorie,url) values ('" + oeuvre.getTitle() + "','" + oeuvre.getDescription() + "','"+ oeuvre.getOwner().getId()+"','"+oeuvre.getCategory()+"','"+oeuvre.getUrl()+"')";
 
         try {
             Statement st = this.conn.createStatement();

@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import service.LoggedInUser;
 import service.ServiceCommentaireOeuvre;
 import service.ServiceNoteOeuvre;
 import service.ServiceOeuvre;
@@ -31,7 +32,10 @@ public class DetailsOeuvreController implements Initializable {
     @FXML
     private Label back;
 
-
+    @FXML
+    private Button delete_btn;
+    @FXML
+    private Button modif_btn;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -59,7 +63,7 @@ public class DetailsOeuvreController implements Initializable {
     private Oeuvre oeuvre;
 
     private ServiceCommentaireOeuvre sco;
-    private ServiceNoteOeuvre sno;
+    private ServiceNoteOeuvre sno= new ServiceNoteOeuvre();
     Rating rating = new Rating();
     NoteOeuvre no;
     @Override
@@ -68,6 +72,8 @@ public class DetailsOeuvreController implements Initializable {
         back.setStyle("-fx-cursor: hand;");
 
         rating.setMax(5);
+
+
 
 
 
@@ -132,6 +138,13 @@ public class DetailsOeuvreController implements Initializable {
             no = new NoteOeuvre(oeuvre,1,rating.getRating());
             sno.insert(no);
         });
+        LoggedInUser loggedInUser = new LoggedInUser();
+            if (!(loggedInUser.getUser().getId()==oeuvre.getOwner().getId())){
+                delete_btn.setVisible(false);
+                modif_btn.setVisible(false);
+            }
+
+
     }
     protected void backwardButton() {
         FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));
@@ -165,7 +178,9 @@ public class DetailsOeuvreController implements Initializable {
     public void delete(ActionEvent actionEvent) {
         so = new ServiceOeuvre();
         sco.deletebyOeuvre(oeuvre);
+        sno.deletebyOeuvre(oeuvre);
         so.delete(oeuvre);
+
 
 
         FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));

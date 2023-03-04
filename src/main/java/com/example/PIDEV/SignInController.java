@@ -93,17 +93,21 @@ public void signIn() throws IOException {
         successAlert.setContentText("You have successfully logged in. Your role is : " + user.getPassword()+ ".");
         successAlert.showAndWait();
        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoggedIn.fxml"));
-        Parent root = loader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Feed.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         
-        LoggedInController controller = loader.getController();
-        controller.setUser(user);
+
 
         //Set the first name and last name labels
-        Label fnamelabel1 = (Label) root.lookup("#fnamelabel1");
+     /*   Label fnamelabel1 = (Label) root.lookup("#fnamelabel1");
         fnamelabel1.setText(user.getFirstName());
         Label lnamelabel = (Label) root.lookup("#lnamelabel");
-        lnamelabel.setText(user.getLastName());
+        lnamelabel.setText(user.getLastName()); */
 
         Scene scene = new Scene(root);
         Stage newStage = new Stage();

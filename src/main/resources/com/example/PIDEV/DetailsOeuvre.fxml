@@ -43,8 +43,8 @@
                   <Image url="@assets/black.png" />
                </image>
             </ImageView>
-            <Button layoutX="235.0" layoutY="314.0" mnemonicParsing="false" onAction="#modify" text="Modify" />
-            <Button layoutX="316.0" layoutY="314.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
+            <Button fx:id="modif_btn" layoutX="235.0" layoutY="314.0" mnemonicParsing="false" onAction="#modify" text="Modify" />
+            <Button fx:id="delete_btn" layoutX="316.0" layoutY="314.0" mnemonicParsing="false" onAction="#delete" text="Delete" />
             <ScrollPane fx:id="scrollPane" layoutX="104.0" layoutY="468.0" prefHeight="121.0" prefWidth="450.0"><AnchorPane fx:id="commentAnchor" prefHeight="70.0" prefWidth="384.0" /></ScrollPane>
             <TextArea fx:id="ta" layoutX="104.0" layoutY="369.0" prefHeight="95.0" prefWidth="450.0" />
          </children>

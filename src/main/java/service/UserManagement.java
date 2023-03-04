@@ -39,8 +39,8 @@ public class UserManagement {
                             rs.getString("lastName"),
                             rs.getInt("phoneNumber"),
                             rs.getString("email"),
-                            rs.getString("password"),
-                            rs.getString("role")
+                            rs.getString("role"),
+                            rs.getString("password")
                     );
                 }
             }
