@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import service.ServiceReclamation;
-
+import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -72,17 +72,13 @@ public class TraiterReclamationController implements Initializable{
         //.setId(55);
         sr.update(localreclamation);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("afficherReclamation.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+
 
         showAlert("traitement  réussie", true);
 
-        title.getScene().setRoot(root);
+        Stage stage = (Stage) title.getScene().getWindow();
+        stage.close();
+
 
     }
 
