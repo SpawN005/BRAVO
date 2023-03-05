@@ -35,6 +35,14 @@ public class Blog {
         this.url = url;
     }
 
+    public Blog(int id, String title, String description, String content, User author) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.author = author;
+    }
+
     public int getId() {
         return id;
     }

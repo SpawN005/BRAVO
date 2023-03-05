@@ -2,6 +2,7 @@ package com.example.PIDEV;
 
 
 import entity.Blog;
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import service.NewsletterService;
 import utils.DataSource;
 
 import java.io.File;
@@ -56,14 +58,19 @@ public class AddBlogController implements Initializable {
 
     ServiceBlog sb = new ServiceBlog();
     ServiceUser su = new ServiceUser();
+
+    User u = new User();
     private Connection cnx = null;
     Blog b = new Blog();
+    NewsletterService newsletterService = new NewsletterService();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txttitre.getText();
         txtdesc.getText();
         txtcontenu.getText();
+        newsletterService = new NewsletterService();
     }
 
     private void showAlert(String message ,boolean b) {
@@ -124,10 +131,12 @@ public class AddBlogController implements Initializable {
 
         Blog b = new Blog(txttitre.getText(),txtdesc.getText(),txtcontenu.getText(),selectedFile.getName());
         b.setAuthor(su.readById(30));
+        System.out.println(b);
         sb.insert(b);
-  }
 
+            newsletterService.sendEmail("tasnim.benhamouda@esprit.tn","");
 
+        }
     }
 }
 

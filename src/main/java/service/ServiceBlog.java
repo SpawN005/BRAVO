@@ -10,10 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
-
-
 public class ServiceBlog implements IService <Blog> {
     ServiceUser su = new ServiceUser();
 

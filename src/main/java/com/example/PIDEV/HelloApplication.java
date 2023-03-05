@@ -35,23 +35,23 @@ public class HelloApplication extends Application {
     }*/
 
 
-   public void start(Stage stage) throws IOException {
+   /*public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AffichageBlog.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("Feed Page!");
         stage.setScene(scene);
         stage.show();
-    }
+    }*/
 
 
 
-   /*public void start(Stage stage) throws IOException {
+   public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("AddBlog.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
         stage.setTitle("Feed Page!");
         stage.setScene(scene);
         stage.show();
-    }*/
+    }
 
     public static void main(String[] args) {
 
@@ -71,9 +71,8 @@ public class HelloApplication extends Application {
 //        System.out.println(u.readAll());
 //        System.out.println(u.readById(26));
 
-        //Blog b1=new Blog("test1","testtest","test123",u.readById(30));
-
-        // Blog b2 = new Blog("test2","testtesttest","test1234",u.readById(31));
+         Blog b1=new Blog("test1","testtest","test123","C:\\Users\\radhy\\OneDrive\\Bureau\\PiDev\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\assets\\cropped-creativespirit-lr-copy.jpg",u.readById(30));
+         Blog b2 = new Blog("test2","testtesttest","test1234","C:\\Users\\radhy\\OneDrive\\Bureau\\PiDev\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\assets\\index.png",u.readById(31));
 
         //b.insert(b1); //c'est bon
         //b.insert(b2); //c'est bon
@@ -84,8 +83,8 @@ public class HelloApplication extends Application {
        // System.out.println(b.recherchePartitre("dianes painting blog"));
 
 
-        CommentaireBlog cb1= new CommentaireBlog("woow124",b.readById(79),u.readById(26));
-        CommentaireBlog cb2= new CommentaireBlog("merci",b.readById(78),u.readById(27));
+         CommentaireBlog cb1= new CommentaireBlog("woow",b.readById(93),u.readById(30));
+         CommentaireBlog cb2= new CommentaireBlog("merci",b.readById(93),u.readById(30));
 
 //           cb.insert(cb1); //c'est bon
 //           cb.insert(cb2); //c'est bon
@@ -95,7 +94,7 @@ public class HelloApplication extends Application {
 //           cb.delete(cb.readById(7)); //c'est bon
 
 
-        NoteBlog nb1 = new NoteBlog(6,10,b.readById(79));
+         NoteBlog nb1 = new NoteBlog(6,4,b.readById(93));
         //NoteBlog nb2 = new NoteBlog(3,b.readById(79));
 
 //            snb.insert(nb1); // c'est bon

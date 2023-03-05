@@ -22,7 +22,7 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
 
     @Override
     public void insert(CommentaireBlog c) {
-        String requete = "INSERT INTO commentaire (id, content,id_blog, id_user) VALUES (?, ?, ?, ?)";
+        String requete = "INSERT INTO commentaireblog (id, content,id_blog, id_user) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
@@ -40,7 +40,7 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
     @Override
     public void delete(CommentaireBlog c) {
 
-        String requete = "delete from commentaire where id=?";
+        String requete = "delete from commentaireblog where id=?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.setInt(1, c.getId());
@@ -56,7 +56,7 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
     @Override
     public void update(CommentaireBlog c) {
 
-        String requete= "UPDATE commentaire SET content = ? WHERE id_user = ?";
+        String requete= "UPDATE commentaireblog SET content = ? WHERE id_user = ?";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
@@ -73,7 +73,7 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
     @Override
     public List<CommentaireBlog> readAll() {
         List<CommentaireBlog> c = new ArrayList<>();
-        String requete = "SELECT * FROM commentaire";
+        String requete = "SELECT * FROM commentaireblog";
 
         try {
 
@@ -100,7 +100,7 @@ public class ServiceCommentaireBlog implements IService<CommentaireBlog> {
 
     @Override
     public CommentaireBlog readById(int id) {
-        String requete = "select * from commentaire where id=?";
+        String requete = "select * from commentaireblog where id=?";
         CommentaireBlog cb =new CommentaireBlog();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);

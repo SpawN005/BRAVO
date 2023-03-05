@@ -107,6 +107,8 @@ public class DetailsBlogController implements Initializable {
     @FXML
     public void delete() {
         sb = new ServiceBlog();
+        snb= new ServiceNoteBlog();
+        snb.deleteByBlog(blog);
         sb.delete(blog);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageBlog.fxml"));
         Parent root = null;

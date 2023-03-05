@@ -28,14 +28,17 @@ public class NoteBlog {
     }
 
     public double getNote() {
+
         return note;
     }
 
     public void setNote(double note) {
+
         this.note = note;
     }
 
     public Blog getId_blog() {
+
         return id_blog;
     }
 

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class ServiceNoteBlog implements IService<NoteBlog> {
     ServiceBlog sb= new ServiceBlog();
+    Blog b = new Blog();
     private Connection conn;
 
     public ServiceNoteBlog() {
@@ -37,11 +38,23 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void delete(NoteBlog nb) {
-        String requete = "delete from noteblog where id=?";
+        String requete = "delete from noteblog where id_blog=?";
 
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setInt(1, nb.getId());
+            pst.setInt(1, nb.getId_blog().getId());
+            pst.executeUpdate();
+        } catch (SQLException e ){
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, e);
+        }
+    }
+
+    public void deleteByBlog(Blog b) {
+        String requete = "delete from noteblog where id_blog=?";
+
+        try {
+            PreparedStatement pst = conn.prepareStatement(requete);
+            pst.setInt(1, b.getId());
             pst.executeUpdate();
         } catch (SQLException e ){
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, e);
