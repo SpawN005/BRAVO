@@ -125,7 +125,7 @@ public class AddEventController implements Initializable {
                 }
 
 
-            Event e=new Event(setTitre.getText(),setDescription.getText(),Integer.parseInt(setNbPlace.getText()),setDD.getValue(),setDF.getValue(),settype.getText(), selectedFile.getName());
+            Event e=new Event(setTitre.getText(),setDescription.getText(),Integer.parseInt(setNbPlace.getText()), setDD.getValue().atStartOfDay(), setDF.getValue().atStartOfDay(),settype.getText(), selectedFile.getName());
 
 
             SE.insert(e);

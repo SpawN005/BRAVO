@@ -32,8 +32,8 @@ public class ServiceEvent implements IService<Event> {
             ps.setString(1, event.getTitle());
             ps.setString(2, event.getDescription());
             ps.setInt(3, event.getNb_placeMax());
-            ps.setDate(4, Date.valueOf(event.getDate_beg()));
-            ps.setDate(5,   Date.valueOf(event.getDate_end()));
+            ps.setDate(4, Date.valueOf(event.getDate_beg().toLocalDate()));
+            ps.setDate(5, Date.valueOf(event.getDate_end().toLocalDate()));
 
             ps.setString(6, event.getType_event());
             ps.setString(7,event.getUrl());
@@ -90,8 +90,8 @@ public class ServiceEvent implements IService<Event> {
             ps.setString(1, event.getTitle());
             ps.setString(2,event.getDescription());
             ps.setInt(3,event.getNb_placeMax());
-            ps.setDate(4, Date.valueOf(event.getDate_beg()));
-            ps.setDate(5,Date.valueOf(event.getDate_end()));
+            ps.setDate(4, Date.valueOf( event.getDate_beg().toLocalDate()));
+            ps.setDate(5,Date.valueOf(event.getDate_end().toLocalDate()));
 
             ps.setString(6,event.getType_event());
 
@@ -143,7 +143,7 @@ public class ServiceEvent implements IService<Event> {
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
 
-                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getString("type_event"),rs.getString("url"));
+                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"), rs.getDate(5).toLocalDate().atStartOfDay(), rs.getDate(6).toLocalDate().atStartOfDay(),rs.getString("type_event"),rs.getString("url"));
                 list.add(e);
             }
         } catch (SQLException e1) {
@@ -164,7 +164,7 @@ public class ServiceEvent implements IService<Event> {
 
             if(rs.next()) {
 
-                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDate(5).toLocalDate(),rs.getDate(6).toLocalDate(),rs.getString(7),rs.getString(8));
+                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4), rs.getDate(5).toLocalDate().atStartOfDay(), rs.getDate(6).toLocalDate().atStartOfDay(),rs.getString(7),rs.getString(8));
                 return e;
             }
 
@@ -194,8 +194,8 @@ public class ServiceEvent implements IService<Event> {
                 event.setTitle(rs.getString("title"));
                 event.setDescription(rs.getString("description"));
                 event.setNb_placeMax(rs.getInt("nb_placeMax"));
-                event.setDate_beg(rs.getDate("date_beg").toLocalDate());
-                event.setDate_end(rs.getDate("date_end").toLocalDate());
+                event.setDate_beg(rs.getDate("date_beg").toLocalDate().atStartOfDay());
+                event.setDate_end(rs.getDate("date_end").toLocalDate().atStartOfDay());
                 event.setType_event(rs.getString("type_event"));
                 event.setUrl(rs.getString("url"));
                 events.add(event);

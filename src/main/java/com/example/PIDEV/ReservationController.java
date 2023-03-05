@@ -1,5 +1,6 @@
 package com.example.PIDEV;
 
+import com.google.zxing.WriterException;
 import entity.Email;
 import entity.Event;
 import entity.Reservation;
@@ -18,10 +19,15 @@ import service.ServiceReservation;
 import service.ServiceUser;
 
 import javax.mail.MessagingException;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static entity.Email.generateQRCodeImage;
 
 public class ReservationController implements Initializable {
 
@@ -94,7 +100,7 @@ ServiceEvent SE= new ServiceEvent();
     }
 
     @FXML
-    private void submit() throws MessagingException, UnsupportedEncodingException {
+    private void submit() throws MessagingException, IOException, WriterException {
 int nbplace = nbPlace.getValue();
         int nbPlaces = nbPlace.getValue();
 
@@ -113,7 +119,7 @@ int nbplace = nbPlace.getValue();
         Reservation r= new Reservation();
         r.setId_participant(SU.readById(7));
        // r.setId_event(event.getId());
-        r.setId_event(SE.readById(39));
+        r.setId_event(SE.readById(44));
         r.setConfirmed(checkBox.isSelected());
         r.setNb_place(nbPlace.getValue());
         SR.insert(r);
@@ -138,17 +144,17 @@ int nbplace = nbPlace.getValue();
 
             e.setNb_placeMax(availablePlaces);
             SE.update(e);
-            String recepient = currentUser.getEmail();
-            String subject = "Confirmation de la réservation";
-            String recepientEmail= recepient;
-            String message_content="Votre réservation a été bien éffectué";
+            // Générer le QR code
+            BufferedImage qrCodeImage = generateQRCodeImage(currentUser.getEmail(), 120, 120);
 
-          Email email= new Email();
-            email.sendEmail(recepientEmail,subject,message_content);
+            // Envoyer l'e-mail avec le QR code en pièce jointe
+            String subject = "Confirmation de la réservation et un QR code en pièce jointe";
+            String message_content = "Votre réservation a été bien effectuée, vous trouverez ci-joint votre QR code";
+            Email email = new Email();
+            email.sendEmail(currentUser.getEmail(), subject, message_content, qrCodeImage);
+            email.sendReminderEmail(SE.readById(44),SU.readById(7));
 
-
-
-
+            // Retourner à l'affichage des événements
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
             Parent root = null;
             try {
@@ -156,20 +162,13 @@ int nbplace = nbPlace.getValue();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-
-
             nbPlace.getScene().setRoot(root);
 
         } else {
-            // pas de place pour cet event
-            showAlert("Il ne reste plus de places disponibles pour cet événement", false);
-
+            // L'événement n'a pas été trouvé
+            showAlert("L'événement n'existe pas", false);
         }
-
-
-
     }
-
     @FXML
     private void cancel() {
         // Fermeture de la fenêtre de réservation

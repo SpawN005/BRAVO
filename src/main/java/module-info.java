@@ -9,6 +9,9 @@ module com.example.demo1 {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires java.mail;
+    requires java.desktop;
+    requires java.activation;
+    requires com.google.zxing;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

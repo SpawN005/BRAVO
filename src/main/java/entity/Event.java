@@ -1,15 +1,16 @@
 package entity;
 
+
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class Event {
     private int id;
     private String title;
     private String description;
     private int nb_placeMax;
-    private LocalDate date_beg;
-    private LocalDate date_end;
+    private LocalDateTime date_beg;
+    private LocalDateTime date_end;
 
     private String type_event;
 
@@ -21,7 +22,7 @@ public class Event {
 
     }
 
-    public Event(int id, String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end,  String type_event,  String url) {
+    public Event(int id, String title, String description, int nb_placeMax, LocalDateTime date_beg, LocalDateTime date_end,  String type_event,  String url) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -35,7 +36,7 @@ public class Event {
 
     }
 
-    public Event(String title, String description, int nb_placeMax, LocalDate date_beg, LocalDate date_end, String type_event,  String url) {
+    public Event(String title, String description, int nb_placeMax, LocalDateTime date_beg, LocalDateTime date_end, String type_event,  String url) {
         this.title = title;
         this.description = description;
         this.nb_placeMax = nb_placeMax;
@@ -80,19 +81,19 @@ public class Event {
         this.nb_placeMax = nb_placeMax;
     }
 
-    public LocalDate getDate_beg() {
+    public LocalDateTime getDate_beg() {
         return date_beg;
     }
 
-    public void setDate_beg(LocalDate date_beg) {
+    public void setDate_beg(LocalDateTime date_beg) {
         this.date_beg = date_beg;
     }
 
-    public LocalDate getDate_end() {
+    public LocalDateTime getDate_end() {
         return date_end;
     }
 
-    public void setDate_end(LocalDate date_end) {
+    public void setDate_end(LocalDateTime date_end) {
         this.date_end = date_end;
     }
 

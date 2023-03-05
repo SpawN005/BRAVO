@@ -69,8 +69,8 @@ public class ModifyEventController implements Initializable {
         title.setText(e.getTitle());
         type.setText(e.getType_event());
         nb_place.setText(Integer.toString(e.getNb_placeMax()));
-        DD.setValue(e.getDate_beg());
-        DF.setValue(e.getDate_end());
+        DD.setValue(e.getDate_beg().toLocalDate());
+        DF.setValue(e.getDate_end().toLocalDate());
         uploadImage.setText(e.getUrl());
 
         ImageView.setImage(new Image("file:src/main/resources/com/example/PIDEV/assets/" + e.getUrl()));
@@ -150,8 +150,8 @@ public class ModifyEventController implements Initializable {
             e.setTitle(title.getText());
             e.setDescription(description.getText());
             e.setNb_placeMax(Integer.parseInt(nb_place.getText()));
-            e.setDate_beg(DD.getValue());
-            e.setDate_end(DF.getValue());
+            e.setDate_beg(DD.getValue().atStartOfDay());
+            e.setDate_end(DF.getValue().atStartOfDay());
             e.setType_event(type.getText());
             e.setUrl(uploadImage.getText());
             e.setId(event.getId());
