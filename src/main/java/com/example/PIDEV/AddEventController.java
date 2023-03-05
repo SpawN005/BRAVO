@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -129,6 +130,17 @@ public class AddEventController implements Initializable {
 
 
             SE.insert(e);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                showAlert("Insertion terminée", true);
+
+                setTitre.getScene().setRoot(root);
 
 
         }

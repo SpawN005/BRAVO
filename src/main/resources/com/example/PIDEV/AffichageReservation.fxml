@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane id="AnchorPane"  prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AffichageReservationController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AffichageReservationController">
     <children>
         <TableView fx:id="reservationTableView">
             <columns>
-                <TableColumn text="ID" prefWidth="50">
+                <TableColumn prefWidth="50" text="ID">
                     <cellValueFactory>
                         <PropertyValueFactory property="id" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Participant" prefWidth="150">
+                <TableColumn prefWidth="150" text="Participant">
                     <cellValueFactory>
                         <PropertyValueFactory property="id_participant" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Evénement" prefWidth="150">
+                <TableColumn prefWidth="150" text="Evénement">
                     <cellValueFactory>
                         <PropertyValueFactory property="id_event" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Confirmé" prefWidth="100">
+                <TableColumn prefWidth="100" text="Confirmé">
                     <cellValueFactory>
                         <PropertyValueFactory property="isConfirmed" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn text="Nombre de places" prefWidth="120">
+                <TableColumn prefWidth="120" text="Nombre de places">
                     <cellValueFactory>
                         <PropertyValueFactory property="nb_place" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>
         </TableView>
+        <Button fx:id="btn_back" layoutX="560.0" layoutY="370.0" mnemonicParsing="false" onAction="#goBack" prefHeight="30.0" prefWidth="42.0" text="back" />
+
 
 
     </children>

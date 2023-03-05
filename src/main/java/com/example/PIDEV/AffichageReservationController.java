@@ -4,14 +4,21 @@ import entity.Event;
 import entity.Reservation;
 import entity.User;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import service.ServiceEvent;
 import service.ServiceUser;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
@@ -34,6 +41,8 @@ public class AffichageReservationController implements Initializable {
 
     @FXML
     private TableColumn<Reservation, Integer> nbPlaceColumn=new TableColumn<>("nb_place");
+    @FXML
+    private Button btn_back;
 
     @FXML
     private TableColumn<Reservation, String> statusColumn=new TableColumn<>("isConfirmed");
@@ -93,5 +102,16 @@ public class AffichageReservationController implements Initializable {
             // En cas d'erreur lors de l'accès à la base de données, on affiche le message d'erreur dans la console
             e.printStackTrace();
         }
+    }
+    @FXML
+    void goBack(ActionEvent event) throws IOException {
+        Stage stage = (Stage) btn_back.getScene().getWindow();
+        stage.close();
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("AffichageEvent.fxml"));
+        primaryStage.setTitle("hello again");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
     }
 }

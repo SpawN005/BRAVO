@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -36,6 +37,11 @@ public class AffichageEventController implements Initializable {
     @FXML
     private TextField chercher_type;
 
+    @FXML
+    private Button AjouterEvent;
+
+    @FXML
+    private Button ListeDesReservations;
 
     @FXML
     private ScrollPane scrollPane;
@@ -49,6 +55,33 @@ public class AffichageEventController implements Initializable {
 Event e = new Event();
 
     ServiceEvent SE=new ServiceEvent();
+    @FXML
+    void Affichage_reservation(ActionEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageReservation.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch ( IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        feed.getScene().setRoot(root);
+
+    }
+
+    @FXML
+    void AjoutEvent(ActionEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AddEvent.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch ( IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        feed.getScene().setRoot(root);
+
+    }
 
     @FXML
 
