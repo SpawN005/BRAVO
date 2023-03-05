@@ -24,7 +24,7 @@
          <children>
             <TextField fx:id="filtre" layoutX="948.0" layoutY="14.0" />
             <Button fx:id="addOeuvre_btn" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" onAction="#addOeuvre" text="Add Oeuvre" />
-            <AnchorPane layoutX="291.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
+            <AnchorPane layoutX="291.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0"  minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
                <children>
                   <ImageView fx:id="img1" fitHeight="82.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true">
                      <cursor>
@@ -39,14 +39,14 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="491.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
+            <AnchorPane layoutX="491.0" layoutY="74.0" maxHeight="82.0" minWidth="180.0" maxWidth="150.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
                <children>
                   <ImageView fx:id="img2" fitHeight="82.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true" />
                   <Text fx:id="name2" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
                   <Text layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="691.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
+            <AnchorPane layoutX="691.0" layoutY="74.0" minWidth="180.0" maxHeight="82.0" maxWidth="150.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
                <children>
                   <ImageView fx:id="img3" fitHeight="82.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true" />
                   <Text fx:id="name3" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />

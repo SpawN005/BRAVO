@@ -127,6 +127,8 @@ public class FeedController implements Initializable {
             Label owner=new Label(o.getOwner().getFirstName()+" "+o.getOwner().getLastName());
             Label description=new Label(o.getDescription());
             description.setWrapText(true);
+            paint.setFitHeight(200);
+            paint.setFitWidth(200);
             description.setMaxWidth(200);
             anchorPane.setLayoutX(x);
             title.setLayoutY(y);

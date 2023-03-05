@@ -24,10 +24,13 @@ module com.example.demo1 {
 
     requires org.apache.commons.lang3;
     requires java.net.http;
-    requires javax.mail.api;
+
     requires kernel;
     requires layout;
     requires com.fasterxml.jackson.databind;
+
+    requires java.mail;
+
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

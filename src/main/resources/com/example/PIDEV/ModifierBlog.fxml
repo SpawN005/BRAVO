@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.ModifierBlogController">
+    <children>
+        <TextField fx:id="description" layoutX="692.0" layoutY="189.0" prefHeight="26.0" prefWidth="175.0" />
+        <Label layoutX="747.0" layoutY="163.0" text="Description">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <Button fx:id="uploadImage" layoutX="433.0" layoutY="551.0" mnemonicParsing="false" onAction="#browse" prefHeight="26.0" prefWidth="259.0" text="Upload Image" />
+        <Button fx:id="submitButton" layoutX="436.0" layoutY="589.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
+        <Button fx:id="cancelButton" layoutX="640.0" layoutY="589.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+        <Label layoutX="530.0" layoutY="250.0" text="Content">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font></Label>
+        <TextArea fx:id="content" layoutX="336.0" layoutY="292.0" prefHeight="74.0" prefWidth="434.0" />
+        <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="463.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true" />
+        <Label layoutX="435.0" layoutY="14.0" prefHeight="31.0" prefWidth="216.0" text="Mise à jour du Blog" textAlignment="CENTER" textFill="#b90c0c" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="117.0" fitWidth="113.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" smooth="false">
+            <image>
+                <Image url="@assets/logo.png" />
+            </image>
+        </ImageView>
+        <ImageView blendMode="SRC_ATOP" cache="true" fitHeight="117.0" fitWidth="113.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" smooth="false">
+            <image>
+                <Image url="@assets/logo.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="title" layoutX="261.0" layoutY="189.0" prefHeight="26.0" prefWidth="175.0" />
+        <Label layoutX="336.0" layoutY="163.0" text="Title">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+
+    </children>
+
+</AnchorPane>

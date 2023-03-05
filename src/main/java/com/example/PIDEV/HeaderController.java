@@ -37,6 +37,14 @@ public class HeaderController implements Initializable {
 
     @FXML
     void blogs(MouseEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageBlog.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        logout_btn.getScene().setRoot(root);
 
     }
 

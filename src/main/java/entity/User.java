@@ -14,25 +14,25 @@ public class User {
     // Constructors
     public User() {
     }
-    
+
     public User (int id, String firstName, String lastName, int phoneNumber, String password, String image ) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phoneNumber = phoneNumber;
-    this.password = password;
-    this.image = image;
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.image = image;
     }
-    
+
     public User(int id, String firstName, String lastName, int phoneNumber, String email, String role, String password) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
-    this.role = role;
-    this.password = password;
-}
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+    }
 
 
 
@@ -118,10 +118,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getimage() {
-    return image;}
-    
+        return image;}
+
     public void setimage(String image) {
         this.image = image;
     }
