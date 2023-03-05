@@ -1,7 +1,7 @@
 package com.example.PIDEV;
 
 import entity.Event;
-import entity.Oeuvre;
+
 import entity.Reservation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,6 +68,7 @@ public class DetailsEventController implements Initializable {
     @FXML
     private ScrollPane scrollPane;
 
+
     @FXML
     private Label title;
 
@@ -82,6 +83,9 @@ public class DetailsEventController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Generate the QR code image using the QRCodeGenerator utility class
+        String data = "Hello, world!";
+        int size = 250;
 
 
     }

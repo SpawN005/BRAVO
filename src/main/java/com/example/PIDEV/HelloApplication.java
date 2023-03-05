@@ -1,22 +1,22 @@
 package com.example.PIDEV;
+import com.google.zxing.WriterException;
+
 import entity.Email;
-import entity.Event;
-import entity.NoteEvent;
-import entity.Reservation;
 import javafx.application.Application;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 import service.ServiceEvent;
-import service.ServiceNoteEvent;
-import service.ServiceReservation;
-import service.ServiceUser;
+
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+
 import java.time.LocalDate;
 
 public class HelloApplication extends Application  {
+
 
    @Override
     public void start(Stage stage) throws IOException {
@@ -25,9 +25,10 @@ public class HelloApplication extends Application  {
         stage.setTitle("Feed Page!");
         stage.setScene(scene);
         stage.show();
+
     }
 
-    public static void main(String[] args) throws UnsupportedEncodingException {
+    public static void main(String[] args) throws IOException, WriterException {
 
         launch(args);
 
@@ -74,8 +75,9 @@ public class HelloApplication extends Application  {
        // sr.insert(r4);
         //sr.readAll().forEach(System.out::println);
        // sr.update(r2);
-      //  Email email= new Email();
-       // email.sendEmail();
+
+
+
 
 
     };

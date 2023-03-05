@@ -1,18 +1,20 @@
 package entity;
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDate;
+import java.io.ByteArrayOutputStream;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Properties;
+import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
+import com.google.zxing.*;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 public class Email {
@@ -20,16 +22,30 @@ public class Email {
     private String password = "pknwcusqdmwepsnq";
     User user = new User();
     Event event= new Event();
+    private QRCode qrCode;
 
 
-    public Email() throws IOException, WriterException {
-
+    public Email() throws ChecksumException, NotFoundException, IOException, FormatException {
+        this.qrCode = new QRCode();
     }
         // Envoyer l'email avec le QR code en pièce jointe
         // sendEmailWithQRCode(recipient, subject, messageText, qrBytes);
 
-        public void sendEmail (String recepientEmail, String subject, String message_content, BufferedImage qrCodeImage) throws
-        UnsupportedEncodingException, RuntimeException {
+        public void sendEmail (String recepientEmail, String subject, String message_content) throws
+                IOException, RuntimeException, WriterException {
+            // Générer le code QR
+            int size = 250; // Taille en pixels du code QR
+            QRCodeWriter qrWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrWriter.encode(" l'événement réservé", BarcodeFormat.QR_CODE, size, size);
+            BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+            for (int x = 0; x < size; x++) {
+                for (int y = 0; y < size; y++) {
+                    image.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+                }
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            byte[] imageBytes = baos.toByteArray();
             // Etape 1 : Création de la session
             Properties props = new Properties();
             props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -52,7 +68,22 @@ public class Email {
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse(recepientEmail));
                 message.setSubject(subject);
-                message.setText(message_content);
+
+                // message.setText(message_content);
+                MimeBodyPart textPart = new MimeBodyPart();
+                textPart.setText(message_content);
+                // Créer la partie image du message
+                MimeBodyPart imagePart = new MimeBodyPart();
+                imagePart.setContent(imageBytes, "image/png");
+                imagePart.setFileName("qrcode.png");
+
+                // Créer le message multipart avec les parties texte et image
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(textPart);
+                multipart.addBodyPart(imagePart);
+                message.setContent(multipart);
+
+
 
                 // Etape 3 : Envoyer le message
                 Transport.send(message);
@@ -61,25 +92,8 @@ public class Email {
                 throw new RuntimeException(e);
             }
         }
-        public static BufferedImage generateQRCodeImage (String text,int width, int height) throws
-        WriterException, IOException {
-            // Créer un objet QRCodeWriter
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            // Générer la matrice QR Code à partir du texte
-            BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
-            // Créer un objet BufferedImage pour contenir l'image générée
-            BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            // Parcourir la matrice QR Code et dessiner les pixels de l'image
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    int grayValue = (bitMatrix.get(x, y) ? 0 : 1) & 0xff;
-                    image.setRGB(x, y, (grayValue << 16) | (grayValue << 8) | grayValue);
-                }
-            }
-            // Retourner l'image générée
-            return image;
 
-        }
+
     public void sendReminderEmail(Event event, User user) {
         // Etape 1 : Création de la session
         Properties props = new Properties();

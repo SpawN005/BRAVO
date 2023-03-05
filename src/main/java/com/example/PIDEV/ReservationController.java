@@ -1,6 +1,9 @@
 package com.example.PIDEV;
 
-import com.google.zxing.WriterException;
+
+import com.google.zxing.*;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
 import entity.Email;
 import entity.Event;
 import entity.Reservation;
@@ -18,16 +21,17 @@ import service.ServiceEvent;
 import service.ServiceReservation;
 import service.ServiceUser;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import static entity.Email.generateQRCodeImage;
+
+
 
 public class ReservationController implements Initializable {
 
@@ -100,7 +104,7 @@ ServiceEvent SE= new ServiceEvent();
     }
 
     @FXML
-    private void submit() throws MessagingException, IOException, WriterException {
+    private void submit() throws MessagingException, IOException, WriterException, ChecksumException, NotFoundException, FormatException {
 int nbplace = nbPlace.getValue();
         int nbPlaces = nbPlace.getValue();
 
@@ -110,6 +114,7 @@ int nbplace = nbPlace.getValue();
             // Afficher un message d'erreur
 
            showAlert("Nombre de places invalide", false);
+           return;
         }
 
         ServiceUser SU =new ServiceUser();
@@ -119,7 +124,7 @@ int nbplace = nbPlace.getValue();
         Reservation r= new Reservation();
         r.setId_participant(SU.readById(7));
        // r.setId_event(event.getId());
-        r.setId_event(SE.readById(44));
+        r.setId_event(SE.readById(38));
         r.setConfirmed(checkBox.isSelected());
         r.setNb_place(nbPlace.getValue());
         SR.insert(r);
@@ -145,14 +150,15 @@ int nbplace = nbPlace.getValue();
             e.setNb_placeMax(availablePlaces);
             SE.update(e);
             // Générer le QR code
-            BufferedImage qrCodeImage = generateQRCodeImage(currentUser.getEmail(), 120, 120);
+
 
             // Envoyer l'e-mail avec le QR code en pièce jointe
             String subject = "Confirmation de la réservation et un QR code en pièce jointe";
             String message_content = "Votre réservation a été bien effectuée, vous trouverez ci-joint votre QR code";
             Email email = new Email();
-            email.sendEmail(currentUser.getEmail(), subject, message_content, qrCodeImage);
-            email.sendReminderEmail(SE.readById(44),SU.readById(7));
+
+            email.sendEmail(currentUser.getEmail(), subject, message_content);
+            email.sendReminderEmail(SE.readById(38),SU.readById(7));
 
             // Retourner à l'affichage des événements
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
