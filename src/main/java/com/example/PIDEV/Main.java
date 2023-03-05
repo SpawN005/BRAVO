@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AddDons.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MenuDons.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1050, 576);
         stage.setTitle("tun'ART");
         stage.setScene(scene);
@@ -33,9 +33,9 @@ public class Main extends Application {
         Oeuvre o= new Oeuvre(2,"Wallowing Breeze","Wallowing Breeze","Faten Asker","Painting","Painting2.png");
         CommentaireOeuvre co= new CommentaireOeuvre(o,1,"Great Painting",now);
         so.insert(co); */
-   /*     Dons d = new Dons(12,"pidev0.1","behya chwaya",Timestamp.valueOf("2018-09-01 09:01:15") ,Timestamp.valueOf("2018-09-01 09:01:15"),150,"majj");
+     /*  Dons d = new Dons(10,"pidev0.1","5aiiba yecer",Timestamp.valueOf("2018-09-01 09:01:15").toLocalDateTime().toLocalDate() ,Timestamp.valueOf("2018-09-01 09:01:15").toLocalDateTime().toLocalDate(),150,"majj");
         ServiceDons so= new ServiceDons();
-        so.insert(d); */
+        so.update(d); */
 
      /*   ServiceDons so= new ServiceDons();
         Dons d= so.readById(6);

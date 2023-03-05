@@ -46,7 +46,7 @@ public class ServiceDons implements IService<Dons> {
 
     @Override
     public void update(Dons dons) {
-        String requete = "UPDATE donation SET title=?, description=?, date_creation=?, date_expiration=?, amount=?, owner=? WHERE id=?";
+        String requete = "UPDATE donation SET title =?,description=?,date_creation=?,date_expiration=?,amount=?,owner=? WHERE id=?";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(requete);
             pstmt.setString(1, dons.getTitle());
