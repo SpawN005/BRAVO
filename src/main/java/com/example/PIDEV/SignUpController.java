@@ -111,6 +111,22 @@ public class SignUpController implements Initializable{
            
         }
         Connection conn = DataSource.getInstance().getCnx();
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                // Email already exists, show popup
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setHeaderText("Email already in use");
+                alert.setContentText("The email address you entered is already in use. Please use a different email address.");
+                alert.showAndWait();
+                return;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
 
         // create a new user object
         User user = new User(firstName, lastName, phone, email, role, password);

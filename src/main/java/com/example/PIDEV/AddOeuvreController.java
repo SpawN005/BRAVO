@@ -1,9 +1,16 @@
 package com.example.PIDEV;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import javafx.embed.swing.SwingFXUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Properties;
 import entity.Oeuvre;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -21,16 +28,16 @@ import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.ServiceOeuvre;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 
 public class AddOeuvreController implements Initializable {
-    LoggedInUser loggedInUser= new LoggedInUser();
+    LoggedInUser loggedInUser = new LoggedInUser();
     @FXML
     private Button cancelButton;
     @FXML
@@ -68,9 +75,9 @@ public class AddOeuvreController implements Initializable {
         categorie.setText("Paint");
         MenuItem menuItem1 = new MenuItem("Music");
         MenuItem menuItem2 = new MenuItem("Paint");
-        MenuItem menuItem3 =new MenuItem("Sculpture");
+        MenuItem menuItem3 = new MenuItem("Sculpture");
         description.setWrapText(true);
-        categorie.getItems().addAll(menuItem1,menuItem2,menuItem3);
+        categorie.getItems().addAll(menuItem1, menuItem2, menuItem3);
 
 
         menuItem1.setOnAction(event -> {
@@ -94,9 +101,6 @@ public class AddOeuvreController implements Initializable {
         imageView.setY(25);
         imageView.setX(25);
         captchaContainer.getChildren().add(imageView);
-
-
-
 
 
 
@@ -141,7 +145,6 @@ public class AddOeuvreController implements Initializable {
     @FXML
     private void submit()  {
         String text = title.getText();
-
         if (text.isEmpty()) {
             showAlert("Please enter a title",false);
         } else if (!text.matches("[a-zA-Z ]+")) {
@@ -157,8 +160,12 @@ public class AddOeuvreController implements Initializable {
 
 
         }else if ( !randomWord.equals(captchaField.getText())){
-            showAlert("Please check yout captcha",false);
+            showAlert("Please check your captcha",false);
             System.out.println(randomWord);
+        }
+        else if ( CheckProfanity(description.getText())){
+            showAlert("Please keep it low",false);
+
         }
         else {
             Oeuvre o = new Oeuvre();
@@ -191,7 +198,52 @@ public class AddOeuvreController implements Initializable {
 
         }
     }
+ private Boolean CheckProfanity (String text){
 
-
+     String encodedText = null;
+     try {
+         encodedText = URLEncoder.encode(TranslatedText(text), "UTF-8");
+     } catch (UnsupportedEncodingException e) {
+         throw new RuntimeException(e);
+     } catch (IOException e) {
+         throw new RuntimeException(e);
+     } catch (InterruptedException e) {
+         throw new RuntimeException(e);
+     }
+     HttpRequest request = HttpRequest.newBuilder()
+             .uri(URI.create("https://profanity-filter-by-api-ninjas.p.rapidapi.com/v1/profanityfilter?text="+encodedText))
+             .header("X-RapidAPI-Key", "5663b0b24emsh9f1230312127163p13953ajsnc45c9ef48937")
+             .header("X-RapidAPI-Host", "profanity-filter-by-api-ninjas.p.rapidapi.com")
+             .method("GET", HttpRequest.BodyPublishers.noBody())
+             .build();
+     HttpResponse<String> response = null;
+     try {
+         response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+     } catch (IOException e) {
+         throw new RuntimeException(e);
+     } catch (InterruptedException e) {
+         throw new RuntimeException(e);
+     }
+     ObjectMapper objectMapper = new ObjectMapper();
+     JsonNode jsonNode = null;
+     try {
+         jsonNode = objectMapper.readTree(response.body());
+     } catch (JsonProcessingException e) {
+         throw new RuntimeException(e);
+     }
+     Boolean hasProfanity = jsonNode.get("has_profanity").asBoolean();
+        return  hasProfanity;
+ }
+public String TranslatedText(String text) throws IOException, InterruptedException {
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://rapid-translate-multi-traduction.p.rapidapi.com/t"))
+            .header("content-type", "application/json")
+            .header("X-RapidAPI-Key", "5663b0b24emsh9f1230312127163p13953ajsnc45c9ef48937")
+            .header("X-RapidAPI-Host", "rapid-translate-multi-traduction.p.rapidapi.com")
+            .method("POST", HttpRequest.BodyPublishers.ofString("{\r\n    \"from\": \"fr\",\r\n    \"to\": \"en\",\r\n    \"e\": \"\",\r\n    \"q\": [\r\n  \""+ text +"\"\r\n    ]\r\n}"))
+            .build();
+    HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+    return response.body();
+}
 
 }

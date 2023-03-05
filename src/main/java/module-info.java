@@ -27,6 +27,7 @@ module com.example.demo1 {
     requires javax.mail.api;
     requires kernel;
     requires layout;
+    requires com.fasterxml.jackson.databind;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;
