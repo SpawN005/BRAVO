@@ -32,6 +32,7 @@ module com.example.demo1 {
     requires java.mail;
 
 
+
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;
     exports utils;

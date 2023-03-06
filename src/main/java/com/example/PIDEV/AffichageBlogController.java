@@ -122,13 +122,13 @@ public class AffichageBlogController implements Initializable {
         filter.setOnKeyTyped(e->findByTitle(filter.getText()));
         scrollPane.setStyle("-fx-background-color: transparent; -fx-font-size: 9;");
         List<User> lu = su.RandomArtists();
-        Image image = new Image("file:C:\\Users\\jasse\\Desktop\\version 1.2\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\Icons\\"+lu.get(0).getimage());
+        Image image = new Image("file:C:/xampp/htdocs/img/"+lu.get(0).getimage());
         img1.setImage(image);
         name1.setText(lu.get(0).getFirstName()+" "+lu.get(0).getLastName());
-        image = new Image("file:C:\\Users\\jasse\\Desktop\\version 1.2\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\Icons\\"+lu.get(1).getimage());
+        image = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
         img2.setImage(image);
         name2.setText(lu.get(1).getFirstName()+" "+lu.get(1).getLastName());
-        image = new Image("file:C:\\Users\\jasse\\Desktop\\version 1.2\\BRAVO\\src\\main\\resources\\com\\example\\PIDEV\\Icons\\"+lu.get(2).getimage());
+        image = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
         img3.setImage(image);
         name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
         LoggedInUser loggedInUser = new LoggedInUser();

@@ -34,7 +34,7 @@ public class MailService {
             message.setFrom(new InternetAddress("ahmedaziz.rebhi@esprit.tn"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recepient));
             message.setSubject("Password Reset");
-            message.setText("Dear User,\n\nYour password has been reset. Your new password is: " + newPassword + "\n\nPlease log in using this new password and change it immediately for security reasons.\n\nThank you,\nTun'ART Admin");
+            message.setText("Dear User,\n\nYour password has been reset. Please use the following password to login into your account : " + newPassword + "\n\nPlease log in using this new password and change it immediately for security reasons.\nIf you have any comments or questions don’t hesitate to reach us at ahmedaziz.rebhi@esprit.tn\nPlease feel free to respond to this email. It was sent from a monitored email address, and we would love to hear from you.\nThank you,\nTun'ART Admin");
 
             // Send the message
             Transport.send(message);
