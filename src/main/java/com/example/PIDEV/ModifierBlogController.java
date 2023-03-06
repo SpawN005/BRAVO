@@ -130,7 +130,7 @@ public class ModifierBlogController implements Initializable {
             showAlert("Please enter an image", false);
 
         } else {
-            File newFile = new File("C:\\xampp\\htdocs\\img" + selectedFile.getName());
+            File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
             try {
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ex) {

@@ -90,9 +90,16 @@ public class ServiceBlog implements IService <Blog> {
                         rs.getString("content"),
                         rs.getString("url"),
                         su.readById(rs.getInt("author"))
+
+
+
+
                 );
 
+
                 list.add(b);
+
+
 
             }
 

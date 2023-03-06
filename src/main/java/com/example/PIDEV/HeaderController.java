@@ -4,9 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import service.LoggedInUser;
 
 import java.io.IOException;
@@ -59,16 +65,26 @@ public class HeaderController implements Initializable {
     }
 
     @FXML
-    void logout(MouseEvent event) {
+    void logout(MouseEvent event) throws IOException {
+        Stage stage = new Stage();
         loggedInUser.setUser(null);
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("Main.fxml"));
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        logout_btn.getScene().setRoot(root);
+        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Main.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load(), 1125, 770);
+
+        stage.setTitle("tun'ART");
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        Media audio = new Media(Main.class.getResource("audio/audio.mp3").toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(audio);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setVolume(0.5);
+        mediaPlayer.play();
+        Stage s =(Stage) logout_btn.getScene().getWindow();
+        s.close();
+        stage.setScene(scene);
+        stage.show();
 
     }
 

@@ -76,8 +76,8 @@ public class LoggedInController implements Initializable {
         firstnamefield.setText(user.getFirstName());
         lastnamefield.setText(user.getLastName());
         phonefield.setText(String.valueOf(user.getPhoneNumber()));
-        
-            
+                fnamelabel1.setText(user.getFirstName());
+                lnamelabel.setText(user.getLastName());
             }
             
             

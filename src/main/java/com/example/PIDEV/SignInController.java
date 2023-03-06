@@ -119,10 +119,7 @@ public void signIn() throws IOException {
 
 
         //Set the first name and last name labels
-     /*   Label fnamelabel1 = (Label) root.lookup("#fnamelabel1");
-        fnamelabel1.setText(user.getFirstName());
-        Label lnamelabel = (Label) root.lookup("#lnamelabel");
-        lnamelabel.setText(user.getLastName()); */
+
 
     }
 }

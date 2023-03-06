@@ -5,6 +5,7 @@ import entity.Blog;
 import entity.NoteBlog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import org.controlsfx.control.Rating;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import service.LoggedInUser;
 import service.ServiceBlog;
 import service.ServiceNoteBlog;
 import service.ServiceUser;
@@ -23,7 +25,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DetailsBlogController implements Initializable {
-
+    @FXML
+    private Button delete_btn;
+    @FXML
+    private Button modif_btn;
     @FXML
     private AnchorPane leftAnchor;
 
@@ -59,6 +64,7 @@ public class DetailsBlogController implements Initializable {
         back.setStyle("-fx-cursor: hand;");
 
         rating.setMax(5);
+
     }
 
     public void SetBlog(Blog b) {
@@ -75,7 +81,6 @@ public class DetailsBlogController implements Initializable {
         content.setText(b.getContent());
         content.setWrappingWidth(400);
 
-        b.setAuthor(su.readById(30));
 
         Image image = new Image("file:C:/xampp/htdocs/img/" + b.getUrl());
         mainImage.setImage(image);
@@ -89,6 +94,13 @@ public class DetailsBlogController implements Initializable {
             nb = new NoteBlog(rating.getRating(),b);  snb.insert(nb);
         });
         rightAnchor.getChildren().add(rating);
+        LoggedInUser loggedInUser = new LoggedInUser();
+
+
+        if (!(loggedInUser.getUser().getId()==b.getAuthor().getId())){
+            delete_btn.setVisible(false);
+            modif_btn.setVisible(false);
+        }
 
     }
 

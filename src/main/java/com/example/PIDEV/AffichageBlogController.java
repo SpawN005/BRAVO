@@ -85,14 +85,12 @@ public class AffichageBlogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Blog> list = sb.readAll();
-
         double y = 274.0;
         double x = 200;
         double spacing = 150.0;
         for (Blog b1 : list) {
             anchorPane = new AnchorPane();
             anchorPane.setLayoutX(x);
-
             Label title1 = new Label("Title  :     ");
             title1.setLayoutY(y);
             title1.setLayoutX(-100);
@@ -117,7 +115,6 @@ public class AffichageBlogController implements Initializable {
             anchorPane.getChildren().addAll(paint, title1, title, description2, description);
             anchorPane.setOnMouseClicked(mouseEvent -> onImageClick(b1));
             anchorPane.setStyle("-fx-cursor: hand;");
-
             feed.getChildren().addAll(anchorPane);
             x += (263.0 + spacing);
 
