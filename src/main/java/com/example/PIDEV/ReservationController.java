@@ -154,7 +154,12 @@ int nbplace = nbPlace.getValue();
 
             // Envoyer l'e-mail avec le QR code en pièce jointe
             String subject = "Confirmation de la réservation et un QR code en pièce jointe";
-            String message_content = "Votre réservation a été bien effectuée, vous trouverez ci-joint votre QR code";
+            String message_content = "Votre réservation a été bien effectuée, vous trouverez ci-joint votre QR code \n"+
+                    "Nom de l'événement: " + e.getTitle()+"\n"+
+                    "Date début: " + e.getDate_beg()+"\n"+
+                    "Date fin: " + e.getDate_end()+"\n"+
+                    "Nombre de places: " + e.getNb_placeMax()+"\n";
+
             Email email = new Email();
 
             email.sendEmail(currentUser.getEmail(), subject, message_content);
