@@ -64,7 +64,6 @@ public class ModifyDonsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Map the columns to the Dons object properties
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colDateCreation.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
@@ -80,7 +79,7 @@ public class ModifyDonsController implements Initializable {
 
 
     @FXML
-    void updatebtn(ActionEvent aevent) {
+    void updatebtn(ActionEvent event) {
         // Get the selected donation from the table view
         Dons selectedDonation = tableDonations.getSelectionModel().getSelectedItem();
 

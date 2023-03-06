@@ -110,6 +110,12 @@ public class updateController {
                 errorMessage += "Amount must be a number.\n";
             }
         }
+        LocalDate creationDate = dateCreationPicker.getValue();
+        LocalDate expirationDate = dateExpirationPicker.getValue();
+
+        if (creationDate != null && expirationDate != null && !creationDate.isBefore(expirationDate)) {
+            errorMessage += "Creation date must be before expiration date.\n";
+        }
 
         if (errorMessage.isEmpty()) {
             return true;

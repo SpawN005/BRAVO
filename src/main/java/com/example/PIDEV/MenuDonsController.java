@@ -158,20 +158,21 @@ return ld;
             pnlMenus.toFront();
         }
         if (actionEvent.getSource() == btnOverview) {
+            loadDonations("");
+
             pnlOverview.setStyle("-fx-background-color : #f7f7f7");
             pnlOverview.toFront();
         }
         if (actionEvent.getSource() == USERID) {
             try {
+                container.getChildren().clear();
                 // Load the new FXML file
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyDons.fxml"));
                 Parent root = loader.load();
 
-                // Create a new scene with the loaded FXML file
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.show();
+                // Add the ModifyDons view to the pnlUser pane
+                pnlMyDon.getChildren().setAll(root);
+                pnlMyDon.toFront();
             } catch (IOException e) {
                 e.printStackTrace();
             }

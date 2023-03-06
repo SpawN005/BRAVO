@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.MenuDonsController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.MenuDonsController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="590.0" prefWidth="256.0" style="-fx-background-color: #5c1010;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

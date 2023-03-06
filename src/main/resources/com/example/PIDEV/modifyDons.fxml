@@ -7,18 +7,16 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="576.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.ModifyDonsController">
+<BorderPane prefHeight="576.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.ModifyDonsController">
     <center>
         <VBox>
             <TableView fx:id="tableDonations" prefHeight="400" prefWidth="600">
                 <columns>
-                    <TableColumn fx:id="colId" prefWidth="50" text="ID" />
-                    <TableColumn fx:id="colTitle" prefWidth="106.39999008178711" text="Title" />
-                    <TableColumn fx:id="colDescription" prefWidth="321.6000213623047" text="Description" />
-                    <TableColumn fx:id="colDateCreation" prefWidth="132.79998779296875" text="Date Creation" />
-                    <TableColumn fx:id="colDateExpiration" prefWidth="116.79998779296875" text="Date Expiration" />
-                    <TableColumn fx:id="colAmount" prefWidth="80.79998779296875" text="Amount" />
-                    <TableColumn fx:id="colOwner" prefWidth="62.4000244140625" text="Owner" />
+                    <TableColumn fx:id="colTitle" prefWidth="140.79998779296875" text="Title" />
+                    <TableColumn fx:id="colDescription" prefWidth="270.4000244140625" text="Description" />
+                    <TableColumn fx:id="colDateCreation" prefWidth="144.0" text="Date Creation" />
+                    <TableColumn fx:id="colDateExpiration" prefWidth="155.2000732421875" text="Date Expiration" />
+                    <TableColumn fx:id="colAmount" prefWidth="89.60009765625" text="Amount" />
                 </columns>
             </TableView>
         </VBox>
