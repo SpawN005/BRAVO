@@ -134,7 +134,7 @@ public class AddBlogController implements Initializable {
         System.out.println(b);
         sb.insert(b);
 
-            newsletterService.sendEmail("tasnim.benhamouda@esprit.tn","");
+            newsletterService.sendEmail("tasnim.benhamouda@esprit.tn");
 
         }
     }
