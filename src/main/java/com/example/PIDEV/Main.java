@@ -1,18 +1,10 @@
 package com.example.PIDEV;
-import entity.CommentaireOeuvre;
-import entity.Dons;
-import entity.Oeuvre;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import service.ServiceCommentaireOeuvre;
-import service.ServiceDons;
-import service.ServiceOeuvre;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
 
 public class Main extends Application {
 
@@ -33,9 +25,9 @@ public class Main extends Application {
         Oeuvre o= new Oeuvre(2,"Wallowing Breeze","Wallowing Breeze","Faten Asker","Painting","Painting2.png");
         CommentaireOeuvre co= new CommentaireOeuvre(o,1,"Great Painting",now);
         so.insert(co); */
-     /*  Dons d = new Dons(10,"pidev0.1","5aiiba yecer",Timestamp.valueOf("2018-09-01 09:01:15").toLocalDateTime().toLocalDate() ,Timestamp.valueOf("2018-09-01 09:01:15").toLocalDateTime().toLocalDate(),150,"majj");
-        ServiceDons so= new ServiceDons();
-        so.update(d); */
+     /* DonsUser d = new DonsUser(10,100,125,5);
+        ServiceDonsUser so= new ServiceDonsUser();
+        so.insert(d); */
 
      /*   ServiceDons so= new ServiceDons();
         Dons d= so.readById(6);

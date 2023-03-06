@@ -1,8 +1,6 @@
 package service;
 
-import entity.CommentaireOeuvre;
 import entity.Dons;
-import entity.Oeuvre;
 import entity.User;
 import utils.DataSource;
 

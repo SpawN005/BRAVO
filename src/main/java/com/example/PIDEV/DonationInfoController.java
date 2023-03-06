@@ -1,13 +1,16 @@
 package com.example.PIDEV;
 
 import entity.Dons;
+import entity.User;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import service.EmailService;
 import service.ServiceDons;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DonationInfoController {
@@ -25,16 +28,46 @@ public class DonationInfoController {
     private Label DonTitle;
     @FXML
     private VBox box;
-    private String [] colors = {"B9E5FF", "BDB2FE", "FB9AA8", "FF5056"};
+    private User user;
+    private String[] colors = {"B9E5FF", "BDB2FE", "FB9AA8", "FF5056"};
 
 
-    public void setData(Dons dons){
+    public void setData(Dons dons) {
         DonTitle.setText(dons.getTitle());
         DonDesc.setText(dons.getDescription());
         DonAmount.setText(String.valueOf(dons.getAmount()));
-        box.setStyle("-fx-background-color: #"+ colors[(int)(Math.random()*colors.length)] +";" +
-                " -fx-background-radius: 15;" +
-                "-fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10, 0 , 0 ,10);");
+        DonExp.setText(String.valueOf(dons.getDate_expiration().toString()));
+        LocalDate currentDate = LocalDate.now();
+        LocalDate expirationDate = dons.getDate_expiration();
+        long daysUntilExpiration = currentDate.until(expirationDate).getDays();
+        if (daysUntilExpiration > 2) {
+            System.out.println("il y a");
+            EmailService emailService = new EmailService();
+            emailService.envoyer("aymen@majoul.tn");
+        }
+            box.setStyle("-fx-background-color: #" + colors[(int) (Math.random() * colors.length)] + ";" +
+                    " -fx-background-radius: 15;" +
+                    "-fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10, 0 , 0 ,10);");
+
+        }
+
+   /* public void TestEmail(Dons dons){
+        LocalDate currentDate = LocalDate.now();
+        LocalDate expirationDate = dons.getDate_expiration();
+        long daysUntilExpiration = currentDate.until(expirationDate).getDays();
+        if (daysUntilExpiration > 2) {
+            System.out.println("il y a");
+            EmailService emailService = new EmailService();
+            emailService.envoyer("aimen.majoul@gmail.com");
+        }
+    } */
+
+
+  /*  LocalDate currentDate = LocalDate.now();&
+
+    LocalDate expirationDate = Dons.getDate_expiration();
+    long daysUntilExpiration = currentDate.until(expirationDate).getDays(); */
+
 
     }
-}
+

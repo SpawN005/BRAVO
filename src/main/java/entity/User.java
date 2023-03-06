@@ -10,6 +10,7 @@ public class User {
     private String nom;
     private String prenom;
     private int age;
+    private String email;
 
     public User() {
     }
@@ -25,6 +26,22 @@ public class User {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
+    }
+
+    public User(int id, String nom, String prenom, int age, String email) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.age = age;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId() {

@@ -1,6 +1,7 @@
 package com.example.PIDEV;
 
 import entity.Dons;
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -72,6 +73,7 @@ public class MenuDonsController implements Initializable {
     private TextField Searchfield;
 
     private List<Dons> recentlyAdded;
+    private User user;
 
     ServiceDons sd = new ServiceDons();
 
@@ -89,6 +91,10 @@ public class MenuDonsController implements Initializable {
         });
 
         loadDonations("");
+    }
+    void SetUser(User user){
+        this.user = user;
+
     }
 
     public void handleSearch(ActionEvent event) {
@@ -178,4 +184,5 @@ return ld;
             }
         }
     }
+
 }
