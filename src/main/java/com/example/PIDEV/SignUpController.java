@@ -101,14 +101,18 @@ public class SignUpController implements Initializable{
         int phone;
         try {
             phone = Integer.parseInt(phoneString);
+            if (phoneString.length() != 8) {
+                throw new NumberFormatException();
+            }
+
         } catch (NumberFormatException e) {
             System.err.println("Error: Phone number must be a Number");
             Alert alert = new Alert(AlertType.ERROR);
-                    alert.setHeaderText("Invalid Phone Number");
-                    alert.setContentText("Phone number must be a Number. Please try again.");
-                    alert.showAndWait();           
-                    return;
-           
+            alert.setHeaderText("Invalid Phone Number");
+            alert.setContentText("Phone number must be a combination of 8 digits. Please try again.");
+            alert.showAndWait();
+            return;
+
         }
         Connection conn = DataSource.getInstance().getCnx();
         String query = "SELECT * FROM user WHERE email = ?";

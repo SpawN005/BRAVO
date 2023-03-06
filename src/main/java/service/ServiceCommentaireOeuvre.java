@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
     ServiceOeuvre so=new ServiceOeuvre();
+    ServiceUser su=new ServiceUser();
     public ServiceCommentaireOeuvre() {
     }
     private Connection conn = DataSource.getInstance().getCnx();
@@ -24,7 +25,7 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
             PreparedStatement st = conn.prepareStatement(requete);
 
             st.setInt(1, commentaireOeuvre.getOeuvre().getId());
-            st.setInt(2, commentaireOeuvre.getUserId());
+            st.setInt(2, commentaireOeuvre.getUserId().getId());
             st.setString(3, commentaireOeuvre.getComment());
             st.setTimestamp(4, commentaireOeuvre.getTimestamp());
             st.executeUpdate();
@@ -63,14 +64,13 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
 
     @Override
     public void update(CommentaireOeuvre commentaireOeuvre) {
-       String requete= "UPDATE commentsOeuvre SET oeuvre_id = ?, user_id = ?, comment = ?, timestamp = ? WHERE id = ?";
+       String requete= "UPDATE commentsOeuvre SET oeuvre_id = ?, comment = ?, timestamp = ? WHERE id = ?";
         try {
             PreparedStatement st = conn.prepareStatement(requete);
             st.setInt(1, commentaireOeuvre.getOeuvre().getId());
-            st.setInt(2, commentaireOeuvre.getUserId());
-            st.setString(3, commentaireOeuvre.getComment());
-            st.setTimestamp(4, commentaireOeuvre.getTimestamp());
-            st.setInt(5, commentaireOeuvre.getId());
+            st.setString(2, commentaireOeuvre.getComment());
+            st.setTimestamp(3, commentaireOeuvre.getTimestamp());
+            st.setInt(4 , commentaireOeuvre.getId());
             st.executeUpdate();
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
@@ -91,7 +91,7 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
             while(rs.next()) {
                 CommentaireOeuvre o= new CommentaireOeuvre(rs.getInt("id"),
                         so.readById(rs.getInt("oeuvre_id")),
-                        rs.getInt("user_id"),
+                        su.readById(rs.getInt("user_id")),
                         rs.getString("comment"),
                         rs.getTimestamp("timestamp")
                 );
@@ -138,7 +138,7 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
             while(rs.next()) {
                 CommentaireOeuvre oeuvre= new CommentaireOeuvre(rs.getInt("id"),
                         so.readById(rs.getInt("oeuvre_id")),
-                        rs.getInt("user_id"),
+                        su.readById(rs.getInt("user_id")),
                         rs.getString("comment"),
                         rs.getTimestamp("timestamp")
                 );

@@ -53,6 +53,8 @@ public class ModifyOeuvreController implements Initializable {
         categorie.setText(o.getCategory());
         uploadImage.setText(o.getUrl());
         ImageView.setImage(new Image("file:C:/xampp/htdocs/img/"+o.getUrl()));
+
+        selectedFile = new File("C:/xampp/htdocs/img/" + o.getUrl());
         oeuvre = new Oeuvre(o.getId(),o.getTitle(),o.getDescription(),o.getOwner(),o.getCategory(),o.getUrl());
 
     }
@@ -124,6 +126,8 @@ public class ModifyOeuvreController implements Initializable {
             if (!oeuvre.getUrl().isEmpty())
             {
                 File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
+
+
                 try {
                     Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
@@ -134,7 +138,7 @@ public class ModifyOeuvreController implements Initializable {
 
             o.setTitle(title.getText());
             o.setOwner(loggedInUser.getUser());
-            o.setUrl(uploadImage.getText());
+            o.setUrl(selectedFile.getName());
             o.setDescription(description.getText());
             o.setCategory(categorie.getText());
             o.setId(oeuvre.getId());

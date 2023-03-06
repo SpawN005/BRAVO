@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -78,6 +80,8 @@ public class LoggedInController implements Initializable {
         phonefield.setText(String.valueOf(user.getPhoneNumber()));
                 fnamelabel1.setText(user.getFirstName());
                 lnamelabel.setText(user.getLastName());
+                pdpImage.setImage(new Image("file:C:/xampp/htdocs/img/"+user.getimage()));
+                selectedFile= new File("file:C:/xampp/htdocs/img/"+user.getimage());
             }
             
             
@@ -116,13 +120,19 @@ public class LoggedInController implements Initializable {
                                                    
                         // TODO: Save changes to database
                         User updatedUser = new User(user.getId(), firstnamefield.getText(), lastnamefield.getText(),Integer.parseInt(phonefield.getText()),hasher.hashPassword(pwdfield.getText()),selectedFile.getName());
-                        System.out.println(selectedFile.getName());
+
                         ServiceUser service = new ServiceUser();
                         service.update(updatedUser);
                         
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                         alert.setHeaderText("Your account has been Updated!");
                                         alert.showAndWait();
+                        File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
+                        try {
+                            Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 }
                     
                     @FXML

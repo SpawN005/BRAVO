@@ -100,8 +100,7 @@ public class DetailsOeuvreController implements Initializable {
     rating.setLayoutX(245);
         rating.setLayoutY(125);
         for (CommentaireOeuvre co:l){
-
-            Label comment = new Label(co.getComment());
+            Label comment = new Label(co.getUserId().getFirstName()+ " "+ co.getUserId().getLastName()+" : "+co.getComment());
 
             comment.setLayoutY(y);
 
@@ -116,9 +115,9 @@ public class DetailsOeuvreController implements Initializable {
         ta.setWrapText(true);
         ta.setOnKeyPressed(e-> {
             if (e.getCode() == KeyCode.ENTER){
+                    LoggedInUser loggedInUser=new LoggedInUser();
 
-
-                sco.insert(new CommentaireOeuvre(oeuvre,    1,ta.getText(),new Timestamp(System.currentTimeMillis())));
+                sco.insert(new CommentaireOeuvre(oeuvre,loggedInUser.getUser(),ta.getText(),new Timestamp(System.currentTimeMillis())));
                 ta.setText("");
                 FXMLLoader loader=new FXMLLoader(getClass().getResource("DetailsOeuvre.fxml"));
                 Parent root= null;

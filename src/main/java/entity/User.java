@@ -9,6 +9,7 @@ public class User {
     private String role;
     private String password;
     private String image;
+    private String checker;
 
 
     // Constructors
@@ -34,10 +35,17 @@ public class User {
         this.password = password;
     }
 
-
-
-
-
+    public User(int id, String firstName, String lastName, int phoneNumber, String email, String role, String password, String image, String checker) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+        this.image = image;
+        this.checker = checker;
+    }
 
     public User(String firstName, String lastName, int phoneNumber, String email, String role) {
         this.firstName = firstName;
@@ -48,9 +56,7 @@ public class User {
 
     }
 
-    public User(int aInt, String string, String string0, String string1, int aInt0, String string2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     public User(String firstName, String lastName, int phoneNumber, String email, String role, String password) {
         this.firstName = firstName;
@@ -59,6 +65,15 @@ public class User {
         this.email = email;
         this.role = role;
         this.password = password;
+    }
+
+    public User(int aInt, String string, String string0, String string1, int aInt0, String string2) {
+        this.id = aInt;
+        this.firstName = string;
+        this.lastName = string0;
+        this.email=string1;
+        this.phoneNumber=aInt0;
+        this.role=string2;
     }
 
     // Getters and Setters
@@ -124,6 +139,13 @@ public class User {
 
     public void setimage(String image) {
         this.image = image;
+    }
+    public String getChecker() {
+        return checker;
+    }
+
+    public void setChecker(String checker) {
+        this.checker = checker;
     }
 
 }

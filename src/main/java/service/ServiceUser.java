@@ -156,7 +156,7 @@ public class ServiceUser implements IService<User> {
             ps.setInt(3, t.getPhoneNumber());
             ps.setString(4, t.getPassword());
             ps.setString(5, t.getimage());
-
+            System.out.println(t.getimage());
             ps.setInt(6, t.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -270,6 +270,27 @@ public class ServiceUser implements IService<User> {
         }
         return userList;
 
+    }
+    public void blockUser(User user) {
+        try {
+            // Create a prepared statement
+            String sql = "UPDATE user SET checker = ? WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            // Set the parameters
+            statement.setString(1, "banned");
+            statement.setInt(2, user.getId());
+
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("User " + user.getFirstName() + " " + user.getLastName() + " has been blocked.");
+            } else {
+                System.out.println("Failed to block user " + user.getFirstName() + " " + user.getLastName() + ".");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -70,6 +70,7 @@ public void signIn() throws IOException {
 
     try {
         user = userManager.getUserByEmailAndPassword(email, password);
+
     } catch (SQLException e) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
@@ -85,7 +86,18 @@ public void signIn() throws IOException {
         alert.setHeaderText("Invalid credentials");
         alert.setContentText("The email or password is incorrect.");
         alert.showAndWait();
-    } else {
+    }
+    else if (user.getChecker().equals("banned")) {
+
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Account Suspended");
+        alert.setContentText("Your account has been banned for violating our user agreement policy.\nFor more informations, contact us on jasser.bouzidi@esprit.tn ");
+        alert.showAndWait();
+
+
+    }
+    else {
         LoggedInUser loggedInUser = new LoggedInUser();
         loggedInUser.setUser(user);
         Alert successAlert = new Alert(AlertType.INFORMATION);
@@ -99,7 +111,7 @@ public void signIn() throws IOException {
             loader = new FXMLLoader(getClass().getResource("Feed.fxml"));
 
        }else {
-            loader = new FXMLLoader(getClass().getResource("acceuilReclamation.fxml"));
+            loader = new FXMLLoader(getClass().getResource("AdminInterface.fxml"));
 
        }
         Parent root= null;

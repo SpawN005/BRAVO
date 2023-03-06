@@ -6,21 +6,21 @@ import java.sql.Timestamp;
 public class CommentaireOeuvre {
         private int id;
         private Oeuvre oeuvre;
-        private int userId;
+        private User user;
         private String comment;
         private Timestamp timestamp;
 
-        public CommentaireOeuvre(int id, Oeuvre oeuvre, int userId, String comment, Timestamp timestamp) {
+        public CommentaireOeuvre(int id, Oeuvre oeuvre, User user, String comment, Timestamp timestamp) {
             this.id = id;
             this.oeuvre = oeuvre;
-            this.userId = userId;
+            this.user = user;
             this.comment = comment;
             this.timestamp = timestamp;
         }
-    public CommentaireOeuvre( Oeuvre oeuvre, int userId, String comment, Timestamp timestamp) {
+    public CommentaireOeuvre( Oeuvre oeuvre, User userId, String comment, Timestamp timestamp) {
 
         this.oeuvre = oeuvre;
-        this.userId = userId;
+        this.user = userId;
         this.comment = comment;
         this.timestamp = timestamp;
     }
@@ -46,12 +46,12 @@ public class CommentaireOeuvre {
             this.oeuvre = oeuvre;
         }
 
-        public int getUserId() {
-            return userId;
+        public User getUserId() {
+            return user;
         }
 
         public void setUserId(int userId) {
-            this.userId = userId;
+            this.user = user;
         }
 
         public String getComment() {
@@ -74,7 +74,7 @@ public class CommentaireOeuvre {
     public String toString() {
         return "CommentaireOeuvre{" +
                 "oeuvre=" + oeuvre +
-                ", userId=" + userId +
+                ", userId=" + user +
                 ", comment='" + comment + '\'' +
                 ", timestamp=" + timestamp +
                 '}';

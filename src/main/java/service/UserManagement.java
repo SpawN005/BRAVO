@@ -15,17 +15,20 @@ import utils.DataSource;
 
 
 public class UserManagement {
-    private Connection conn;
+    private Connection conn = DataSource.getInstance().getCnx();
 
     public UserManagement(Connection conn) {
         this.conn = conn;
     }
-    
-    
+
+    public UserManagement() {conn = DataSource.getInstance().getCnx();
+
+    }
+
 
     public User getUserByEmailAndPassword(String email, String password) throws SQLException {
         User user = null;
-                            PasswordHasher hasher = new PasswordHasher();
+        PasswordHasher hasher = new PasswordHasher();
 
         String query = "SELECT * FROM user WHERE email = ? AND password = ?";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -40,7 +43,9 @@ public class UserManagement {
                             rs.getInt("phoneNumber"),
                             rs.getString("email"),
                             rs.getString("role"),
-                            rs.getString("password")
+                            rs.getString("password"),
+                            rs.getString("image"),
+                            rs.getString("checker")
                     );
                 }
             }
@@ -107,33 +112,36 @@ public String resetPassword(String email) throws SQLException {
                 }
                 return sb.toString();
             }
-    
 
-public static List<User> getAllUsers() {
-    List<User> users = new ArrayList<>();
-    try {
-        Connection conn = DataSource.getInstance().getCnx();
-        Statement stmt = conn.createStatement();
-        String query = "SELECT id, firstName, lastName, phoneNumber, email, role FROM user";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {
-            System.out.println(rs.getInt("id") + " " + rs.getString("firstName") + " " + rs.getString("lastName") + " " + rs.getString("email") + " " + rs.getInt("phoneNumber") + " " + rs.getString("role"));
-            User user = new User(
-                rs.getInt("id"),
-                rs.getString("firstName"),
-                rs.getString("lastName"),
-                rs.getString("email"),
-                rs.getInt("phoneNumber"),
-                rs.getString("role")
-            );
-            users.add(user);
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+
+
+            String query = "SELECT id, firstName, lastName, phoneNumber, email, role FROM user";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                System.out.println(rs.getInt("id") + " " + rs.getString("firstName") + " " + rs.getString("lastName") + " " + rs.getString("email") + " " + rs.getInt("phoneNumber") + " " +  rs.getString("role") );
+                User user = new User(
+                        rs.getInt("id"),
+                        rs.getString("firstName"),
+                        rs.getString("lastName"),
+                        rs.getString("email"),
+                        rs.getInt("phoneNumber"),
+                        rs.getString("role")
+
+                );
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        System.out.println("UserManagement.getAllUsers() returning " + users.size() + " users");
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+
+        return users;
     }
-    return users;
-}
+
 
 
     
