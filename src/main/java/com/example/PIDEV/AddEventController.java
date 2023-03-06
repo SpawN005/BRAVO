@@ -24,6 +24,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AddEventController implements Initializable {
@@ -102,6 +104,7 @@ public class AddEventController implements Initializable {
     }
         @FXML
         private void CreerEvent (ActionEvent event) {
+
             String text = setTitre.getText();
 
             if (text.isEmpty()) {
@@ -114,6 +117,8 @@ public class AddEventController implements Initializable {
             } else if (!text.matches("[a-zA-Z ]+")) {
                 showAlert("Your description must contain only letters and spaces",false);
             }
+
+
             else if (selectedFile==null){
                 showAlert("Please enter an image",false);
 
