@@ -1,8 +1,10 @@
 package com.example.PIDEV;
+import entity.DonsUser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import service.ServiceDonsUser;
 
 import java.io.IOException;
 
@@ -25,9 +27,10 @@ public class Main extends Application {
         Oeuvre o= new Oeuvre(2,"Wallowing Breeze","Wallowing Breeze","Faten Asker","Painting","Painting2.png");
         CommentaireOeuvre co= new CommentaireOeuvre(o,1,"Great Painting",now);
         so.insert(co); */
-     /* DonsUser d = new DonsUser(10,100,125,5);
+
         ServiceDonsUser so= new ServiceDonsUser();
-        so.insert(d); */
+        DonsUser d = new DonsUser(7,100,139,400);
+        so.update(d);
 
      /*   ServiceDons so= new ServiceDons();
         Dons d= so.readById(6);
