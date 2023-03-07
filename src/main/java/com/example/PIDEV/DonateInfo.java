@@ -45,7 +45,13 @@ public class DonateInfo {
     @FXML
     private void initialize() {
         serviceDons = new ServiceDons();
+        amounttextfield.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) { // Check if entered text is not a number
+                amounttextfield.setText(newValue.replaceAll("[^\\d]", "")); // Remove non-numeric characters
+            }
+        });
     }
+
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;

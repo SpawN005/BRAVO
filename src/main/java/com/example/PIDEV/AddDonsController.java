@@ -1,19 +1,12 @@
 package com.example.PIDEV;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import entity.Dons;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import service.ServiceDons;
+
+import java.time.LocalDate;
 
 public class AddDonsController {
 
@@ -65,10 +58,19 @@ public class AddDonsController {
             String description = descriptionArea.getText();
             LocalDate creationDate = dateCreationPicker.getValue();
             LocalDate expirationDate = dateExpirationPicker.getValue();
-
             int amount = Integer.parseInt(amountField.getText());
             don = new Dons(title, description, creationDate, expirationDate, amount, "amir");
             serviceDons.insert(don);
+
+            // Show donation confirmation alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Donation Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Thank you for your donation of " + amount + " TND.");
+            alert.showAndWait();
+
+            handleCancel();
         }
     }
 
