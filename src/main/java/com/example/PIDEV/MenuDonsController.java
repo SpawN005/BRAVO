@@ -42,7 +42,7 @@ public class MenuDonsController implements Initializable {
 
 
     @FXML
-    private Button USERID;
+    private Button MYDON;
     @FXML
     private ImageView searchButton;
 
@@ -165,7 +165,7 @@ return ld;
             pnlOverview.setStyle("-fx-background-color : #f7f7f7");
             pnlOverview.toFront();
         }
-        if (actionEvent.getSource() == USERID) {
+        if (actionEvent.getSource() == MYDON) {
             try {
                 container.getChildren().clear();
                 // Load the new FXML file
