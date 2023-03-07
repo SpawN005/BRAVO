@@ -19,6 +19,11 @@ public class DonsUser {
         this.amout = amout;
     }
 
+    public DonsUser(int id_don, int amout) {
+        this.id_don = id_don;
+        this.amout = amout;
+    }
+
     public int getId() {
         return id;
     }

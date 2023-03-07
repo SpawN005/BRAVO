@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import service.EmailService;
+import service.ServiceDons;
 
 import java.time.LocalDate;
 
@@ -37,9 +38,15 @@ public class DonCardController {
         LocalDate expirationDate = dons.getDate_expiration();
         long daysUntilExpiration = currentDate.until(expirationDate).getDays();
         if (daysUntilExpiration > 2) {
-            System.out.println("il y a");
             EmailService emailService = new EmailService();
-            emailService.envoyer("aymen@majoul.tn");
+            emailService.envoyer("aymen.majoul@gmail.com");
+        }
+        if(daysUntilExpiration<= 0){
+            ServiceDons serviceDons = new ServiceDons();
+            serviceDons.delete(dons);
+            EmailService emailService = new EmailService();
+            emailService.envoyer("aimen.majoul@gmail.com"); //n7ab nabaath email e5er n9ollo raw l'donation mte33ek expired
+
         }
             box.setStyle("-fx-background-color: #" + colors[(int) (Math.random() * colors.length)] + ";" +
                     " -fx-background-radius: 15;" +

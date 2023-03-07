@@ -87,6 +87,7 @@ public class MenuDonsController implements Initializable {
 
         loadDonations("");
     }
+
     void SetUser(User user){
         this.user = user;
 
@@ -168,7 +169,7 @@ return ld;
             try {
                 container.getChildren().clear();
                 // Load the new FXML file
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyDons.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("MyDons.fxml"));
                 Parent root = loader.load();
 
                 // Add the ModifyDons view to the pnlUser pane
