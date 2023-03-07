@@ -139,7 +139,7 @@ public class FeedController implements Initializable {
 
             anchorPane.setStyle("-fx-cursor: hand;");
 
-       ;
+            ;
 
             feed.getChildren().addAll(anchorPane);
             x+=263.0;
@@ -165,10 +165,10 @@ public class FeedController implements Initializable {
         Image image = new Image("file:C:/xampp/htdocs/img/"+lu.get(0).getimage());
         img1.setImage(image);
         name1.setText(lu.get(0).getFirstName()+" "+lu.get(0).getLastName());
-         image = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
+        image = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
         img2.setImage(image);
         name2.setText(lu.get(1).getFirstName()+" "+lu.get(1).getLastName());
-         image = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
+        image = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
         img3.setImage(image);
         name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
 

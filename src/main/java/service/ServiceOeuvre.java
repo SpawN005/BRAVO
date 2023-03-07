@@ -80,7 +80,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
     public Oeuvre readById(int id) {
         String requete = "select * from `artwork` where `id`=?";
         ServiceUser su= new ServiceUser();
-            Oeuvre o =new Oeuvre();
+        Oeuvre o =new Oeuvre();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ps.setInt(1,id);

@@ -64,7 +64,7 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
 
     @Override
     public void update(CommentaireOeuvre commentaireOeuvre) {
-       String requete= "UPDATE commentsOeuvre SET oeuvre_id = ?, comment = ?, timestamp = ? WHERE id = ?";
+        String requete= "UPDATE commentsOeuvre SET oeuvre_id = ?, comment = ?, timestamp = ? WHERE id = ?";
         try {
             PreparedStatement st = conn.prepareStatement(requete);
             st.setInt(1, commentaireOeuvre.getOeuvre().getId());
@@ -145,7 +145,7 @@ public class ServiceCommentaireOeuvre implements IService<CommentaireOeuvre> {
                 commentaireOeuvre.add(oeuvre);
             }
 
-            } catch (SQLException var4) {
+        } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
         return commentaireOeuvre;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="576.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.MyDonsController">
+    <center>
+        <VBox prefHeight="380.0" prefWidth="800.0">
+            <TableView fx:id="tableDonations" prefHeight="400.0" prefWidth="800.0">
+                <columns>
+                    <TableColumn fx:id="colTitle" prefWidth="140.79998779296875" text="Title" />
+                    <TableColumn fx:id="colDescription" prefWidth="250.39996337890625" text="Description" />
+                    <TableColumn fx:id="colDateCreation" prefWidth="146.39993286132812" text="Date Creation" />
+                    <TableColumn fx:id="colDateExpiration" prefWidth="130.39996337890625" text="Date Expiration" />
+                    <TableColumn fx:id="colAmount" prefWidth="110.40007324218755" text="Amount" />
+                </columns>
+            <VBox.margin>
+               <Insets left="10.0" right="10.0" top="30.0" />
+            </VBox.margin>
+            </TableView>
+        </VBox>
+    </center>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnupdate" layoutX="223.0" layoutY="56.0" mnemonicParsing="false" onAction="#updatebtn" prefHeight="65.0" prefWidth="150.0" text="Update" />
+            <Button fx:id="btndelete" layoutX="518.0" layoutY="58.0" mnemonicParsing="false" onAction="#Deletebtn" prefHeight="62.0" prefWidth="160.0" text="Delete" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

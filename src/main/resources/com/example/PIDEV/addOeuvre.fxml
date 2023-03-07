@@ -14,8 +14,8 @@
       <Button fx:id="uploadImage" layoutX="434.0" layoutY="502.0" mnemonicParsing="false" onAction="#browse" prefHeight="26.0" prefWidth="266.0" text="Upload Image" />
       <Button fx:id="submitButton" layoutX="430.0" layoutY="716.0" mnemonicParsing="false" onAction="#submit" text="Submit" />
       <MenuButton fx:id="categorie" layoutX="433.0" layoutY="318.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="259.0" text="Catégorie">
-        <items>
-        </items>
+         <items>
+         </items>
       </MenuButton>
       <Button fx:id="cancelButton" layoutX="648.0" layoutY="716.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
       <Label layoutX="434.0" layoutY="117.0" text="Description" />
@@ -28,4 +28,3 @@
       </AnchorPane>
    </children>
 </AnchorPane>
-

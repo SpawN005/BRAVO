@@ -68,7 +68,27 @@ public class HeaderController implements Initializable {
 
     @FXML
     void donations(MouseEvent event) {
+if( loggedInUser.getUser().getRole().equalsIgnoreCase("artist")){
+    FXMLLoader loader=new FXMLLoader(getClass().getResource("MenuDons.fxml"));
+    Parent root= null;
+    try {
+        root = loader.load();
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
 
+    logout_btn.getScene().setRoot(root);
+}else{
+    FXMLLoader loader=new FXMLLoader(getClass().getResource("MenuDonsUser.fxml"));
+    Parent root= null;
+    try {
+        root = loader.load();
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+
+    logout_btn.getScene().setRoot(root);
+}
     }
     @FXML
     void reservation(MouseEvent event) {

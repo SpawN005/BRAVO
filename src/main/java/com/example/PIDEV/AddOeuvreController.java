@@ -124,7 +124,7 @@ public class AddOeuvreController implements Initializable {
         fileChooser.setTitle("Upload an image");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png");
         fileChooser.getExtensionFilters().add(extFilter);
-         selectedFile = fileChooser.showOpenDialog(stage);
+        selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             uploadImage.setText(selectedFile.getName());
             ImageView.setImage(new Image("file:"+selectedFile));
@@ -217,52 +217,52 @@ public class AddOeuvreController implements Initializable {
 
         }
     }
- private Boolean CheckProfanity (String text){
+    private Boolean CheckProfanity (String text){
 
-     String encodedText = null;
-     try {
-         encodedText = URLEncoder.encode(TranslatedText(text), "UTF-8");
-     } catch (UnsupportedEncodingException e) {
-         throw new RuntimeException(e);
-     } catch (IOException e) {
-         throw new RuntimeException(e);
-     } catch (InterruptedException e) {
-         throw new RuntimeException(e);
-     }
-     HttpRequest request = HttpRequest.newBuilder()
-             .uri(URI.create("https://profanity-filter-by-api-ninjas.p.rapidapi.com/v1/profanityfilter?text="+encodedText))
-             .header("X-RapidAPI-Key", "5663b0b24emsh9f1230312127163p13953ajsnc45c9ef48937")
-             .header("X-RapidAPI-Host", "profanity-filter-by-api-ninjas.p.rapidapi.com")
-             .method("GET", HttpRequest.BodyPublishers.noBody())
-             .build();
-     HttpResponse<String> response = null;
-     try {
-         response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-     } catch (IOException e) {
-         throw new RuntimeException(e);
-     } catch (InterruptedException e) {
-         throw new RuntimeException(e);
-     }
-     ObjectMapper objectMapper = new ObjectMapper();
-     JsonNode jsonNode = null;
-     try {
-         jsonNode = objectMapper.readTree(response.body());
-     } catch (JsonProcessingException e) {
-         throw new RuntimeException(e);
-     }
-     Boolean hasProfanity = jsonNode.get("has_profanity").asBoolean();
+        String encodedText = null;
+        try {
+            encodedText = URLEncoder.encode(TranslatedText(text), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://profanity-filter-by-api-ninjas.p.rapidapi.com/v1/profanityfilter?text="+encodedText))
+                .header("X-RapidAPI-Key", "5663b0b24emsh9f1230312127163p13953ajsnc45c9ef48937")
+                .header("X-RapidAPI-Host", "profanity-filter-by-api-ninjas.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = null;
+        try {
+            jsonNode = objectMapper.readTree(response.body());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        Boolean hasProfanity = jsonNode.get("has_profanity").asBoolean();
         return  hasProfanity;
- }
-public String TranslatedText(String text) throws IOException, InterruptedException {
-    HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("https://rapid-translate-multi-traduction.p.rapidapi.com/t"))
-            .header("content-type", "application/json")
-            .header("X-RapidAPI-Key", "5663b0b24emsh9f1230312127163p13953ajsnc45c9ef48937")
-            .header("X-RapidAPI-Host", "rapid-translate-multi-traduction.p.rapidapi.com")
-            .method("POST", HttpRequest.BodyPublishers.ofString("{\r\n    \"from\": \"fr\",\r\n    \"to\": \"en\",\r\n    \"e\": \"\",\r\n    \"q\": [\r\n  \""+ text +"\"\r\n    ]\r\n}"))
-            .build();
-    HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-    return response.body();
-}
+    }
+    public String TranslatedText(String text) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://rapid-translate-multi-traduction.p.rapidapi.com/t"))
+                .header("content-type", "application/json")
+                .header("X-RapidAPI-Key", "5663b0b24emsh9f1230312127163p13953ajsnc45c9ef48937")
+                .header("X-RapidAPI-Host", "rapid-translate-multi-traduction.p.rapidapi.com")
+                .method("POST", HttpRequest.BodyPublishers.ofString("{\r\n    \"from\": \"fr\",\r\n    \"to\": \"en\",\r\n    \"e\": \"\",\r\n    \"q\": [\r\n  \""+ text +"\"\r\n    ]\r\n}"))
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
+    }
 
 }

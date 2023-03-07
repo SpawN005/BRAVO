@@ -97,7 +97,7 @@ public class DetailsOeuvreController implements Initializable {
         sco = new ServiceCommentaireOeuvre();
         List<CommentaireOeuvre> l = sco.readByOeuvre(oeuvre);
         rightAnchor.getChildren().add(rating);
-    rating.setLayoutX(245);
+        rating.setLayoutX(245);
         rating.setLayoutY(125);
         for (CommentaireOeuvre co:l){
             Label comment = new Label(co.getUserId().getFirstName()+ " "+ co.getUserId().getLastName()+" : "+co.getComment());
@@ -115,7 +115,7 @@ public class DetailsOeuvreController implements Initializable {
         ta.setWrapText(true);
         ta.setOnKeyPressed(e-> {
             if (e.getCode() == KeyCode.ENTER){
-                    LoggedInUser loggedInUser=new LoggedInUser();
+                LoggedInUser loggedInUser=new LoggedInUser();
 
                 sco.insert(new CommentaireOeuvre(oeuvre,loggedInUser.getUser(),ta.getText(),new Timestamp(System.currentTimeMillis())));
                 ta.setText("");
@@ -138,10 +138,10 @@ public class DetailsOeuvreController implements Initializable {
             sno.insert(no);
         });
         LoggedInUser loggedInUser = new LoggedInUser();
-            if (!(loggedInUser.getUser().getId()==oeuvre.getOwner().getId())){
-                delete_btn.setVisible(false);
-                modif_btn.setVisible(false);
-            }
+        if (!(loggedInUser.getUser().getId()==oeuvre.getOwner().getId())){
+            delete_btn.setVisible(false);
+            modif_btn.setVisible(false);
+        }
 
 
     }

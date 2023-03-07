@@ -19,6 +19,7 @@ module com.example.demo1 {
 
 
 
+
     requires kaptcha;
 
 

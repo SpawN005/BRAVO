@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="box" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="218.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.DonCardController">
+    <children>
+        <Label fx:id="DonTitle" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="56.0" prefWidth="229.0" text="Title" textAlignment="CENTER">
+            <font>
+                <Font size="39.0" />
+            </font>
+        </Label>
+        <Label fx:id="DonDesc" alignment="CENTER" contentDisplay="CENTER" prefHeight="164.0" prefWidth="222.0" text="Description" textAlignment="CENTER" />
+        <Label fx:id="DonAmount" alignment="CENTER" contentDisplay="CENTER" lineSpacing="10.0" prefHeight="18.0" prefWidth="224.0" text="Montant" />
+        <Label fx:id="DonExp" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="231.0" text="Date Expiration" />
+    </children>
+</VBox>

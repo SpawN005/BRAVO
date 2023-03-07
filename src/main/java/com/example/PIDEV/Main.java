@@ -1,36 +1,21 @@
 package com.example.PIDEV;
-import entity.CommentaireOeuvre;
-import entity.NoteOeuvre;
-import entity.Oeuvre;
+
 import javafx.application.Application;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import javafx.stage.StageStyle;
-import service.ServiceCommentaireOeuvre;
-import service.ServiceNoteOeuvre;
-import service.ServiceOeuvre;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.sql.Timestamp;
-import java.time.Instant;
+
 
 public class Main extends Application {
 
@@ -51,7 +36,9 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+
+
+    public static void main(String[] args) {
         launch();
     }
     };
