@@ -3,17 +3,13 @@ package com.example.PIDEV;
 import entity.Dons;
 import entity.User;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import service.EmailService;
-import service.ServiceDons;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class DonationInfoController {
+public class DonCardController {
 
     @FXML
     private Label DonAmount;

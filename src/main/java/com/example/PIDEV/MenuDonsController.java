@@ -6,16 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.FXMLLoader.*;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,10 +19,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import service.ServiceDons;
-import service.ServiceDons;
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -114,7 +109,7 @@ public class MenuDonsController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("DonCard.fxml"));
                 VBox card = loader.load();
-                DonationInfoController controller = loader.getController();
+                DonCardController controller = loader.getController();
                 controller.setData(donation);
                 if(column ==3){
                     column = 0;

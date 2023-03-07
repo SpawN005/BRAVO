@@ -12,26 +12,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import service.ServiceDons;
-import service.ServiceOeuvre;
 
 import java.io.IOException;
-import java.time.*;
 
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import static java.lang.Integer.parseInt;
 
 
-public class ModifyDonsController implements Initializable {
+public class MyDonsController implements Initializable {
 
     @FXML
     private TableView<Dons> tableDonations;
@@ -86,11 +80,11 @@ public class ModifyDonsController implements Initializable {
         if (selectedDonation != null) {
             try {
                 // Load the UpdateDonation view
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Update.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateDons.fxml"));
                 Parent root = loader.load();
 
                 // Get the controller and set the selected donation
-                updateController updateDonationController = loader.getController();
+                UpdateDonsController updateDonationController = loader.getController();
                 updateDonationController.setDon(selectedDonation);
 
                 // Create a new scene and show it
