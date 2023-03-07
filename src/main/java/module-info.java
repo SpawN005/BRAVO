@@ -15,7 +15,7 @@ module com.example.demo1 {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
-    requires java.desktop;
+
 
 
 
@@ -29,9 +29,11 @@ module com.example.demo1 {
     requires layout;
     requires com.fasterxml.jackson.databind;
 
-    requires java.mail;
 
-
+    requires java.desktop;
+    requires java.activation;
+    requires com.google.zxing;
+    requires javax.mail.api;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

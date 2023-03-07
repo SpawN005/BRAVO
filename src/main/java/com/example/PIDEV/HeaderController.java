@@ -25,6 +25,18 @@ public class HeaderController implements Initializable {
     private ImageView image;
     @FXML
     private Label logout_btn;
+    @FXML
+    private Label blog;
+
+    @FXML
+    private Label don;
+    @FXML
+    private Label paint;
+
+    @FXML
+    private Label ticket;
+    @FXML
+    private Label ev;
 
     @FXML
     void account(MouseEvent event) {
@@ -58,9 +70,30 @@ public class HeaderController implements Initializable {
     void donations(MouseEvent event) {
 
     }
+    @FXML
+    void reservation(MouseEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageReservation.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        logout_btn.getScene().setRoot(root);
+    }
 
     @FXML
     void events(MouseEvent event) {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageEvent.fxml"));
+        Parent root= null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        logout_btn.getScene().setRoot(root);
 
     }
 
@@ -120,6 +153,17 @@ public class HeaderController implements Initializable {
 
         if (loggedInUser.getUser()==null)
             logout_btn.setVisible(false);
+
+
+        if (loggedInUser.getUser().getRole().equalsIgnoreCase("admin"))
+        {
+            ev.setVisible(false);
+            paint.setVisible(false);
+            blog.setVisible(false);
+            ticket.setVisible(false);
+            don.setVisible(false);
+        }
+
 
 
 

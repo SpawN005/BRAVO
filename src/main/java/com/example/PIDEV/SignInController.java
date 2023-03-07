@@ -106,27 +106,46 @@ public void signIn() throws IOException {
         successAlert.setContentText("You have successfully logged in. Your role is : " + loggedInUser.getUser().getRole()+ ".");
         successAlert.showAndWait();
         FXMLLoader loader = null;
+        Parent root= null;
+
        if (!(Objects.equals(loggedInUser.getUser().getRole(), "admin")))
        {
             loader = new FXMLLoader(getClass().getResource("Feed.fxml"));
+           try {
+               root = loader.load();
+           } catch (IOException e) {
+               throw new RuntimeException(e);
+           }
+           Scene scene = new Scene(root);
+           Stage newStage = new Stage();
+           newStage.setScene(scene);
+           newStage.show();
+           Stage currentStage = (Stage) signinBtn.getScene().getWindow();
+           currentStage.close();
 
        }else {
-            loader = new FXMLLoader(getClass().getResource("AdminInterface.fxml"));
+            loader=new FXMLLoader(getClass().getResource("LoggedIn.fxml"));
+
+           try {
+               root = loader.load();
+           } catch (IOException e) {
+               throw new RuntimeException(e);
+           }
+           LoggedInController controller = loader.getController();
+           controller.setUser(user);
+           Scene scene = new Scene(root);
+           Stage newStage = new Stage();
+           newStage.setScene(scene);
+           newStage.show();
+           Stage currentStage = (Stage) signinBtn.getScene().getWindow();
+           currentStage.close();
 
        }
-        Parent root= null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        Scene scene = new Scene(root);
-        Stage newStage = new Stage();
-        newStage.setScene(scene);
-        newStage.show();
-        Stage currentStage = (Stage) signinBtn.getScene().getWindow();
-        currentStage.close();
+
+
+
+
         
 
 

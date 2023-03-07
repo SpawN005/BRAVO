@@ -56,7 +56,7 @@ public class User {
 
     }
 
-   
+
 
     public User(String firstName, String lastName, int phoneNumber, String email, String role, String password) {
         this.firstName = firstName;

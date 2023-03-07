@@ -8,22 +8,21 @@
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="142.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.HeaderController">
 
-                <ImageView fx:id="image" layoutX="40.0" layoutY="39.0" preserveRatio="true">
+    <ImageView fx:id="image" layoutX="40.0" layoutY="39.0" preserveRatio="true">
         <image>
             <Image url="@assets/logo.png" />
         </image>
     </ImageView>
-    <Label contentDisplay="TOP" layoutX="661.0" layoutY="62.0" onMouseClicked="#painting" text="Paintings ">
-
-   </Label>
-   <Label contentDisplay="TOP" layoutX="727.0" layoutY="62.0" onMouseClicked="#blogs" text="Blogs" />
-   <Label contentDisplay="TOP" layoutX="779.0" layoutY="62.0" onMouseClicked="#events" text="Events" />
-   <Label contentDisplay="TOP" layoutX="918.0" layoutY="62.0" onMouseClicked="#account" text="Profile" />
-   <Label contentDisplay="TOP" layoutX="842.0" layoutY="62.0" onMouseClicked="#donations" text="Donation" />
-   <Label fx:id="logout_btn" contentDisplay="TOP" layoutX="1052.0" layoutY="62.0" onMouseClicked="#logout" text="Log out" />
-   <Label contentDisplay="TOP" layoutX="970.0" layoutY="62.0" onMouseClicked="#reclamation" text="My Tickets" />
-   <padding>
-      <Insets left="20.0" right="20.0" />
-   </padding>
+    <Label fx:id="paint" contentDisplay="TOP" layoutX="689.0" layoutY="62.0" onMouseClicked="#painting" text="Paintings ">
+    </Label>
+    <Label fx:id="blog" contentDisplay="TOP" layoutX="755.0" layoutY="62.0" onMouseClicked="#blogs" text="Blogs" />
+    <Label fx:id="ev" contentDisplay="TOP" layoutX="807.0" layoutY="62.0" onMouseClicked="#events" text="Events" />
+    <Label contentDisplay="TOP" layoutX="946.0" layoutY="62.0" onMouseClicked="#account" text="Profile" />
+    <Label fx:id="don" contentDisplay="TOP" layoutX="870.0" layoutY="62.0" onMouseClicked="#donations" text="Donation" />
+    <Label fx:id="logout_btn" contentDisplay="TOP" layoutX="1052.0" layoutY="62.0" onMouseClicked="#logout" text="Log out" />
+    <Label fx:id="ticket" contentDisplay="TOP" layoutX="998.0" layoutY="62.0" onMouseClicked="#reclamation" text="Tickets" />
+    <padding>
+        <Insets left="20.0" right="20.0" />
+    </padding>
 
 </AnchorPane>

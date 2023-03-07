@@ -17,7 +17,7 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="340.0" styleClass="primary-color-profile" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+            <VBox  alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>
@@ -40,16 +40,16 @@
                   <Button fx:id="editBtn" mnemonicParsing="false" onAction="#browseImage" prefWidth="100.0" styleClass="button_edit" stylesheets="@styles.css" text="Edit Profile" textFill="WHITE" />
                </children>
             </VBox>
-            <VBox prefHeight="382.0" prefWidth="340.0" spacing="20.0">
+            <VBox fx:id="leftAnchor" prefHeight="382.0" prefWidth="340.0" spacing="20.0">
                <children>
-                  <HBox prefHeight="55.0" prefWidth="340.0">
+                  <HBox fx:id="feed" prefHeight="55.0" prefWidth="340.0">
                      <children>
                         <FontAwesomeIconView fill="WHITE" glyphName="USER" size="3.2em" text="">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
-                        <Label text="Profile" textFill="WHITE">
+                        <Label text="Feed" textFill="WHITE">
                            <font>
                               <Font size="27.0" />
                            </font>
@@ -59,42 +59,70 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="55.0" prefWidth="340.0">
+                  <HBox fx:id="users" prefHeight="55.0" prefWidth="340.0">
                      <children>
                         <FontAwesomeIconView fill="WHITE" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
-                        <Label text="Settings" textFill="WHITE">
+                        <Label text="Users" textFill="WHITE">
                            <font>
                               <Font size="27.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="55.0" prefWidth="340.0">
+                  <HBox fx:id="reclamation" prefHeight="55.0" prefWidth="340.0">
                      <children>
                         <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
-                        <Label text="Password" textFill="WHITE">
+                        <Label text="Tickets" textFill="WHITE">
                            <font>
                               <Font size="27.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox prefHeight="55.0" prefWidth="340.0">
+                  <HBox fx:id="stats" layoutX="10.0" layoutY="189.0" prefHeight="55.0" prefWidth="340.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="3.2em">
+                           <HBox.margin>
+                              <Insets left="20.0" right="30.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label text="Stats" textFill="WHITE">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="events" prefHeight="55.0" prefWidth="340.0">
                      <children>
                         <FontAwesomeIconView fill="WHITE" glyphName="STAR" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
-                        <Label text="Privacy policy" textFill="WHITE">
+                        <Label text="Events" textFill="WHITE">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="logout" prefHeight="55.0" prefWidth="340.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="3.2em">
+                           <HBox.margin>
+                              <Insets left="20.0" right="30.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label text="Log out" textFill="WHITE">
                            <font>
                               <Font size="27.0" />
                            </font>

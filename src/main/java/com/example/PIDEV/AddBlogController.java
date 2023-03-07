@@ -136,7 +136,7 @@ public class AddBlogController implements Initializable {
         b.setAuthor(loggedInUser.getUser());
         sb.insert(b);
 
-            newsletterService.sendEmail("tasnim.benhamouda@esprit.tn",b.getTitle());
+            newsletterService.sendEmail("tasnim.benhamouda@esprit.tn");
 
         }
         FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageBlog.fxml"));

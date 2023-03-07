@@ -11,6 +11,7 @@ import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.*;
 import java.util.Properties;
 import entity.Oeuvre;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -29,6 +30,7 @@ import service.LoggedInUser;
 import service.ServiceOeuvre;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import utils.DataSource;
 
 
 import java.net.URL;
@@ -177,11 +179,28 @@ public class AddOeuvreController implements Initializable {
             }
             o.setTitle(title.getText());
             o.setOwner(loggedInUser.getUser());
-
             o.setDescription(description.getText());
             o.setUrl(selectedFile.getName());
             o.setCategory(categorie.getText());
+            Connection conn = DataSource.getInstance().getCnx();
+            String query = "SELECT * FROM artwork WHERE title = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setString(1, title.getText());
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    // Email already exists, show popup
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    showAlert("title already taken",false);
+                    return;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return;
+            }
             so.insert(o);
+
+
+
 
             FXMLLoader loader=new FXMLLoader(getClass().getResource("feed.fxml"));
             Parent root= null;
