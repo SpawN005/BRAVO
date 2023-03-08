@@ -9,6 +9,8 @@ module com.example.demo1 {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires mail;
+    requires java.desktop;
+    requires org.jfree.jfreechart;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

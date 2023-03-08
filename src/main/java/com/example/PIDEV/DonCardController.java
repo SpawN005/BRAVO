@@ -41,13 +41,13 @@ public class DonCardController {
             EmailService emailService = new EmailService();
             emailService.envoyer("aymen.majoul@gmail.com");
         }
-        if(daysUntilExpiration<= 0){
+       /* if(daysUntilExpiration<= 0){
             ServiceDons serviceDons = new ServiceDons();
             serviceDons.delete(dons);
             EmailService emailService = new EmailService();
             emailService.envoyer("aimen.majoul@gmail.com"); //n7ab nabaath email e5er n9ollo raw l'donation mte33ek expired
 
-        }
+        } */
             box.setStyle("-fx-background-color: #" + colors[(int) (Math.random() * colors.length)] + ";" +
                     " -fx-background-radius: 15;" +
                     "-fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10, 0 , 0 ,10);");

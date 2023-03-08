@@ -158,6 +158,9 @@ return ld;
         if (actionEvent.getSource() == STATSBTN) {
             pnlMenus.setStyle("-fx-background-color : #53639F");
             pnlMenus.toFront();
+            ServiceDons serviceDons = new ServiceDons();
+            Chart chart = new Chart(serviceDons);
+            chart.displayChart();
         }
         if (actionEvent.getSource() == btnOverview) {
             loadDonations("");
