@@ -56,12 +56,12 @@
     -fx-background-color: transparent;
     -fx-border-color: #DEDEE4;
     -fx-border-width: 0px 0px 1px 0px;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #02030A;
 }
 .tf_box2{
     -fx-border-color: #000000;
     -fx-border-width: 0px 0px 1px 0px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #02030A;
 }
 
 .tf{
