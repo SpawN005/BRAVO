@@ -159,9 +159,11 @@ return ld;
             pnlMenus.setStyle("-fx-background-color : #53639F");
             pnlMenus.toFront();
             ServiceDons serviceDons = new ServiceDons();
-            Chart chart = new Chart(serviceDons);
+            List<Dons> donations = serviceDons.readAll();
+            Chart chart = new Chart(donations);
             chart.displayChart();
         }
+
         if (actionEvent.getSource() == btnOverview) {
             loadDonations("");
 
