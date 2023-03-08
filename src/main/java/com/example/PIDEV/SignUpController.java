@@ -2,24 +2,17 @@ package com.example.PIDEV;
 
 import entity.PasswordHasher;
 import entity.User;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import service.ServiceUser;
 import utils.DataSource;
+
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable{
 
@@ -123,7 +116,8 @@ public class SignUpController implements Initializable{
                 // Email already exists, show popup
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setHeaderText("Email already in use");
-                alert.setContentText("The email address you entered is already in use. Please use a different email address.");
+
+                alert.setContentText("The email address you entered is already in use. \nPlease use a different email address.");
                 alert.showAndWait();
                 return;
             }

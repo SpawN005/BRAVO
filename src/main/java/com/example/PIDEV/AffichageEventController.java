@@ -2,13 +2,12 @@ package com.example.PIDEV;
 
 
 import entity.Event;
-import entity.Oeuvre;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,19 +22,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.ServiceEvent;
-import service.ServiceOeuvre;
 import service.ServiceUser;
-import utils.DataSource;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -131,8 +121,8 @@ Event e = new Event();
        List<Event> list=SE.readAll();
 
         double  y = 274.0;
-        double x =200;
-
+        double x =100;
+        scrollPane.setPadding(new Insets(60,60,0,60));
         for (Event event : list){
             anchorPane= new AnchorPane();
             anchorPane.setLayoutX(x);

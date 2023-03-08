@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -87,6 +88,7 @@ public class AffichageBlogController implements Initializable {
         double y = 274.0;
         double x = 200;
         double spacing = 150.0;
+        scrollPane.setPadding(new Insets(60,60,0,60));
         for (Blog b1 : list) {
             anchorPane = new AnchorPane();
             anchorPane.setLayoutX(x);

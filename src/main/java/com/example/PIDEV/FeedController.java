@@ -89,7 +89,8 @@ public class FeedController implements Initializable {
             Label title=new Label(o.getTitle());
             Label owner=new Label(o.getOwner().getFirstName()+" "+o.getOwner().getLastName());
             Label description=new Label(o.getDescription());
-
+            paint.setFitHeight(200);
+            paint.setFitWidth(200);
             description.setWrapText(true);
             description.setMaxWidth(200);
             anchorPane.setLayoutX(x);
@@ -114,7 +115,7 @@ public class FeedController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        scrollPane.setPadding(new Insets(0,60,0,60));
+        scrollPane.setPadding(new Insets(60,60,0,60));
 
         l = so.readAll();
         for (Oeuvre o : l){

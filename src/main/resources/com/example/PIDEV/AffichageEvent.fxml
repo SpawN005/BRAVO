@@ -15,50 +15,69 @@
     <top><fx:include source="header.fxml" BorderPane.alignment="TOP_CENTER" /></top>
 
     <center>
-        <ScrollPane fx:id="ScrollPane" style="-fx-background-color: transparent;">
+        <ScrollPane fx:id="scrollPane" style="-fx-background-color: transparent;">
             <AnchorPane fx:id="feed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
         </ScrollPane>
     </center>
     <bottom>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F4F4F2;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: E4DDCD;" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="chercher_type" layoutX="948.0" layoutY="14.0" />
-            <Button fx:id="AjouterEvent" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" onAction="#AjoutEvent" text="Add Event" />
-            <Text layoutX="291.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Featured Artists">
+            <Button fx:id="AjouterEvent" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" onAction="#AjoutEvent" style="-fx-background-color: #dec5a2;" text="Add Event" textFill="WHITE">
                <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
-             <AnchorPane layoutX="291.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+             <Text fill="WHITE" layoutX="291.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Featured Artists">
+                 <font>
+                     <Font name="System Bold" size="14.0" />
+                 </font>
+             </Text>
+             <AnchorPane layoutX="291.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: #dec5a2; -fx-background-color: #dec5a2;">
                  <children>
                      <ImageView fx:id="img1" fitHeight="82.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true">
                          <cursor>
                              <Cursor fx:constant="DEFAULT" />
                          </cursor></ImageView>
-                     <Text fx:id="name1" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                     <Text layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
+                     <Text fx:id="name1" fill="WHITE" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                     <Text fill="WHITE" layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
                  </children>
              </AnchorPane>
-             <Text layoutX="291.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Featured Artists">
-                 <font>
-                     <Font size="14.0" />
-                 </font>
-             </Text>
-             <AnchorPane layoutX="491.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
+             <AnchorPane layoutX="491.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: #dec5a2; -fx-background-color: #dec5a2;">
                  <children>
                      <ImageView fx:id="img2" fitHeight="82.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true" />
-                     <Text fx:id="name2" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                     <Text layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
+                     <Text fx:id="name2" fill="WHITE" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                     <Text fill="WHITE" layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
                  </children>
              </AnchorPane>
-             <AnchorPane layoutX="691.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: grey;">
+             <AnchorPane layoutX="691.0" layoutY="74.0" maxHeight="82.0" maxWidth="150.0" minWidth="180.0" prefHeight="82.0" prefWidth="150.0" style="-fx-border-color: #dec5a2; -fx-background-color: #dec5a2;">
                  <children>
                      <ImageView fx:id="img3" fitHeight="82.0" fitWidth="80.0" layoutY="-2.0" pickOnBounds="true" />
-                     <Text fx:id="name3" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                     <Text layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
+                     <Text fx:id="name3" fill="WHITE" layoutX="99.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                     <Text fill="WHITE" layoutX="99.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
                  </children>
              </AnchorPane>
-            <Button fx:id="ListeDesReservations" layoutX="55.0" layoutY="46.0" mnemonicParsing="false" onAction="#Affichage_reservation" text="Show Reservations" />
+            <Button fx:id="ListeDesReservations" layoutX="55.0" layoutY="46.0" mnemonicParsing="false" onAction="#Affichage_reservation" style="-fx-background-color: #dec5a2;" text="Show Reservations" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children></AnchorPane>
     </bottom>
 

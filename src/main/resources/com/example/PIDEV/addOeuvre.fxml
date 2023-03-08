@@ -7,7 +7,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="pane" prefHeight="770.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AddOeuvreController">
+
+<AnchorPane fx:id="pane" prefHeight="770.0" prefWidth="1125.0" style="-fx-background-image: url('file:C:/Users/jasse/Desktop/bg.png');" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AddOeuvreController">
    <children>
       <TextField fx:id="title" layoutX="433.0" layoutY="83.0" prefHeight="26.0" prefWidth="259.0" />
       <Label layoutX="434.0" layoutY="65.0" text="Title" />

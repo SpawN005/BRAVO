@@ -17,7 +17,7 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="340.0" styleClass="primary-color-profile" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox  alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>
@@ -37,14 +37,14 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Button fx:id="editBtn" mnemonicParsing="false" onAction="#browseImage" prefWidth="100.0" styleClass="button_edit" stylesheets="@styles.css" text="Edit Profile" textFill="WHITE" />
+                  <Button fx:id="editBtn" mnemonicParsing="false" onAction="#browseImage" prefWidth="100.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" stylesheets="@styles.css" text="Edit Profile" textFill="#5c1010" />
                </children>
             </VBox>
             <VBox fx:id="leftAnchor" prefHeight="382.0" prefWidth="340.0" spacing="20.0">
                <children>
                   <HBox fx:id="feed" prefHeight="55.0" prefWidth="340.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="USER" size="3.2em" text="">
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER" selectionEnd="0" size="3.2em" text="">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
@@ -61,7 +61,7 @@
                   </HBox>
                   <HBox fx:id="users" prefHeight="55.0" prefWidth="340.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" size="3.2em">
+                        <FontAwesomeIconView fill="WHITE" selectionEnd="0" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
@@ -75,7 +75,7 @@
                   </HBox>
                   <HBox fx:id="reclamation" prefHeight="55.0" prefWidth="340.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="3.2em">
+                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" selectionEnd="0" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
@@ -89,7 +89,7 @@
                   </HBox>
                   <HBox fx:id="stats" layoutX="10.0" layoutY="189.0" prefHeight="55.0" prefWidth="340.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="3.2em">
+                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" selectionEnd="0" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
@@ -103,7 +103,7 @@
                   </HBox>
                   <HBox fx:id="events" prefHeight="55.0" prefWidth="340.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="STAR" size="3.2em">
+                        <FontAwesomeIconView fill="WHITE" glyphName="STAR" selectionEnd="0" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
@@ -117,7 +117,7 @@
                   </HBox>
                   <HBox fx:id="logout" prefHeight="55.0" prefWidth="340.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="3.2em">
+                        <FontAwesomeIconView fill="WHITE" glyphName="LOCK" selectionEnd="0" size="3.2em">
                            <HBox.margin>
                               <Insets left="20.0" right="30.0" />
                            </HBox.margin>
@@ -196,7 +196,7 @@
                         <Pane prefHeight="33.0" prefWidth="200.0" />
 
                         <TextField fx:id="phonefield" prefHeight="31.0" prefWidth="341.0" styleClass="tf_box" stylesheets="@styles.css" />
-                        <Button fx:id="verifyBtn" mnemonicParsing="false" onAction="#handleVerifyButtonClick" prefHeight="26.0" prefWidth="124.0" styleClass="button_edit" text="Verify" textFill="WHITE">
+                        <Button fx:id="verifyBtn" mnemonicParsing="false" onAction="#handleVerifyButtonClick" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" text="Verify" textFill="#5c1010">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
@@ -218,12 +218,12 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="savebtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveChanges" prefWidth="180.0" styleClass="button_edit" stylesheets="@styles.css" text="Save Changes" textFill="WHITE">
+                        <Button fx:id="savebtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveChanges" prefWidth="180.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" stylesheets="@styles.css" text="Save Changes" textFill="#5c1010">
                            <HBox.margin>
                               <Insets left="400.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="savebtn1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteacc" prefWidth="100.0" styleClass="button_edit" stylesheets="@styles.css" text="Delete" textFill="WHITE">
+                        <Button fx:id="savebtn1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteacc" prefWidth="100.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" stylesheets="@styles.css" text="Delete" textFill="#5c1010">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
