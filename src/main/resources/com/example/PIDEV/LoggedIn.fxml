@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.LoggedInController">
    <left>
-      <VBox prefHeight="200.0" prefWidth="340.0" styleClass="primary-color-profile" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: #dec5a2;" styleClass="primary-color-profile" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                <VBox.margin>
@@ -37,7 +37,10 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Button fx:id="editBtn" mnemonicParsing="false" onAction="#browseImage" prefWidth="100.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" stylesheets="@styles.css" text="Edit Profile" textFill="#5c1010" />
+                  <Button fx:id="editBtn" mnemonicParsing="false" onAction="#browseImage" prefWidth="100.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" stylesheets="@styles.css" text="Edit Profile" textFill="#5c1010">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
                </children>
             </VBox>
             <VBox fx:id="leftAnchor" prefHeight="382.0" prefWidth="340.0" spacing="20.0">
@@ -135,7 +138,7 @@
       </VBox>
    </left>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="secondary-color-profile" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: E4DDCD;" styleClass="secondary-color-profile" stylesheets="@styles.css" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="18.0" prefWidth="925.0" text="Profile Settings" textFill="WHITE">
                <font>
@@ -166,7 +169,7 @@
                            </HBox.margin>
                         </Label>
                         <Pane prefHeight="33.0" prefWidth="200.0" />
-                        <TextField fx:id="firstnamefield" prefHeight="31.0" prefWidth="341.0" styleClass="tf_box" stylesheets="@styles.css" />
+                        <TextField fx:id="firstnamefield" prefHeight="31.0" prefWidth="341.0" style="-fx-background-color: #FFF8DC;" styleClass="tf_box" stylesheets="@styles.css" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -180,7 +183,7 @@
                            </HBox.margin>
                         </Label>
                         <Pane prefHeight="33.0" prefWidth="200.0" />
-                        <TextField fx:id="lastnamefield" prefHeight="31.0" prefWidth="341.0" styleClass="tf_box" stylesheets="@styles.css" />
+                        <TextField fx:id="lastnamefield" prefHeight="31.0" prefWidth="341.0" style="-fx-background-color: #FFF8DC;" styleClass="tf_box" stylesheets="@styles.css" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -195,11 +198,14 @@
                         </Label>
                         <Pane prefHeight="33.0" prefWidth="200.0" />
 
-                        <TextField fx:id="phonefield" prefHeight="31.0" prefWidth="341.0" styleClass="tf_box" stylesheets="@styles.css" />
+                        <TextField fx:id="phonefield" prefHeight="31.0" prefWidth="341.0" style="-fx-background-color: #FFF8DC;" styleClass="tf_box" stylesheets="@styles.css" />
                         <Button fx:id="verifyBtn" mnemonicParsing="false" onAction="#handleVerifyButtonClick" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" text="Verify" textFill="#5c1010">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>                     </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -213,7 +219,7 @@
                            </HBox.margin>
                         </Label>
                         <Pane prefHeight="33.0" prefWidth="200.0" />
-                        <TextField fx:id="pwdfield" prefHeight="31.0" prefWidth="341.0" styleClass="tf_box" stylesheets="@styles.css" />
+                        <TextField fx:id="pwdfield" prefHeight="31.0" prefWidth="341.0" style="-fx-background-color: #FFF8DC;" styleClass="tf_box" stylesheets="@styles.css" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
@@ -222,11 +228,17 @@
                            <HBox.margin>
                               <Insets left="400.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                         <Button fx:id="savebtn1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#deleteacc" prefWidth="100.0" style="-fx-background-color: #FFF8DC;" styleClass="button_edit" stylesheets="@styles.css" text="Delete" textFill="#5c1010">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
                      </children>
                   </HBox>
