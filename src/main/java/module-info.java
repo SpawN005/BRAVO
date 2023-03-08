@@ -36,6 +36,8 @@ module com.example.demo1 {
     requires java.activation;
     requires com.google.zxing;
     requires javax.mail.api;
+    requires mysql.connector.java;
+    requires itextpdf;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

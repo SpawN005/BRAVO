@@ -143,9 +143,15 @@ public String resetPassword(String email) throws SQLException {
     }
 
 
-
-    
-    
+    public List<User> getUsersByRole(String role) {
+        List<User> filteredUsers = new ArrayList<>();
+        for (User user : getAllUsers()) {
+            if (user.getRole().equals(role)) {
+                filteredUsers.add(user);
+            }
+        }
+        return filteredUsers;
+    }
 }
 
 
