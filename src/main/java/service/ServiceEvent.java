@@ -175,7 +175,7 @@ public class ServiceEvent implements IService<Event> {
 
         return e;
     }
-    public List<Event> filterByType(String type) {
+    /*public List<Event> filterByType(String type) {
         List<Event> events = new ArrayList<>();
 
         PreparedStatement ps = null;
@@ -204,6 +204,44 @@ public class ServiceEvent implements IService<Event> {
             e.printStackTrace();
 
         }
+
+        return events;
+    }*/
+    public List<Event> filterByType(String type) {
+        List<Event> events = new ArrayList<>();
+
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+
+        try {
+
+
+            String query = "SELECT * FROM event WHERE type_event LIKE ?";
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%"+ type+ "%");
+            rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+                Event event = new Event();
+                event.setId(rs.getInt("id"));
+                event.setTitle(rs.getString("title"));
+                event.setDescription(rs.getString("description"));
+                event.setNb_placeMax(rs.getInt("nb_placeMax"));
+                event.setDate_beg(rs.getDate("date_beg").toLocalDate().atStartOfDay());
+                event.setDate_end(rs.getDate("date_end").toLocalDate().atStartOfDay());
+                event.setType_event(rs.getString("type_event"));
+                event.setUrl(rs.getString("url"));
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+
+        }
+
 
         return events;
     }
