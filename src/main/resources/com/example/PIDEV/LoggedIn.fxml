@@ -194,8 +194,13 @@
                            </HBox.margin>
                         </Label>
                         <Pane prefHeight="33.0" prefWidth="200.0" />
+
                         <TextField fx:id="phonefield" prefHeight="31.0" prefWidth="341.0" styleClass="tf_box" stylesheets="@styles.css" />
-                     </children>
+                        <Button fx:id="verifyBtn" mnemonicParsing="false" onAction="#handleVerifyButtonClick" prefHeight="26.0" prefWidth="124.0" styleClass="button_edit" text="Verify" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Button>                     </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>

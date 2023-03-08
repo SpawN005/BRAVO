@@ -38,6 +38,7 @@ module com.example.demo1 {
     requires javax.mail.api;
     requires mysql.connector.java;
     requires itextpdf;
+    requires twilio;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

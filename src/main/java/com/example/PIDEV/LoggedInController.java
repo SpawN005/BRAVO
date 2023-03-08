@@ -1,23 +1,15 @@
 package com.example.PIDEV;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import entity.PasswordHasher;
 import entity.User;
-import java.io.File;
-import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -31,7 +23,18 @@ import javafx.stage.StageStyle;
 import service.LoggedInUser;
 import service.ServiceUser;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 public class LoggedInController implements Initializable {
+    @FXML
+    private Button verifyBtn;
+    private Stage stage;
     @FXML
     private TextField firstnamefield;
 
@@ -196,46 +199,39 @@ public class LoggedInController implements Initializable {
         phonefield.setText(String.valueOf(user.getPhoneNumber()));
                 fnamelabel1.setText(user.getFirstName());
                 lnamelabel.setText(user.getLastName());
-                pdpImage.setImage(new Image("file:C:/xampp/htdocs/img/"+user.getimage()));
-                selectedFile= new File("file:C:/xampp/htdocs/img/"+user.getimage());
+                pdpImage.setImage(new Image("C:/xampp/htdocs/img/"+user.getimage()));
+                selectedFile= new File("C:/xampp/htdocs/img/"+user.getimage());
+                System.out.println(selectedFile);
             }
             
             
 
                         @FXML
             private void browseImage() {
-                // Create a new FileChooser object
-                FileChooser fileChooser = new FileChooser();
+                            FileChooser fileChooser = new FileChooser();
+                            fileChooser.setTitle("Upload an image");
+                            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png");
+                            fileChooser.getExtensionFilters().add(extFilter);
+                            selectedFile = fileChooser.showOpenDialog(stage);
+                            pdpImage.setImage(new Image(selectedFile.getPath()));
 
-                // Set the file chooser title
-                fileChooser.setTitle("Select Image File");
 
-                // Set the initial directory to the user's home directory
-                fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-                // Add a filter to only show image files
-                FileChooser.ExtensionFilter imageFilter =
-                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
-                fileChooser.getExtensionFilters().add(imageFilter);
 
-                // Show the file chooser dialog and wait for user input
-                 selectedFile = fileChooser.showOpenDialog(savebtn.getScene().getWindow());
-
-                // If the user selected a file, update the ImageView with the new image
-                if (selectedFile != null) {
-                    Image newImage = new Image(selectedFile.toURI().toString());
-                    pdpImage.setImage(newImage);
-                }
             }
             
                     @FXML
                     private void saveChanges() {
                         
                         PasswordHasher hasher = new PasswordHasher();
+                        LoggedInUser loggedInUser = new LoggedInUser();
 
                                                    
                         // TODO: Save changes to database
                         User updatedUser = new User(user.getId(), firstnamefield.getText(), lastnamefield.getText(),Integer.parseInt(phonefield.getText()),hasher.hashPassword(pwdfield.getText()),selectedFile.getName());
+                        String role = loggedInUser.getUser().getRole();
+                        loggedInUser.setUser(updatedUser);
+                        loggedInUser.getUser().setRole(role);
 
                         ServiceUser service = new ServiceUser();
                         service.update(updatedUser);
@@ -245,6 +241,7 @@ public class LoggedInController implements Initializable {
                                         alert.showAndWait();
                         File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
                         try {
+
                             Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -276,9 +273,47 @@ public class LoggedInController implements Initializable {
                                          savebtn1.getScene().setRoot(root);
                                     
                                           }
-                    
-                    
-                 
+
+
+    @FXML
+    private void handleVerifyButtonClick() {
+        String accountSid = "AC722e32116c6083cff1c7e8898c7a1dd5";
+        String authToken = "b127ca0968b5a4beb609fc54b5a1eb8c";
+        String twilioNumber = "+15076088911";
+
+        String phoneNumber = "+216" + phonefield.getText();
+
+        int verificationCode = (int) (Math.random() * 900000) + 100000;
+
+        Twilio.init(accountSid, authToken);
+        Message message = Message.creator(
+                        new com.twilio.type.PhoneNumber(phoneNumber),
+                        new com.twilio.type.PhoneNumber(twilioNumber),
+                        "To verify your Tun'ART account enter the following code : " + verificationCode)
+                .create();
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Verify Phone Number");
+        dialog.setHeaderText("Enter the verification code that was sent to your phone.");
+        dialog.setContentText("Verification Code:");
+        Optional<String> result = dialog.showAndWait();
+
+        // Verify the code
+        if (result.isPresent() && result.get().equals(Integer.toString(verificationCode))) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Verification Successful!");
+            alert.setContentText("Your phone number has been verified.");
+            alert.showAndWait();
+            verifyBtn.setVisible(false);
+
+        } else {
+            // Code is incorrect
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Verification Failed!");
+            alert.setContentText("The verification code you entered is incorrect.");
+            alert.showAndWait();
+        }
+    }
 
             
             
