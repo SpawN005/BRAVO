@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -155,9 +154,7 @@ public class AffichageBlogController implements Initializable {
                 Label description2 = new Label("Description   :     ");
                 description2.setLayoutY(y + 20);
                 description2.setLayoutX(-100);
-                Label content3 = new Label("Content  :     ");
-                content3.setLayoutY(y + 40);
-                content3.setLayoutX(-100);
+
 
                 Image image = new Image("file:C:/xampp/htdocs/img/" + b.getUrl());
                 ImageView paint = new ImageView(image);
@@ -175,9 +172,9 @@ public class AffichageBlogController implements Initializable {
 
                 title.setLayoutY(y);
                 description.setLayoutY(y + 40);
-                content.setLayoutY(y + 80);
+                description2.setLayoutY(y + 40);
 
-                anchorPane.getChildren().addAll(paint, title1, title, description2, description, content3, content);
+                anchorPane.getChildren().addAll(paint, title1, title, description2, description);
                 anchorPane.setOnMouseClicked(mouseEvent -> onImageClick(b));
                 anchorPane.setStyle("-fx-cursor: hand;");
 

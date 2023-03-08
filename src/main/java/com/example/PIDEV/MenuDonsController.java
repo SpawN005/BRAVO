@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -70,6 +71,10 @@ public class MenuDonsController implements Initializable {
     private Pane pnlOrders;
     @FXML
     private TextField Searchfield;
+    @FXML
+    private Label name;
+    @FXML
+    private ImageView img;
 
     private List<Dons> recentlyAdded;
     private User user;
@@ -77,6 +82,10 @@ public class MenuDonsController implements Initializable {
     ServiceDons sd = new ServiceDons();
 
     public void initialize(URL location, ResourceBundle resources) {
+        LoggedInUser loggedInUser = new LoggedInUser();
+        img.setImage(new Image("file:C:/xampp/htdocs/img/"+loggedInUser.getUser().getimage()));
+        name.setText(loggedInUser.getUser().getFirstName()+" "+loggedInUser.getUser().getLastName());
+
         Image image = new Image(getClass().getResourceAsStream("assets/search.png"));
         searchButton.setImage(image);
         searchButton.setCursor(Cursor.HAND);

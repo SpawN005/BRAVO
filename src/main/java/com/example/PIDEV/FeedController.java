@@ -1,25 +1,23 @@
 package com.example.PIDEV;
 
 import entity.Oeuvre;
-
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import service.LoggedInUser;
-import service.ServiceCommentaireOeuvre;
 import service.ServiceOeuvre;
 import service.ServiceUser;
 
@@ -162,14 +160,15 @@ public class FeedController implements Initializable {
 
 
         List<User> lu = su.RandomArtists();
+
         Image image = new Image("file:C:/xampp/htdocs/img/"+lu.get(0).getimage());
         img1.setImage(image);
         name1.setText(lu.get(0).getFirstName()+" "+lu.get(0).getLastName());
-        image = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
-        img2.setImage(image);
+        Image image1 = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
+        img2.setImage(image1);
         name2.setText(lu.get(1).getFirstName()+" "+lu.get(1).getLastName());
-        image = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
-        img3.setImage(image);
+        Image image2 = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
+        img3.setImage(image2);
         name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
 
 

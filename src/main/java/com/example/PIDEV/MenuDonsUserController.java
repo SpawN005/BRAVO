@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import service.LoggedInUser;
 import service.ServiceDons;
 
 import java.io.IOException;
@@ -56,10 +58,18 @@ public class MenuDonsUserController implements Initializable {
     @FXML
     private ImageView searchButton;
 
+    @FXML
+    private ImageView img;
+
+    @FXML
+    private Label name;
 
     ServiceDons sd = new ServiceDons();
 
     public void initialize(URL location, ResourceBundle resources) {
+        LoggedInUser loggedInUser = new LoggedInUser();
+        img.setImage(new Image("file:C:/xampp/htdocs/img/"+loggedInUser.getUser().getimage()));
+        name.setText(loggedInUser.getUser().getFirstName()+" "+loggedInUser.getUser().getLastName());
         Image image = new Image(getClass().getResourceAsStream("assets/search.png"));
         searchButton.setImage(image);
         searchButton.setCursor(Cursor.HAND);
@@ -137,7 +147,6 @@ return ld;
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnOverview) {
             loadDonations("");
-
             pnlOverview.setStyle("-fx-background-color : #f7f7f7");
             pnlOverview.toFront();
         }
