@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -36,7 +37,7 @@ public class MenuDonsController implements Initializable {
     private Button ADDBTN;
 
     @FXML
-    private Button SETTINGS;
+    private Button Home;
 
     @FXML
     private Button STATSBTN;
@@ -179,6 +180,11 @@ return ld;
         if (actionEvent.getSource() == STATSBTN) {
             pnlMenus.setStyle("-fx-background-color : #53639F");
             pnlMenus.toFront();
+            ServiceDons serviceDons = new ServiceDons();
+            List<Dons> donations = serviceDons.readAll();
+
+            Chart chart = new Chart(donations);
+            chart.displayChart();
         }
         if (actionEvent.getSource() == btnOverview) {
             loadDonations("");
@@ -199,6 +205,18 @@ return ld;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if (actionEvent.getSource()== Home)
+        {
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("Feed.fxml"));
+            Parent root= null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            pnlMyDon.getScene().setRoot(root);
         }
     }
 

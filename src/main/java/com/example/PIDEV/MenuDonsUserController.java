@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
 public class MenuDonsUserController implements Initializable {
 
     @FXML
-    private Button SETTINGS;
+    private Button Feed;
 
     @FXML
     private TextField Searchfield;
@@ -139,6 +140,18 @@ return ld;
 
             pnlOverview.setStyle("-fx-background-color : #f7f7f7");
             pnlOverview.toFront();
+        }
+        if (actionEvent.getSource()== Feed)
+        {
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("Feed.fxml"));
+            Parent root= null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            pnlMyDon.getScene().setRoot(root);
         }
 
     }

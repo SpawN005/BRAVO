@@ -16,6 +16,11 @@ public class TypeReclamation {
         this.typeReclamation = typeReclamation;
     }
 
+    public TypeReclamation(int id) {
+        this.id = id;
+
+    }
+
     public int getId() {
         return id;
     }

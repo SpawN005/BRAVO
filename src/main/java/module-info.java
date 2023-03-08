@@ -6,6 +6,7 @@ module com.example.demo1 {
     requires javafx.base;
     requires javafx.media;
     requires javafx.swing;
+    requires org.jfree.jfreechart;
 
 
 

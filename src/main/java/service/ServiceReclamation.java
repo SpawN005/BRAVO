@@ -1,6 +1,7 @@
 package service;
 
 import entity.Reclamation;
+import entity.TypeReclamation;
 import utils.DataSource;
 
 import java.sql.*;
@@ -60,6 +61,9 @@ public class ServiceReclamation implements IService<Reclamation>{
     @Override
     public void delete(Reclamation reclamation) {
         String req="DELETE FROM `Reclamation` WHERE id=?";
+        ServiceTypeReclamation str = new ServiceTypeReclamation();
+        TypeReclamation tr = new TypeReclamation(reclamation.getId());
+        str.delete(tr);
         try {
 
             PreparedStatement pst =  conn.prepareStatement(req);
@@ -389,6 +393,33 @@ public class ServiceReclamation implements IService<Reclamation>{
         return list;
 
     }
+    public Reclamation afficherLastRec() {
+        String requete= "SELECT * FROM reclamation ORDER BY id DESC LIMIT 1;";
+
+        Reclamation  r = new Reclamation();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+
+                r.setId(rs.getInt("id"));
+                r.setTitle(rs.getString("title"));
+                r.setDescription(rs.getString("description"));
+                r.setDate_creation(rs.getDate("date_creation"));
+                r.setEtat(rs.getString("etat"));
+                r.setOwnerID(su.readById(rs.getInt("ownerID")));
+                r.setDate_treatment(rs.getDate("date_treatment"));
+                r.setNote(rs.getInt("note"));
+
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return r;
+    }
+
 
 }
 

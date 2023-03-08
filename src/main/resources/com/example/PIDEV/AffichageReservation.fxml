@@ -5,37 +5,31 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="571.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.AffichageReservationController">
     <children>
-        <TableView fx:id="reservationTableView">
-            <columns>
-                <TableColumn prefWidth="50" text="ID">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="id" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="150" text="Participant">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="id_participant" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="150" text="Evénement">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="id_event" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="100" text="Confirmé">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="isConfirmed" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="120" text="Nombre de places">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="nb_place" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
+
+                <TableView fx:id="reservationTableView" prefHeight="344.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="nomParticipantColumn" prefWidth="182.4000244140625" text="nom du participant">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="nom_participant" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn  fx:id="titreEventColumn" prefWidth="236.0" text="titre de l'événement">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="titre_event" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn  fx:id="nbPlaceColumn" prefWidth="183.199951171875" text="Nombre de places">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="nb_place" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+
 
 
 

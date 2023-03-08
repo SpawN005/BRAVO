@@ -103,7 +103,8 @@ public class ajouterReclamationController implements Initializable {
 
             sr.insert(r);
             //recuperation de la valeur du combo box et l'inserer dans la table type reclamation
-            TypeReclamation t= new TypeReclamation(typeReclamationCBX.getValue());
+            System.out.println(sr.afficherLastRec().getId());
+            TypeReclamation t= new TypeReclamation(sr.afficherLastRec().getId(),typeReclamationCBX.getValue());
             tr.insert(t);
 
 

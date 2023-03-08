@@ -148,7 +148,35 @@ public class ServiceDons implements IService<Dons> {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
     }
+    public int calculateTotalAmountByTitle(String title) {
+        int totalAmount = 0;
+        String donationQuery = "SELECT id FROM donation WHERE title = ?";
+        String donationAmountQuery = "SELECT SUM(amount) as total FROM donater WHERE id_donation = ?";
 
+        try (PreparedStatement pstmtDonation = conn.prepareStatement(donationQuery);
+             PreparedStatement pstmtDonationAmount = conn.prepareStatement(donationAmountQuery)) {
+
+            // Get the id of the donation with the given title
+            pstmtDonation.setString(1, title);
+            ResultSet rsDonation = pstmtDonation.executeQuery();
+
+            if (rsDonation.next()) {
+                int donationId = rsDonation.getInt("id");
+
+                // Get the sum of amounts donated for the donation with the given id
+                pstmtDonationAmount.setInt(1, donationId);
+                ResultSet rsDonationAmount = pstmtDonationAmount.executeQuery();
+
+                if (rsDonationAmount.next()) {
+                    totalAmount = rsDonationAmount.getInt("total");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDons.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return totalAmount;
+    }
 
 
 
