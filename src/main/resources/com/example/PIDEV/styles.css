@@ -52,12 +52,14 @@
 .blue-panel{
     -fx-background-color: #151928;
 }
+
 .tf_box{
     -fx-background-color: transparent;
-    -fx-border-color: #DEDEE4;
+    -fx-border-color: #5c1010;
     -fx-border-width: 0px 0px 1px 0px;
     -fx-text-fill: #02030A;
-}
+    -fx-prompt-text-fill: black;}
+
 .tf_box2{
     -fx-border-color: #000000;
     -fx-border-width: 0px 0px 1px 0px;

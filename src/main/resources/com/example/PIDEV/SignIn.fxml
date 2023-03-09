@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" style="-fx-background-color: #dec5a2;" styleClass="blue-panel" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.SignInController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" style="-fx-background-color: #decfcf;" styleClass="blue-panel" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.PIDEV.SignInController">
    <children>
       <Label text="Login" textFill="#5c1010">
          <font>
@@ -23,7 +23,7 @@
       <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
          <children>
             <TextField fx:id="emailField" promptText="Email" styleClass="tf_box" HBox.hgrow="ALWAYS" />
-            <FontAwesomeIconView fill="WHITE" glyphName="USER" size="2.5em" text="">
+            <FontAwesomeIconView fill="#5c1010" glyphName="USER" selectionEnd="0" selectionFill="#050505" selectionStart="0" size="2.5em" text="">
                <HBox.margin>
                   <Insets left="10.0" right="4.0" />
                </HBox.margin>
@@ -36,7 +36,7 @@
       <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
          <children>
             <PasswordField fx:id="pswField" prefHeight="26.0" prefWidth="417.0" promptText="Password" styleClass="tf_box" stylesheets="@styles.css" />
-            <FontAwesomeIconView fill="WHITE" glyphName="LOCK" size="2.5em" text="">
+            <FontAwesomeIconView fill="#5c1010" glyphName="LOCK" selectionFill="#5c1010" size="2.5em" text="">
                <HBox.margin>
                   <Insets left="15.0" right="4.0" />
                </HBox.margin>
@@ -54,7 +54,7 @@
             <Insets left="290.0" right="20.0" top="20.0" />
          </VBox.margin>
       </Label>
-      <Button fx:id="signinBtn" mnemonicParsing="false" onAction="#signIn" prefHeight="38.0" prefWidth="456.0" style="-fx-background-color: E4DDCD;" styleClass="blue-btn" text="Sign In" textFill="#e4ddcd" VBox.vgrow="ALWAYS">
+      <Button fx:id="signinBtn" mnemonicParsing="false" onAction="#signIn" prefHeight="38.0" prefWidth="456.0" style="-fx-background-color: #9d6f6f;" styleClass="blue-btn" text="Sign In" textFill="#e4ddcd" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="20.0" />
          </VBox.margin>
