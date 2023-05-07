@@ -18,7 +18,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public void insert(Oeuvre oeuvre) {
-        String requete = "insert into artwork (title,description,owner,catégorie,url) values ('" + oeuvre.getTitle() + "','" + oeuvre.getDescription() + "','"+ oeuvre.getOwner().getId()+"','"+oeuvre.getCategory()+"','"+oeuvre.getUrl()+"')";
+        String requete = "insert into artwork (title,description,owner,categorie,url) values ('" + oeuvre.getTitle() + "','" + oeuvre.getDescription() + "','"+ oeuvre.getOwner().getId()+"','"+oeuvre.getCategory().getId()+"','"+oeuvre.getUrl()+"')";
 
         try {
             Statement st = this.conn.createStatement();
@@ -44,7 +44,8 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     @Override
     public void update(Oeuvre oeuvre) {
-        String requete = "update artwork set title='"+oeuvre.getTitle()+"', description='"+oeuvre.getDescription()+"', owner='"+oeuvre.getOwner().getId()+"', catégorie='"+oeuvre.getCategory()+"', url='"+oeuvre.getUrl()+"' where id="+oeuvre.getId();
+
+        String requete = "update artwork set title='"+oeuvre.getTitle()+"', description='"+oeuvre.getDescription()+"', owner='"+oeuvre.getOwner().getId()+"', categorie='"+oeuvre.getCategory().getId()+"', url='"+oeuvre.getUrl()+"' where id="+oeuvre.getId();
         try {
             Statement st = this.conn.createStatement();
             st.executeUpdate(requete);
@@ -60,12 +61,13 @@ public class ServiceOeuvre implements IService<Oeuvre>{
         List<Oeuvre> list = new ArrayList();
         String requete = "select * from artwork";
         ServiceUser su= new ServiceUser();
+        ServiceCategorie sc= new ServiceCategorie();
         try {
             Statement st = this.conn.createStatement();
             ResultSet rs = st.executeQuery(requete);
 
             while(rs.next()) {
-                Oeuvre o= new Oeuvre(rs.getInt("id"), rs.getString("title"), rs.getString("description"), su.readById(rs.getInt("owner")), rs.getString("catégorie"), rs.getString("url"));
+                Oeuvre o= new Oeuvre(rs.getInt("id"), rs.getString("title"), rs.getString("description"), su.readById(rs.getInt("owner")), sc.readById(rs.getInt("categorie")), rs.getString("url"));
                 list.add(o);
             }
         } catch (SQLException var6) {
@@ -80,6 +82,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
     public Oeuvre readById(int id) {
         String requete = "select * from `artwork` where `id`=?";
         ServiceUser su= new ServiceUser();
+        ServiceCategorie sc= new ServiceCategorie();
         Oeuvre o =new Oeuvre();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
@@ -89,7 +92,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
                 o.setTitle(rs.getString("title"));
                 o.setDescription(rs.getString("description"));
                 o.setOwner(su.readById(rs.getInt("owner")));
-                o.setCategory(rs.getString("catégorie"));
+                o.setCategory(sc.readById(rs.getInt("categorie")));
                 o.setUrl(rs.getString("url"));}
 
 
@@ -105,6 +108,8 @@ public class ServiceOeuvre implements IService<Oeuvre>{
         String requete = "SELECT * FROM `artwork` ORDER BY title ASC";
         List<Oeuvre> list = new ArrayList();
         ServiceUser su= new ServiceUser();
+        ServiceCategorie sc= new ServiceCategorie();
+
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(requete);
@@ -114,7 +119,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
                 o.setTitle(rs.getString("title"));
                 o.setDescription(rs.getString("description"));
                 o.setOwner(su.readById(rs.getInt("owner")));
-                o.setCategory(rs.getString("catégorie"));
+                o.setCategory(sc.readById(rs.getInt("categorie")));
                 o.setUrl(rs.getString("url"));
                 list.add(o);
 
@@ -129,6 +134,8 @@ public class ServiceOeuvre implements IService<Oeuvre>{
 
     public List<Oeuvre> AfficherListeOeuvresDES() {
         ServiceUser su= new ServiceUser();
+        ServiceCategorie sc= new ServiceCategorie();
+
         String requete = "SELECT * FROM `artwork` ORDER BY title DESC";
         List<Oeuvre> list = new ArrayList();
         try {
@@ -140,7 +147,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
                 o.setTitle(rs.getString("title"));
                 o.setDescription(rs.getString("description"));
                 o.setOwner(su.readById(rs.getInt("owner")));
-                o.setCategory(rs.getString("catégorie"));
+                o.setCategory(sc.readById(rs.getInt("categorie")));
                 o.setUrl(rs.getString("url"));
                 list.add(o);
 
@@ -154,6 +161,8 @@ public class ServiceOeuvre implements IService<Oeuvre>{
     }
     public List<Oeuvre> RechercheTitre(String title) {
         ServiceUser su= new ServiceUser();
+        ServiceCategorie sc= new ServiceCategorie();
+
         String requete = "SELECT * FROM `artwork` where title LIKE '%"+title+"%'";
         List<Oeuvre> list = new ArrayList();
         try {
@@ -167,7 +176,7 @@ public class ServiceOeuvre implements IService<Oeuvre>{
                 o.setTitle(rs.getString("title"));
                 o.setDescription(rs.getString("description"));
                 o.setOwner(su.readById(rs.getInt("owner")));
-                o.setCategory(rs.getString("catégorie"));
+                o.setCategory(sc.readById(rs.getInt("categorie")));
                 o.setUrl(rs.getString("url"));
                 list.add(o);
 

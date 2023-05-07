@@ -3,11 +3,8 @@ package service;
 import entity.Event;
 import entity.User;
 import utils.DataSource;
-import entity.Reservation;
+
 import java.sql.*;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,7 +23,7 @@ public class ServiceEvent implements IService<Event> {
 
 
 
-        String requete="INSERT INTO event(title,description,nb_placeMax,date_beg,date_end,type_event,url) values(?,?,?,?,?,?,?)";
+        String requete="INSERT INTO event(title,description,nb_place_max,date_beg,date_end,categorie_id,image) values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps= conn.prepareStatement(requete);
             ps.setString(1, event.getTitle());
@@ -35,7 +32,7 @@ public class ServiceEvent implements IService<Event> {
             ps.setDate(4, Date.valueOf(event.getDate_beg().toLocalDate()));
             ps.setDate(5, Date.valueOf(event.getDate_end().toLocalDate()));
 
-            ps.setString(6, event.getType_event());
+            ps.setInt(6, event.getType_event().getId());
             ps.setString(7,event.getUrl());
 
             ps.executeUpdate();
@@ -82,7 +79,7 @@ public class ServiceEvent implements IService<Event> {
 
     @Override
     public void update(Event event) {
-        String query = "UPDATE event SET title=?,description=?,nb_placeMax=?,date_beg=?,date_end=?,type_event=?,url=? WHERE id=?";
+        String query = "UPDATE event SET title=?,description=?,nb_place_max=?,date_beg=?,date_end=?,categorie_id=?,image=? WHERE id=?";
         try {
 
             PreparedStatement ps = conn.prepareStatement(query);
@@ -93,7 +90,7 @@ public class ServiceEvent implements IService<Event> {
             ps.setDate(4, Date.valueOf( event.getDate_beg().toLocalDate()));
             ps.setDate(5,Date.valueOf(event.getDate_end().toLocalDate()));
 
-            ps.setString(6,event.getType_event());
+            ps.setInt(6,event.getType_event().getId());
 
             ps.setString(7,event.getUrl());
             ps.setInt(8, event.getId());
@@ -113,13 +110,13 @@ public class ServiceEvent implements IService<Event> {
         String query="UPDATE event SET "
                 + "`title`='"+event.getTitle()+"',"
                 + "`description`='"+event.getDescription()+"',"
-                + "`nb_placeMax`='"+event.getNb_placeMax()+"',"
+                + "`nb_place_max`='"+event.getNb_placeMax()+"',"
                 + "`date_beg`='"+event.getDate_beg()+"',"
-                + "`date_beg`='"+event.getDate_end()+"',"
+                + "`date_end`='"+event.getDate_end()+"',"
 
-                + "`type_event`='"+event.getType_event()+"',"
+                + "`categorie_id`='"+event.getType_event().getId()+"',"
 
-                + "`url`='"+event.getUrl()+"'"
+                + "`image`='"+event.getUrl()+"'"
                 + " WHERE id="+id_m;
         try {
 
@@ -137,13 +134,13 @@ public class ServiceEvent implements IService<Event> {
     public List<Event> readAll() {
         List<Event> list=new ArrayList<>();
         String requete="select * from event";
-
+        ServiceCategorieEvent sce=new ServiceCategorieEvent();
         try {
             Statement st = conn.createStatement();
             ResultSet rs =st.executeQuery(requete);
             while(rs.next()) {
 
-                Event e=new Event (rs.getInt("id"),rs.getString(2),rs.getString("description"),rs.getInt("nb_placeMax"), rs.getDate(5).toLocalDate().atStartOfDay(), rs.getDate(6).toLocalDate().atStartOfDay(),rs.getString("type_event"),rs.getString("url"));
+                Event e=new Event (rs.getInt("id"),rs.getString("title"),rs.getString("description"),rs.getInt("nb_place_max"), rs.getDate("date_beg").toLocalDate().atStartOfDay(), rs.getDate("date_end").toLocalDate().atStartOfDay(),sce.readById(rs.getInt("categorie_id")),rs.getString("image"));
                 list.add(e);
             }
         } catch (SQLException e1) {
@@ -158,13 +155,14 @@ public class ServiceEvent implements IService<Event> {
     public Event readById(int id) {
         Event e = new Event();
         String requete="select * from event where id="+id;
+            ServiceCategorieEvent sce=new ServiceCategorieEvent();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ResultSet rs=ps.executeQuery(requete);
 
             if(rs.next()) {
 
-                e= new Event (rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4), rs.getDate(5).toLocalDate().atStartOfDay(), rs.getDate(6).toLocalDate().atStartOfDay(),rs.getString(7),rs.getString(8));
+                e= new Event (rs.getInt("id"),rs.getString("title"),rs.getString("description"),rs.getInt("nb_place_max"), rs.getDate("date_beg").toLocalDate().atStartOfDay(), rs.getDate("date_end").toLocalDate().atStartOfDay(),sce.readById(rs.getInt("categorie_id")),rs.getString("image"));
                 return e;
             }
 
@@ -177,13 +175,13 @@ public class ServiceEvent implements IService<Event> {
     }
     public List<Event> filterByType(String type) {
         List<Event> events = new ArrayList<>();
-
+        ServiceCategorieEvent sce = new ServiceCategorieEvent();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
 
-            String query = "SELECT * FROM event WHERE type_event LIKE ?";
+            String query = "SELECT * FROM event WHERE title LIKE ?";
             ps = conn.prepareStatement(query);
             ps.setString(1, "%"+ type+ "%");
             rs = ps.executeQuery();
@@ -193,11 +191,11 @@ public class ServiceEvent implements IService<Event> {
                 event.setId(rs.getInt("id"));
                 event.setTitle(rs.getString("title"));
                 event.setDescription(rs.getString("description"));
-                event.setNb_placeMax(rs.getInt("nb_placeMax"));
+                event.setNb_placeMax(rs.getInt("nb_place_max"));
                 event.setDate_beg(rs.getDate("date_beg").toLocalDate().atStartOfDay());
                 event.setDate_end(rs.getDate("date_end").toLocalDate().atStartOfDay());
-                event.setType_event(rs.getString("type_event"));
-                event.setUrl(rs.getString("url"));
+                event.setType_event(sce.readById(rs.getInt("categorie_id")));
+                event.setUrl(rs.getString("image"));
                 events.add(event);
             }
         } catch (SQLException e) {

@@ -1,7 +1,6 @@
 package entity;
 
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Event {
@@ -11,8 +10,8 @@ public class Event {
     private int nb_placeMax;
     private LocalDateTime date_beg;
     private LocalDateTime date_end;
+    private  CategorieEvent type_event;
 
-    private String type_event;
 
     private String url;
 
@@ -22,7 +21,7 @@ public class Event {
 
     }
 
-    public Event(int id, String title, String description, int nb_placeMax, LocalDateTime date_beg, LocalDateTime date_end,  String type_event,  String url) {
+    public Event(int id, String title, String description, int nb_placeMax, LocalDateTime date_beg, LocalDateTime date_end,  CategorieEvent type_event,  String url) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -36,7 +35,7 @@ public class Event {
 
     }
 
-    public Event(String title, String description, int nb_placeMax, LocalDateTime date_beg, LocalDateTime date_end, String type_event,  String url) {
+    public Event(String title, String description, int nb_placeMax, LocalDateTime date_beg, LocalDateTime date_end, CategorieEvent type_event,  String url) {
         this.title = title;
         this.description = description;
         this.nb_placeMax = nb_placeMax;
@@ -99,11 +98,11 @@ public class Event {
 
 
 
-    public String getType_event() {
+    public CategorieEvent getType_event() {
         return type_event;
     }
 
-    public void setType_event(String type_event) {
+    public void setType_event(CategorieEvent type_event) {
         this.type_event = type_event;
     }
 

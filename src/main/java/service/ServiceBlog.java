@@ -22,7 +22,7 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void insert(Blog b) {
-        String requete ="insert into blog (id,title,description,content,url,author) values (?,?,?,?,?,?)";
+        String requete ="insert into blog (id,title,description,content,image,author_id,categorie_id) values (?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.setInt(1,b.getId());
@@ -31,6 +31,7 @@ public class ServiceBlog implements IService <Blog> {
             pst.setString(4, b.getContent());
             pst.setString(5, b.getUrl());
             pst.setInt(6,b.getAuthor().getId());
+            pst.setInt(7,b.getCat().getId());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -57,14 +58,15 @@ public class ServiceBlog implements IService <Blog> {
 
     @Override
     public void update(Blog b) {
-        String requete =" update blog set title=? , description=? , content=?, url=? where id=? ";
+        String requete =" update blog set title=? , description=? , content=?, image=? , categorie_id= ? where id=? ";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
             pst.setString(1, b.getTitle());
             pst.setString(2, b.getDescription());
             pst.setString(3, b.getContent());
             pst.setString(4, b.getUrl());
-            pst.setInt(5, b.getId());
+            pst.setInt(5, b.getCat().getId());
+            pst.setInt(6, b.getId());
 
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -77,6 +79,7 @@ public class ServiceBlog implements IService <Blog> {
     public List<Blog> readAll() {
         List<Blog> list = new ArrayList<>();
         ServiceUser su = new ServiceUser();
+        ServiceCategorieBlog scb = new ServiceCategorieBlog();
         String requete = "select * from blog";
 
         try {
@@ -88,8 +91,9 @@ public class ServiceBlog implements IService <Blog> {
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("content"),
-                        rs.getString("url"),
-                        su.readById(rs.getInt("author"))
+                        rs.getString("image"),
+                        su.readById(rs.getInt("author_id")),
+                        scb.readById(rs.getInt("categorie_id"))
 
 
 

@@ -1,27 +1,29 @@
 package com.example.PIDEV;
 
 import entity.Blog;
-import javafx.event.ActionEvent;
+import entity.CategorieBlog;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.ServiceBlog;
+import service.ServiceCategorieBlog;
 import service.ServiceUser;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ModifierBlogController implements Initializable {
@@ -31,7 +33,8 @@ public class ModifierBlogController implements Initializable {
 
     @FXML
     private Button cancelButton;
-
+    @FXML
+    private ComboBox categorie;
     @FXML
     private ImageView ImageView;
 
@@ -58,7 +61,17 @@ public class ModifierBlogController implements Initializable {
 
 
     public void SetBlog(Blog b) {
+        ServiceCategorieBlog scb = new ServiceCategorieBlog();
 
+        List<CategorieBlog> l =scb.readAll();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getNom());
+
+        }
+        categorie.setItems(FXCollections.observableArrayList(l1));
+        categorie.setValue(b.getCat().getNom());
         title.setText(b.getTitle());
         description.setText(b.getDescription());
         content.setText(b.getContent());
@@ -136,6 +149,7 @@ public class ModifierBlogController implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            ServiceCategorieBlog serviceCategorieBlog = new ServiceCategorieBlog();
 
             Blog b = new Blog();
             LoggedInUser loggedInUser= new LoggedInUser();
@@ -145,6 +159,7 @@ public class ModifierBlogController implements Initializable {
             b.setContent(content.getText());
             b.setUrl(uploadImage.getText());
             b.setAuthor(loggedInUser.getUser());
+            b.setCat(serviceCategorieBlog.readByName(categorie.getValue().toString()));
 
 
             sb.update(b);

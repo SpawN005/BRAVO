@@ -8,6 +8,8 @@ public class Blog {
     private String url;
     private User author;
 
+    private CategorieBlog cat;
+
     public Blog() {
     }
 
@@ -41,6 +43,16 @@ public class Blog {
         this.description = description;
         this.content = content;
         this.author = author;
+    }
+
+    public Blog(int id, String title, String description, String content, String url, User author, CategorieBlog cat) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.url = url;
+        this.author = author;
+        this.cat = cat;
     }
 
     public int getId() {
@@ -96,7 +108,11 @@ public class Blog {
         return "Blog{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", author=" + author + ", url=" + url + '}';
     }
 
+    public CategorieBlog getCat() {
+        return cat;
+    }
 
-
-
+    public void setCat(CategorieBlog cat) {
+        this.cat = cat;
+    }
 }

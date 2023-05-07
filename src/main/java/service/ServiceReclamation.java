@@ -39,7 +39,7 @@ public class ServiceReclamation implements IService<Reclamation>{
                 System.out.println("desole, ces valeurs sont deja existantes");
             } else {
                 // des valeurs non existantes, vous pouvez procéder à l'insertion
-                String requete2 = "insert into Reclamation(title,description,date_creation,etat,ownerID,date_treatment,note) values(?,?,?,?,?,?,?)";
+                String requete2 = "insert into Reclamation(title,description,date_creation,etat,ownerID,date_treatment,note,typereclamation) values(?,?,?,?,?,?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(requete2);
 
                 ps.setString(1, reclamation.getTitle());
@@ -49,6 +49,7 @@ public class ServiceReclamation implements IService<Reclamation>{
                 ps.setInt(5, reclamation.getOwnerID().getId());
                 ps.setDate(6, reclamation.getDate_treatment());
                 ps.setInt(7, reclamation.getNote());
+                ps.setInt(8, reclamation.getTypereclamation().getId());
 
                 ps.executeUpdate();
                 System.out.println("Reclamation Ajoutée");
@@ -419,7 +420,45 @@ public class ServiceReclamation implements IService<Reclamation>{
 
         return r;
     }
+    public ArrayList<TypeReclamation> afficherTypes() {
+        String requete= "SELECT * FROM typereclamation ";
+        ArrayList<TypeReclamation> list = new ArrayList<>();
 
+        TypeReclamation  r ;
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                r = new TypeReclamation();
+                r.setId(rs.getInt("id"));
+                r.setTypeReclamation(rs.getString("typeReclamation"));
+
+                list.add(r);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("erreur d'affichage");
+        }
+
+        return list;
+    }
+    public TypeReclamation readByName(String title) {
+        String query = "SELECT * FROM typereclamation WHERE typeReclamation = ?";
+        TypeReclamation tr = null;
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, title);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                tr = new TypeReclamation();
+                tr.setId(resultSet.getInt(1));
+                tr.setTypeReclamation(resultSet.getString(2));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tr;
+    }
 
 }
 

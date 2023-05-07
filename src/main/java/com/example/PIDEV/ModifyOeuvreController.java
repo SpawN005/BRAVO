@@ -1,5 +1,6 @@
 package com.example.PIDEV;
 
+import entity.Categorie;
 import entity.Oeuvre;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import service.LoggedInUser;
+import service.ServiceCategorie;
 import service.ServiceOeuvre;
 
 import java.io.File;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ModifyOeuvreController implements Initializable {
@@ -48,9 +51,20 @@ public class ModifyOeuvreController implements Initializable {
     private Oeuvre oeuvre;
     private ServiceOeuvre so = new ServiceOeuvre();
     public   void SetOeuvre(Oeuvre o){
+        ServiceCategorie sc = new ServiceCategorie();
+        List<Categorie> l = sc.readAll();
+        categorie.setText(o.getCategory().getNom());
+        for(Categorie c : l){
+            MenuItem menuItem = new MenuItem(c.getNom());
+            categorie.getItems().add(menuItem);
+            menuItem.setOnAction(event -> {
+                selectedMenuItem = menuItem;
+                categorie.setText(menuItem.getText());
+            });
+        }
         description.setText(o.getDescription());
         title.setText(o.getTitle());
-        categorie.setText(o.getCategory());
+        categorie.setText(o.getCategory().getNom());
         uploadImage.setText(o.getUrl());
         ImageView.setImage(new Image("file:C:/xampp/htdocs/img/"+o.getUrl()));
 
@@ -135,12 +149,12 @@ public class ModifyOeuvreController implements Initializable {
                     throw new RuntimeException(e);
                 }
             }
-
+            ServiceCategorie sc = new ServiceCategorie();
             o.setTitle(title.getText());
             o.setOwner(loggedInUser.getUser());
             o.setUrl(selectedFile.getName());
             o.setDescription(description.getText());
-            o.setCategory(categorie.getText());
+            o.setCategory(sc.readByName(categorie.getText()));
             o.setId(oeuvre.getId());
             so.update(o);
 
@@ -162,25 +176,12 @@ public class ModifyOeuvreController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MenuItem menuItem1 = new MenuItem("Music");
-        MenuItem menuItem2 = new MenuItem("Paint");
-        MenuItem menuItem3 =new MenuItem("Sculpture");
+
         description.setWrapText(true);
-        categorie.getItems().addAll(menuItem1,menuItem2,menuItem3);
 
 
-        menuItem1.setOnAction(event -> {
-            selectedMenuItem = menuItem1;
-            categorie.setText(menuItem1.getText());
-        });
-        menuItem2.setOnAction(event -> {
-            selectedMenuItem = menuItem2;
-            categorie.setText(menuItem2.getText());
-        });
-        menuItem3.setOnAction(event -> {
-            selectedMenuItem = menuItem3;
-            categorie.setText(menuItem3.getText());
-        });
+
+
 
 
     }

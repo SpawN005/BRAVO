@@ -19,6 +19,7 @@ public class ServiceNoteOeuvre implements IService<NoteOeuvre> {
     @Override
     public void insert(NoteOeuvre noteOeuvre) {
         String requete = "REPLACE INTO noteoeuvre (note, id_oeuvre, id_user) VALUES (?, ?, ?);";
+
         try {
             PreparedStatement st = conn.prepareStatement(requete);
             st.setDouble(1, noteOeuvre.getNote());

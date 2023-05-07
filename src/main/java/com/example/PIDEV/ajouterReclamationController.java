@@ -1,35 +1,30 @@
 package com.example.PIDEV;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.ResourceBundle;
 
+import entity.Reclamation;
 import entity.TypeReclamation;
-import entity.User;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.ServiceReclamation;
-import entity.Reclamation;
 import service.ServiceTypeReclamation;
-import service.ServiceUser;
+
+import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class ajouterReclamationController implements Initializable {
 
     @FXML
     private ComboBox<String> typeReclamationCBX;
-    ObservableList<String> listtype = FXCollections.observableArrayList("oeuvre", "blogs", "dons","event", "Autre");
 
     @FXML
     private TextField title;
@@ -74,7 +69,19 @@ public class ajouterReclamationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeReclamationCBX.setPromptText("Reclamation à propos de : ");
-        typeReclamationCBX.setItems(listtype);
+        ServiceReclamation sr = new ServiceReclamation();
+        List<TypeReclamation> l= sr.afficherTypes();
+        System.out.println(l);
+        List<String> l1= new ArrayList<>();
+        for (TypeReclamation r : l) {
+            System.out.println(r);
+            l1.add(r.getTypeReclamation());
+
+        }
+
+
+        typeReclamationCBX.setItems(FXCollections.observableArrayList(l1));
+        typeReclamationCBX.setValue(typeReclamationCBX.getItems().get(0));
 
     }
 
@@ -99,13 +106,13 @@ public class ajouterReclamationController implements Initializable {
             System.out.println("merci d'avoir bien redigé la reclamation ");
             LoggedInUser loggedInUser = new LoggedInUser();
 
-            r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",loggedInUser.getUser(),date_sql,8);
+            r = new Reclamation(title.getText(), description.getText(),date_sql,"on hold",loggedInUser.getUser(),date_sql,8,sr.readByName(typeReclamationCBX.getValue().toString()));
+
 
             sr.insert(r);
             //recuperation de la valeur du combo box et l'inserer dans la table type reclamation
             System.out.println(sr.afficherLastRec().getId());
-            TypeReclamation t= new TypeReclamation(sr.afficherLastRec().getId(),typeReclamationCBX.getValue());
-            tr.insert(t);
+
 
 
 

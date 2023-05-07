@@ -1,30 +1,33 @@
 package com.example.PIDEV;
-import entity.NoteOeuvre;
-import org.controlsfx.control.Rating;
+
 import entity.CommentaireOeuvre;
+import entity.NoteOeuvre;
 import entity.Oeuvre;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import org.controlsfx.control.Rating;
+import service.LoggedInUser;
+import service.ServiceCommentaireOeuvre;
+import service.ServiceNoteOeuvre;
+import service.ServiceOeuvre;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import service.LoggedInUser;
-import service.ServiceCommentaireOeuvre;
-import service.ServiceNoteOeuvre;
-import service.ServiceOeuvre;
 
 
 public class DetailsOeuvreController implements Initializable {
@@ -132,12 +135,12 @@ public class DetailsOeuvreController implements Initializable {
                 title.getScene().setRoot(root);
 
             }
-        });
+        });  LoggedInUser loggedInUser = new LoggedInUser();
         rating.setOnMouseClicked(e-> {
-            no = new NoteOeuvre(oeuvre,1,rating.getRating());
+            no = new NoteOeuvre(oeuvre,loggedInUser.getUser().getId(),rating.getRating());
             sno.insert(no);
         });
-        LoggedInUser loggedInUser = new LoggedInUser();
+
         if (!(loggedInUser.getUser().getId()==oeuvre.getOwner().getId())){
             delete_btn.setVisible(false);
             modif_btn.setVisible(false);

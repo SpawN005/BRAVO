@@ -22,12 +22,13 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void insert(NoteBlog nb) {
-        String requete="INSERT INTO noteblog(note,id_blog) values(?,?)";
+        String requete="REPLACE INTO note_blog(note,blog_id,user_id) values(?,?,?)";
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
 
             pst.setDouble(1, nb.getNote());
             pst.setInt(2, nb.getId_blog().getId());
+            pst.setInt(3, nb.getUser());
             pst.executeUpdate();
 
         }catch(SQLException e){
@@ -38,7 +39,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void delete(NoteBlog nb) {
-        String requete = "delete from noteblog where id_blog=?";
+        String requete = "delete from note_blog where blog_id=?";
 
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
@@ -50,7 +51,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
     }
 
     public void deleteByBlog(Blog b) {
-        String requete = "delete from noteblog where id_blog=?";
+        String requete = "delete from note_blog where blog_id=?";
 
         try {
             PreparedStatement pst = conn.prepareStatement(requete);
@@ -64,7 +65,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public void update(NoteBlog nb) {
-        String requete= "UPDATE noteblog SET note = ? WHERE id = ? ";
+        String requete= "UPDATE note_blog SET note = ? WHERE id = ? ";
 
         try  {
             PreparedStatement pst = conn.prepareStatement(requete);
@@ -81,7 +82,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
     @Override
     public List<NoteBlog> readAll() {
         List<NoteBlog> list = new ArrayList<>();
-        String requete= "select * from noteblog";
+        String requete= "select * from note_blog";
 
         try {
 
@@ -103,7 +104,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     @Override
     public NoteBlog readById(int id) {
-        String requete="select * from noteblog where id=?";
+        String requete="select * from note_blog where id=?";
         NoteBlog nb= new NoteBlog();
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
@@ -124,7 +125,7 @@ public class ServiceNoteBlog implements IService<NoteBlog> {
 
     public float readAvg(Blog b) {
 
-        String requete = "select AVG(note) from noteblog where id_blog= ?";
+        String requete = "select AVG(note) from note_blog where blog_id= ?";
         float note=0;
         try {
             PreparedStatement ps = conn.prepareStatement(requete);

@@ -1,32 +1,26 @@
 package com.example.PIDEV;
 
 import entity.Event;
-
 import entity.Reservation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Date;
-import java.util.PrimitiveIterator;
-import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.ServiceEvent;
 import service.ServiceReservation;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 public class DetailsEventController implements Initializable {
@@ -95,12 +89,12 @@ public class DetailsEventController implements Initializable {
 
 
         LoggedInUser loggedInUser = new LoggedInUser();
-        if (!loggedInUser.getUser().getRole().equalsIgnoreCase("admin")){
+        if (!loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ADMIN\"]")){
             delete.setVisible(false);
             modifier.setVisible(false);
 
         }
-        if (loggedInUser.getUser().getRole().equalsIgnoreCase("admin")){
+        if (loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ADMIN\"]")){
             reserver.setVisible(false);
         }
 
@@ -111,7 +105,7 @@ public class DetailsEventController implements Initializable {
         descriptionDetail.setText(e.getDescription());
         descriptionDetail.setWrappingWidth(400);
         title.setText(e.getTitle());
-        type_event.setText(e.getType_event());
+        type_event.setText(e.getType_event().getNom());
 
         nb_place.setText(Integer.toString(e.getNb_placeMax()));
         DD.setText(e.getDate_beg().toString());

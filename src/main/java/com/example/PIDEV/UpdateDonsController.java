@@ -1,17 +1,17 @@
 package com.example.PIDEV;
 
-import java.time.LocalDate;
-
+import entity.CategorieDon;
 import entity.Dons;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.ServiceDons;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateDonsController {
 
@@ -31,6 +31,8 @@ public class UpdateDonsController {
 
     @FXML
     private Button submitButton;
+    @FXML
+    private ComboBox categorie;
 
     private ServiceDons serviceDons;
 
@@ -41,6 +43,7 @@ public class UpdateDonsController {
     @FXML
     private void initialize() {
         serviceDons = new ServiceDons();
+
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -54,6 +57,15 @@ public class UpdateDonsController {
         dateCreationPicker.setValue(don.getDate_creation());
         dateExpirationPicker.setValue(don.getDate_expiration());
         amountField.setText(Integer.toString(don.getAmount()));
+        List<CategorieDon> l =serviceDons.readCat();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getNom());
+
+        }
+        categorie.setItems(FXCollections.observableArrayList(l1));
+        categorie.setValue(don.getCat().getNom());
     }
 
     @FXML
@@ -66,7 +78,7 @@ public class UpdateDonsController {
             LocalDate expirationDate = dateExpirationPicker.getValue();
             LoggedInUser loggedInUser = new LoggedInUser();
             int amount = Integer.parseInt(amountField.getText());
-            Dons don1 = new Dons(don.getId(),title, description, creationDate, expirationDate, amount, loggedInUser.getUser());
+            Dons don1 = new Dons(don.getId(),title, description, creationDate, expirationDate, amount, loggedInUser.getUser(),serviceDons.readCatByName(categorie.getValue().toString()));
             serviceDons.update(don1);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
 

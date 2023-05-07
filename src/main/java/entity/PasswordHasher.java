@@ -2,9 +2,7 @@ package entity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class PasswordHasher {
     private static final int SALT_LENGTH = 16; // length of salt in bytes
@@ -13,10 +11,7 @@ public class PasswordHasher {
     private byte[] salt;
     
     public PasswordHasher() {
-        // generate a random salt
-        SecureRandom random = new SecureRandom();
-        salt = new byte[SALT_LENGTH];
-        random.nextBytes(salt);
+
     }
     
     public byte[] getSalt() {
@@ -28,27 +23,21 @@ public class PasswordHasher {
      * @param password
      * @return
      */
-    public String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hash) {
-                sb.append(String.format("%02x", b));
+    public static StringBuilder hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-1");
+        byte[] hash = digest.digest(password.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
             }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+            hexString.append(hex);
         }
-    
+        return  hexString;
     }
-    
-    private static String bytesToHex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
-    }
+
+
+
+
 }

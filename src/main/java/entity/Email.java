@@ -1,11 +1,9 @@
 package entity;
-import java.io.ByteArrayOutputStream;
 
-import java.time.LocalDateTime;
+import com.google.zxing.*;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -13,15 +11,15 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.awt.image.BufferedImage;
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import com.google.zxing.*;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 public class Email {
-    private String username = "meriam123.hammi@gmail.com";
-    private String password = "pknwcusqdmwepsnq";
+    private String username = "ahmedaziz.rebhi@esprit.tn";
+    private String password = "223JMT0181";
     User user = new User();
     Event event= new Event();
 

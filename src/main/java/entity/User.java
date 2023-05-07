@@ -9,7 +9,8 @@ public class User {
     private String role;
     private String password;
     private String image;
-    private String checker;
+    private int checker;
+    private int is_Verified;
 
 
     // Constructors
@@ -35,7 +36,7 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String firstName, String lastName, int phoneNumber, String email, String role, String password, String image, String checker) {
+    public User(int id, String firstName, String lastName, int phoneNumber, String email, String role, String password, String image, int checker,int is_Verified) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,6 +46,8 @@ public class User {
         this.password = password;
         this.image = image;
         this.checker = checker;
+        this.is_Verified = is_Verified;
+
     }
 
     public User(String firstName, String lastName, int phoneNumber, String email, String role) {
@@ -140,12 +143,27 @@ public class User {
     public void setimage(String image) {
         this.image = image;
     }
-    public String getChecker() {
+    public int getChecker() {
         return checker;
     }
 
-    public void setChecker(String checker) {
+    public void setChecker(int checker) {
         this.checker = checker;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getIs_Verified() {
+        return is_Verified;
+    }
+
+    public void setIs_Verified(int is_Verified) {
+        this.is_Verified = is_Verified;
+    }
 }

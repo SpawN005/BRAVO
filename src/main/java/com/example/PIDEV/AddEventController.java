@@ -1,6 +1,8 @@
 package com.example.PIDEV;
 
+import entity.CategorieEvent;
 import entity.Event;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,18 +13,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import service.ServiceCategorieEvent;
 import service.ServiceEvent;
-import utils.DataSource;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddEventController implements Initializable {
@@ -30,6 +33,9 @@ public class AddEventController implements Initializable {
     private Button button_event;
     @FXML
     private DatePicker setDD;
+
+    @FXML
+    private ComboBox categorie;
 
     @FXML
     private DatePicker setDF;
@@ -60,6 +66,16 @@ public class AddEventController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ServiceCategorieEvent sce = new ServiceCategorieEvent();
+        List<CategorieEvent> l =sce.readAll();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getNom());
+
+        }
+        categorie.setItems(FXCollections.observableArrayList(l1));
+        categorie.setValue(categorie.getItems().get(0));
         setDescription.getText();
         settype.getText();
         setNbPlace.getText();
@@ -127,8 +143,8 @@ public class AddEventController implements Initializable {
                     throw new RuntimeException(ex);
                 }
 
-
-            Event e=new Event(setTitre.getText(),setDescription.getText(),Integer.parseInt(setNbPlace.getText()), setDD.getValue().atStartOfDay(), setDF.getValue().atStartOfDay(),settype.getText(), selectedFile.getName());
+            ServiceCategorieEvent sce = new ServiceCategorieEvent();
+            Event e=new Event(setTitre.getText(),setDescription.getText(),Integer.parseInt(setNbPlace.getText()), setDD.getValue().atStartOfDay(), setDF.getValue().atStartOfDay(),sce.readByName(categorie.getValue().toString()), selectedFile.getName());
 
 
             SE.insert(e);

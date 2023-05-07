@@ -153,7 +153,7 @@ public class FeedController implements Initializable {
         filtre.setOnKeyTyped(e->filtre(filtre.getText()));
 
         LoggedInUser loggedInUser = new LoggedInUser();
-        if (!(loggedInUser.getUser().getRole().equalsIgnoreCase("artist"))){
+        if (!(loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ARTISTE\"]"))){
             System.out.println(loggedInUser.getUser().getRole());
             addOeuvre_btn.setVisible(false);
         }
@@ -161,16 +161,18 @@ public class FeedController implements Initializable {
 
 
         List<User> lu = su.RandomArtists();
+        if (lu.size()>2){
+            Image image = new Image("file:C:/xampp/htdocs/img/"+lu.get(0).getimage());
+            img1.setImage(image);
+            name1.setText(lu.get(0).getFirstName()+" "+lu.get(0).getLastName());
+            Image image1 = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
+            img2.setImage(image1);
+            name2.setText(lu.get(1).getFirstName()+" "+lu.get(1).getLastName());
+            Image image2 = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
+            img3.setImage(image2);
+            name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
+        }
 
-        Image image = new Image("file:C:/xampp/htdocs/img/"+lu.get(0).getimage());
-        img1.setImage(image);
-        name1.setText(lu.get(0).getFirstName()+" "+lu.get(0).getLastName());
-        Image image1 = new Image("file:C:/xampp/htdocs/img/"+lu.get(1).getimage());
-        img2.setImage(image1);
-        name2.setText(lu.get(1).getFirstName()+" "+lu.get(1).getLastName());
-        Image image2 = new Image("file:C:/xampp/htdocs/img/"+lu.get(2).getimage());
-        img3.setImage(image2);
-        name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
 
 
 

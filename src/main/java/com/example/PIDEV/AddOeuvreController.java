@@ -1,21 +1,13 @@
 package com.example.PIDEV;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import javafx.embed.swing.SwingFXUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.*;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.sql.*;
-import java.util.Properties;
+import entity.Categorie;
 import entity.Oeuvre;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.event.ActionEvent;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,16 +18,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.RandomStringUtils;
 import service.LoggedInUser;
+import service.ServiceCategorie;
 import service.ServiceOeuvre;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import utils.DataSource;
 
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class AddOeuvreController implements Initializable {
@@ -69,31 +75,29 @@ public class AddOeuvreController implements Initializable {
     private File selectedFile = null;
     MenuItem selectedMenuItem = null;
     private ServiceOeuvre so = new ServiceOeuvre();
+    private ServiceCategorie sc = new ServiceCategorie();
     String randomWord = RandomStringUtils.randomAlphanumeric(6);
     DefaultKaptcha captcha;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        categorie.setText("Paint");
-        MenuItem menuItem1 = new MenuItem("Music");
-        MenuItem menuItem2 = new MenuItem("Paint");
-        MenuItem menuItem3 = new MenuItem("Sculpture");
+
+        List<Categorie> l = sc.readAll();
+        for(Categorie c : l){
+            categorie.setText(c.getNom());
+            MenuItem menuItem = new MenuItem(c.getNom());
+            categorie.getItems().add(menuItem);
+            menuItem.setOnAction(event -> {
+                selectedMenuItem = menuItem;
+                categorie.setText(menuItem.getText());
+            });
+        }
+
         description.setWrapText(true);
-        categorie.getItems().addAll(menuItem1, menuItem2, menuItem3);
 
 
-        menuItem1.setOnAction(event -> {
-            selectedMenuItem = menuItem1;
-            categorie.setText(menuItem1.getText());
-        });
-        menuItem2.setOnAction(event -> {
-            selectedMenuItem = menuItem2;
-            categorie.setText(menuItem2.getText());
-        });
-        menuItem3.setOnAction(event -> {
-            selectedMenuItem = menuItem3;
-            categorie.setText(menuItem3.getText());
-        });
+
+
         captcha = new DefaultKaptcha();
         captcha.setConfig(new Config(new Properties()));
 
@@ -181,7 +185,7 @@ public class AddOeuvreController implements Initializable {
             o.setOwner(loggedInUser.getUser());
             o.setDescription(description.getText());
             o.setUrl(selectedFile.getName());
-            o.setCategory(categorie.getText());
+            o.setCategory(sc.readByName(categorie.getText()));
             Connection conn = DataSource.getInstance().getCnx();
             String query = "SELECT * FROM artwork WHERE title = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(query)) {

@@ -5,14 +5,14 @@ public class Oeuvre {
     private String title;
     private String description;
     private User owner;
-    private String category;
+    private Categorie category;
 
     private String url;
 
     public Oeuvre() {
     }
 
-    public Oeuvre(String title, String description, User owner, String category, String url) {
+    public Oeuvre(String title, String description, User owner, Categorie category, String url) {
         this.title = title;
         this.description = description;
         this.owner = owner;
@@ -20,7 +20,7 @@ public class Oeuvre {
         this.url=url;
     }
 
-    public Oeuvre(int id, String title, String description, User owner, String category, String url) {
+    public Oeuvre(int id, String title, String description, User owner, Categorie category, String url) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -45,7 +45,7 @@ public class Oeuvre {
         return owner;
     }
 
-    public String getCategory() {
+    public Categorie getCategory() {
         return category;
     }
 
@@ -69,7 +69,7 @@ public class Oeuvre {
         this.owner = owner;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Categorie category) {
         this.category = category;
     }
 

@@ -1,28 +1,29 @@
 package com.example.PIDEV;
 
 import entity.User;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.LoggedInUser;
 import service.MailService;
 import service.UserManagement;
 import utils.DataSource;
+
+import java.io.IOException;
+import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class SignInController implements Initializable {
 
@@ -87,12 +88,12 @@ public void signIn() throws IOException {
         alert.setContentText("The email or password is incorrect.");
         alert.showAndWait();
     }
-    else if (user.getChecker().equals("banned")) {
+    else if (user.getChecker() == 1) {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Account Suspended");
-        alert.setContentText("Your account has been banned for violating our user agreement policy.\nFor more informations, contact us on jasser.bouzidi@esprit.tn ");
+        alert.setContentText("Your account has been banned for violating our \nuser agreement policy.For more informations, contact us on \nahmedaziz.rebhi@esprit.tn ");
         alert.showAndWait();
 
 
@@ -108,7 +109,7 @@ public void signIn() throws IOException {
         FXMLLoader loader = null;
         Parent root= null;
 
-       if (!(Objects.equals(loggedInUser.getUser().getRole(), "admin")))
+       if (!(Objects.equals(loggedInUser.getUser().getRole(), "[\"ROLE_ADMIN\"]")))
        {
             loader = new FXMLLoader(getClass().getResource("Feed.fxml"));
            try {
@@ -157,7 +158,7 @@ public void signIn() throws IOException {
 
 
 
-public void handleForgotPassword() throws SQLException {
+public void handleForgotPassword() throws SQLException, NoSuchAlgorithmException {
     String email = emailField.getText();
 
     if (email.isEmpty()) {

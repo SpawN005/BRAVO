@@ -2,7 +2,9 @@ package com.example.PIDEV;
 
 
 import entity.Blog;
+import entity.CategorieBlog;
 import entity.User;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,30 +16,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import service.LoggedInUser;
-import service.NewsletterService;
-import utils.DataSource;
+import service.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.*;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.stage.Stage;
-import service.ServiceBlog;
-import service.ServiceUser;
-
-import static java.lang.Integer.parseInt;
-import static javafx.fxml.FXMLLoader.load;
 
 public class AddBlogController implements Initializable {
 
     @FXML
     private TextArea txtcontenu;
-
+    @FXML
+    private ComboBox categorie;
     @FXML
     private TextField txttitre;
 
@@ -67,6 +63,16 @@ public class AddBlogController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ServiceCategorieBlog scb = new ServiceCategorieBlog();
+        List<CategorieBlog> l =scb.readAll();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getNom());
+
+        }
+        categorie.setItems(FXCollections.observableArrayList(l1));
+        categorie.setValue(categorie.getItems().get(0));
         txttitre.getText();
         txtdesc.getText();
         txtcontenu.getText();
@@ -130,13 +136,14 @@ public class AddBlogController implements Initializable {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-
+        ServiceCategorieBlog scb = new ServiceCategorieBlog();
         Blog b = new Blog(txttitre.getText(),txtdesc.getText(),txtcontenu.getText(),selectedFile.getName());
             LoggedInUser loggedInUser = new LoggedInUser();
         b.setAuthor(loggedInUser.getUser());
+        b.setCat(scb.readByName(categorie.getValue().toString()));
         sb.insert(b);
 
-            newsletterService.sendEmail("tasnim.benhamouda@esprit.tn");
+            newsletterService.sendEmail("jasserbouzidi22@gmail.com");
 
         }
         FXMLLoader loader=new FXMLLoader(getClass().getResource("AffichageBlog.fxml"));

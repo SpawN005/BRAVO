@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -90,7 +91,10 @@ public class LoggedInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LoggedInUser loggedInUser = new LoggedInUser();
-        if (!loggedInUser.getUser().getRole().equalsIgnoreCase("admin")){
+        if (loggedInUser.getUser().getIs_Verified()==1){
+            verifyBtn.setVisible(false);
+        }
+        if (!loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ADMIN\"]")){
             reclamation.setVisible(false);
             users.setVisible(false);
             events.setVisible(false);
@@ -221,14 +225,14 @@ public class LoggedInController implements Initializable {
             }
             
                     @FXML
-                    private void saveChanges() {
+                    private void saveChanges() throws NoSuchAlgorithmException {
                         
                         PasswordHasher hasher = new PasswordHasher();
                         LoggedInUser loggedInUser = new LoggedInUser();
 
                                                    
                         // TODO: Save changes to database
-                        User updatedUser = new User(user.getId(), firstnamefield.getText(), lastnamefield.getText(),Integer.parseInt(phonefield.getText()),hasher.hashPassword(pwdfield.getText()),selectedFile.getName());
+                        User updatedUser = new User(user.getId(), firstnamefield.getText(), lastnamefield.getText(),Integer.parseInt(phonefield.getText()),hasher.hashPassword(pwdfield.getText()).toString(),selectedFile.getName());
                         String role = loggedInUser.getUser().getRole();
                         loggedInUser.setUser(updatedUser);
                         loggedInUser.getUser().setRole(role);
@@ -278,7 +282,7 @@ public class LoggedInController implements Initializable {
     @FXML
     private void handleVerifyButtonClick() {
         String accountSid = "AC722e32116c6083cff1c7e8898c7a1dd5";
-        String authToken = "b127ca0968b5a4beb609fc54b5a1eb8c";
+        String authToken = "7a9334e17663891b9f651c3fdcbef544";
         String twilioNumber = "+15076088911";
 
         String phoneNumber = "+216" + phonefield.getText();
@@ -304,6 +308,8 @@ public class LoggedInController implements Initializable {
             alert.setHeaderText("Verification Successful!");
             alert.setContentText("Your phone number has been verified.");
             alert.showAndWait();
+            ServiceUser su = new ServiceUser();
+            su.VerifyUser(user);
             verifyBtn.setVisible(false);
 
         } else {

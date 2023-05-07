@@ -1,7 +1,8 @@
 package com.example.PIDEV;
 
+import entity.CategorieEvent;
 import entity.Event;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import service.ServiceCategorieEvent;
 import service.ServiceEvent;
 import utils.DataSource;
 
@@ -19,8 +21,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.*;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ModifyEventController implements Initializable {
@@ -53,6 +59,8 @@ public class ModifyEventController implements Initializable {
 
     @FXML
     private Button uploadImage;
+    @FXML
+    private ComboBox categorie;
 
     private File selectedFile = null;
     private Stage stage;
@@ -64,10 +72,20 @@ public class ModifyEventController implements Initializable {
     private Event event;
 
     public void SetEvent(Event e) {
+        ServiceCategorieEvent sce = new ServiceCategorieEvent();
+        List<CategorieEvent> l =sce.readAll();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getNom());
+
+        }
+        categorie.setItems(FXCollections.observableArrayList(l1));
+        categorie.setValue(e.getType_event().getNom());
         description.setText(e.getDescription());
 
         title.setText(e.getTitle());
-        type.setText(e.getType_event());
+
         nb_place.setText(Integer.toString(e.getNb_placeMax()));
         DD.setValue(e.getDate_beg().toLocalDate());
         DF.setValue(e.getDate_end().toLocalDate());
@@ -140,19 +158,20 @@ public class ModifyEventController implements Initializable {
             showAlert("Please enter an image", false);
 
         } else {
-            File newFile = new File("file:C:/xampp/htdocs/img/" + selectedFile.getName());
+            File newFile = new File("C:/xampp/htdocs/img/" + selectedFile.getName());
             try {
                 Files.copy(selectedFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            ServiceCategorieEvent sce = new ServiceCategorieEvent();
             Event e = new Event();
             e.setTitle(title.getText());
             e.setDescription(description.getText());
             e.setNb_placeMax(Integer.parseInt(nb_place.getText()));
             e.setDate_beg(DD.getValue().atStartOfDay());
             e.setDate_end(DF.getValue().atStartOfDay());
-            e.setType_event(type.getText());
+            e.setType_event(sce.readByName(categorie.getValue().toString()));
             e.setUrl(uploadImage.getText());
             e.setId(event.getId());
             Connection conn = DataSource.getInstance().getCnx();
@@ -190,10 +209,7 @@ public class ModifyEventController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        description.getText();
-        type.getText();
-        nb_place.getText();
-        title.getText();
+
 
     }
 

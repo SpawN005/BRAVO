@@ -133,7 +133,7 @@ public class AffichageBlogController implements Initializable {
         img3.setImage(image);
         name3.setText(lu.get(2).getFirstName()+" "+lu.get(2).getLastName());
         LoggedInUser loggedInUser = new LoggedInUser();
-        if (!(loggedInUser.getUser().getRole().equalsIgnoreCase("artist"))){
+        if (!(loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ARTISTE\"]"))){
             System.out.println(loggedInUser.getUser().getRole());
             addBlog_btn.setVisible(false);
         }

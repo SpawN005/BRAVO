@@ -11,6 +11,7 @@ import service.ServiceUser;
 import utils.DataSource;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -55,11 +56,15 @@ public class SignUpController implements Initializable{
     @FXML
     void SubmitSignUp(ActionEvent event) {
         // get the selected role
-        
+        String role;
         RadioButton selectedRole = (RadioButton) tgrole.getSelectedToggle();
-                        String role = selectedRole.getText();
-        
-
+                        if(selectedRole.getText().equalsIgnoreCase("artist"))
+                        {
+                             role="[\"ROLE_ARTISTE\"]";
+                        }else {
+                             role="[\"ROLE_CLIENT\"]";
+                        }
+        System.out.println(role);
         // get user input
         String firstName = tfFirstName.getText();
         String lastName = tfLastName.getText();
@@ -74,10 +79,16 @@ public class SignUpController implements Initializable{
                     alert.setContentText("Make sure you typed everything");
                     alert.showAndWait();           
                     return;
-        }else{
-                    
+        }
 
+        String regex = "^[a-zA-Z]+$";
 
+        if (!firstName.matches(regex) || !lastName.matches(regex)) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setHeaderText("Invalid Input");
+            alert.setContentText("The first name and last name fields can only \ncontain letters. Please try again.");
+            alert.showAndWait();
+            return;
         }
         
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -102,7 +113,7 @@ public class SignUpController implements Initializable{
             System.err.println("Error: Phone number must be a Number");
             Alert alert = new Alert(AlertType.ERROR);
             alert.setHeaderText("Invalid Phone Number");
-            alert.setContentText("Phone number must be a combination of 8 digits. Please try again.");
+            alert.setContentText("Phone number must be a combination of 8 digits. \nPlease try again.");
             alert.showAndWait();
             return;
 
@@ -152,7 +163,7 @@ public class SignUpController implements Initializable{
             conn.setAutoCommit(false); // start transaction
 
             // Insert new user and role
-            String query = "INSERT INTO user (firstName, lastName, phoneNumber, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO user (first_name, last_name, phone, email, password, roles) VALUES (?, ?, ?, ?, ?, ?)";
                     PasswordHasher hasher = new PasswordHasher();
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -160,7 +171,7 @@ public class SignUpController implements Initializable{
             statement.setString(2, user.getLastName());
             statement.setInt(3, user.getPhoneNumber());
             statement.setString(4, user.getEmail());
-              statement.setString(5, hasher.hashPassword(user.getPassword()));
+              statement.setString(5, hasher.hashPassword(user.getPassword()).toString());
             statement.setString(6, user.getRole());
             int rows = statement.executeUpdate();
             if (rows != 1) {
@@ -194,8 +205,10 @@ public class SignUpController implements Initializable{
         } catch (SQLException ex) {
             System.err.println("Error rolling back transaction: " + ex.getMessage());
         }
-    }
-}
+    } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+         }
          
 
 

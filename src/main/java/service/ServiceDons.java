@@ -1,8 +1,6 @@
 package service;
 
-import entity.Dons;
-import entity.DonsUser;
-import entity.User;
+import entity.*;
 import utils.DataSource;
 
 import java.sql.*;
@@ -20,11 +18,21 @@ public class ServiceDons implements IService<Dons> {
 
     @Override
     public void insert(Dons dons) {
-        String requete = "insert into Donation (id,title,description,date_creation,date_expiration,amount,owner ) values ('" + dons.getId() + "','" + dons.getTitle() + "','"+ dons.getDescription()+"','"+ dons.getDate_creation()+"','"+dons.getDate_expiration()+"','"+dons.getAmount()+"','"+dons.getOwner().getId()+"')";
+        String requete = "insert into Donation (title,description,date_creation,date_expiration,amount,owner,categorie ) values(?,?,?,?,?,?,?)";
 
         try {
-            Statement st = this.conn.createStatement();
-            st.executeUpdate(requete);
+      ;
+            PreparedStatement pstmt = this.conn.prepareStatement(requete);
+            pstmt.setString(1, dons.getTitle());
+            pstmt.setString(2, dons.getDescription());
+            pstmt.setDate(3, java.sql.Date.valueOf(dons.getDate_creation()));
+            pstmt.setDate(4, java.sql.Date.valueOf(dons.getDate_expiration()));
+            pstmt.setInt(5, dons.getAmount());
+            pstmt.setInt(6, dons.getOwner().getId());
+            pstmt.setInt(7, dons.getCat().getId());
+
+
+            pstmt.executeUpdate();
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
         }
@@ -48,7 +56,7 @@ public class ServiceDons implements IService<Dons> {
 
     @Override
     public void update(Dons dons) {
-        String requete = "UPDATE donation SET title =?,description=?,date_creation=?,date_expiration=?,amount=? WHERE id=?";
+        String requete = "UPDATE donation SET title =?,description=?,date_creation=?,date_expiration=?,amount=?,categorie=? WHERE id=?";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(requete);
             pstmt.setString(1, dons.getTitle());
@@ -56,7 +64,9 @@ public class ServiceDons implements IService<Dons> {
             pstmt.setDate(3, java.sql.Date.valueOf(dons.getDate_creation()));
             pstmt.setDate(4, java.sql.Date.valueOf(dons.getDate_expiration()));
             pstmt.setInt(5, dons.getAmount());
-            pstmt.setInt(6, dons.getId());
+            pstmt.setInt(6, dons.getCat().getId());
+            pstmt.setInt(7, dons.getId());
+
             pstmt.executeUpdate();
         } catch (SQLException var4) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
@@ -68,12 +78,13 @@ public class ServiceDons implements IService<Dons> {
         List<Dons> list = new ArrayList();
         String requete = "select * from donation";
         ServiceUser su= new ServiceUser();
+        ServiceDons sd = new ServiceDons();
         try {
             Statement st = this.conn.createStatement();
             ResultSet rs = st.executeQuery(requete);
 
             while(rs.next()) {
-                Dons o= new Dons(rs.getInt("id"), rs.getString("title"),  rs.getString("description"), rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate(), rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate(),  rs.getInt("amount"), su.readById(rs.getInt("owner")));
+                Dons o= new Dons(rs.getInt("id"), rs.getString("title"),  rs.getString("description"), rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate(), rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate(),  rs.getInt("amount"), su.readById(rs.getInt("owner")),sd.readCatById(rs.getInt("categorie")));
                 list.add(o);
             }
         } catch (SQLException var6) {
@@ -115,6 +126,7 @@ public class ServiceDons implements IService<Dons> {
             pstmt.setString(1, "%" + title + "%");
             ResultSet rs = pstmt.executeQuery();
             ServiceUser su = new ServiceUser();
+            ServiceDons sd = new ServiceDons();
             while (rs.next()) {
                 Dons dons = new Dons(
                         rs.getInt("id"),
@@ -123,7 +135,8 @@ public class ServiceDons implements IService<Dons> {
                         rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate(),
                         rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate(),
                         rs.getInt("amount"),
-                        su.readById(rs.getInt("owner"))
+                        su.readById(rs.getInt("owner")),
+                        sd.readCatById(rs.getInt("categorie"))
                 );
                 searchResults.add(dons);
             }
@@ -178,8 +191,101 @@ public class ServiceDons implements IService<Dons> {
         return totalAmount;
     }
 
+    public List<CategorieDon> readCat() {
+        List<CategorieDon> list = new ArrayList<>();
+        CategorieDon cat = null;
+        String requete = "select * from categorie_donation";
+
+        try {
+            Statement st = conn.createStatement();
+
+            ResultSet rs=st.executeQuery(requete);
+            while (rs.next()){
+                cat= new CategorieDon();
+                cat.setId(rs.getInt(1));
+                cat.setNom(rs.getString(2));
 
 
+
+
+
+
+
+                list.add(cat);
+
+
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceBlog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;    }
+
+
+    public CategorieDon readCatById(int id) {
+        String query = "SELECT * FROM categorie_donation WHERE id=?";
+        CategorieDon cat = null;
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                cat = new CategorieDon();
+                cat.setId(id);
+                cat.setNom(resultSet.getString(2));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cat;
+    }
+
+    public CategorieDon readCatByName(String title) {
+        String query = "SELECT * FROM categorie_donation WHERE nomCategorie = ?";
+        CategorieDon cat = null;
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, title);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                cat = new CategorieDon();
+                cat.setId(resultSet.getInt(1));
+                cat.setNom(resultSet.getString(2));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cat;
+    }
+
+
+    public List<Dons>  readByUser(User user) {
+        String requete = "select * from `donation` where `owner`=?";
+        Dons o =new Dons();
+        List<Dons> list = new ArrayList();
+        ServiceUser su= new ServiceUser();
+        ServiceDons sd= new ServiceDons();
+        try {
+            PreparedStatement ps = conn.prepareStatement(requete);
+            ps.setInt(1,user.getId());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){  o.setId(rs.getInt("id"));
+                o.setTitle(rs.getString("title"));
+                o.setDescription(rs.getString("description"));
+                o.setDate_creation(rs.getTimestamp("date_creation").toLocalDateTime().toLocalDate());
+                o.setDate_expiration(rs.getTimestamp("date_expiration").toLocalDateTime().toLocalDate());
+                o.setAmount(rs.getInt("amount"));
+                o.setOwner(su.readById(rs.getInt("owner")));
+            o.setCat(sd.readCatById(rs.getInt("categorie")));
+            list.add(o);
+            }
+
+        } catch (SQLException var4) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var4);
+        }
+        return list;
+    }
 }
 
 

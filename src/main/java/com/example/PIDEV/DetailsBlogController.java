@@ -3,18 +3,17 @@ package com.example.PIDEV;
 
 import entity.Blog;
 import entity.NoteBlog;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import org.controlsfx.control.Rating;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import org.controlsfx.control.Rating;
 import service.LoggedInUser;
 import service.ServiceBlog;
 import service.ServiceNoteBlog;
@@ -85,16 +84,16 @@ public class DetailsBlogController implements Initializable {
         Image image = new Image("file:C:/xampp/htdocs/img/" + b.getUrl());
         mainImage.setImage(image);
 
-        blog = new Blog(b.getId(), b.getTitle(), b.getDescription(), b.getContent(), b.getUrl(), b.getAuthor());
+        blog = new Blog(b.getId(), b.getTitle(), b.getDescription(), b.getContent(), b.getUrl(), b.getAuthor(),b.getCat());
 
         rating.setLayoutX(245);
         rating.setLayoutY(0);
-
+        LoggedInUser loggedInUser = new LoggedInUser();
         rating.setOnMouseClicked(e-> {
-            nb = new NoteBlog(rating.getRating(),b);  snb.insert(nb);
+            nb = new NoteBlog(rating.getRating(),b,loggedInUser.getUser().getId());  snb.insert(nb);
         });
         rightAnchor.getChildren().add(rating);
-        LoggedInUser loggedInUser = new LoggedInUser();
+
 
 
         if (!(loggedInUser.getUser().getId()==b.getAuthor().getId())){

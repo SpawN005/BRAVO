@@ -39,6 +39,7 @@ module com.example.demo1 {
     requires mysql.connector.java;
     requires itextpdf;
     requires twilio;
+    requires jbcrypt;
 
     opens com.example.PIDEV to javafx.fxml;
     exports com.example.PIDEV;

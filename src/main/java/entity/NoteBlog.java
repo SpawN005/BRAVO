@@ -4,6 +4,7 @@ public class NoteBlog {
     private int id;
     private double note;
     private Blog id_blog;
+    private int user;
 
     public NoteBlog() {
     }
@@ -14,9 +15,10 @@ public class NoteBlog {
         this.id_blog = id_blog;
     }
 
-    public NoteBlog(double note, Blog id_blog) {
+    public NoteBlog(double note, Blog id_blog,int user ) {
         this.note = note;
         this.id_blog = id_blog;
+        this.user = user;
     }
 
     public int getId() {
@@ -40,6 +42,14 @@ public class NoteBlog {
     public Blog getId_blog() {
 
         return id_blog;
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public void setId_blog(Blog id_blog) {

@@ -130,7 +130,7 @@ public class MenuDonsController implements Initializable {
                 if (daysUntilExpiration < 2 ) {
                     emailService.envoyer(loggedInUser.getUser().getEmail(),false);
                 }
-                if (daysUntilExpiration == 0 ) {
+                if (daysUntilExpiration <= 0 ) {
                     serviceDons.delete(donation);
                     emailService.envoyer(loggedInUser.getUser().getEmail(),true);
                 }
@@ -227,6 +227,7 @@ return ld;
 
             pnlMyDon.getScene().setRoot(root);
         }
+        i=0;
     }
 
 }

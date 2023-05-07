@@ -1,6 +1,8 @@
 package com.example.PIDEV;
 
+import entity.CategorieDon;
 import entity.Dons;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -8,6 +10,8 @@ import service.LoggedInUser;
 import service.ServiceDons;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddDonsController {
 
@@ -24,6 +28,8 @@ public class AddDonsController {
 
     @FXML
     private TextField amountField;
+    @FXML
+    private ComboBox categorie;
 
     @FXML
     private Button submitButton;
@@ -37,6 +43,15 @@ public class AddDonsController {
     @FXML
     private void initialize() {
         serviceDons = new ServiceDons();
+        List<CategorieDon> l =serviceDons.readCat();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getNom());
+
+        }
+        categorie.setItems(FXCollections.observableArrayList(l1));
+        categorie.setValue(categorie.getItems().get(0));
     }
 
 
@@ -59,7 +74,7 @@ public class AddDonsController {
             LocalDate expirationDate = dateExpirationPicker.getValue();
             int amount = Integer.parseInt(amountField.getText());
             LoggedInUser loggedInUser = new LoggedInUser();
-            don = new Dons(title, description, creationDate, expirationDate, amount, loggedInUser.getUser());
+            don = new Dons(title, description, creationDate, expirationDate, amount, loggedInUser.getUser(),serviceDons.readCatByName(categorie.getValue().toString()));
             serviceDons.insert(don);
 
             // Show donation confirmation alert

@@ -1,29 +1,15 @@
 package service;
 
 
-import entity.Event;
 import entity.Reservation;
-
 import entity.User;
 import utils.DataSource;
-import javax.mail.Authenticator;
-
-
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.*;
-import javax.mail.PasswordAuthentication;
-
-import javax.mail.Session;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 
 
@@ -39,7 +25,7 @@ ServiceEvent SE = new ServiceEvent();
 
     @Override
     public void insert(Reservation reservation) {
-        String requete = "INSERT INTO reservation (id_participant, id_event, isConfirmed, nb_place) VALUES (?,?,?,?) ";
+        String requete = "INSERT INTO reservation (id_participant_id, id_event_id, is_confirmed, nb_place) VALUES (?,?,?,?) ";
         try {
             PreparedStatement ps = conn.prepareStatement(requete);
             ps.setInt(1,reservation.getId_participant().getId());
@@ -86,7 +72,7 @@ ServiceEvent SE = new ServiceEvent();
 
     @Override
     public void update(Reservation reservation) {
-        String query = "UPDATE reservation SET id_participant=?, id_event=?, isConfirmed=?, nb_place=? WHERE id=?";
+        String query = "UPDATE reservation SET id_participant_id=?, id_event_id=?, is_confirmed=?, nb_place=? WHERE id=?";
         try {
 
             PreparedStatement ps = conn.prepareStatement(query);
@@ -105,7 +91,7 @@ ServiceEvent SE = new ServiceEvent();
     }
     public void updateById(Reservation reservation, int id_m) {
 
-        String query = "UPDATE reservation SET id_participant=?, id_event=?,isConfirmed=?, nb_place=? where id=" + id_m;
+        String query = "UPDATE reservation SET id_participant_id=?, id_event_id=?,is_confirmed=?, nb_place=? where id=" + id_m;
 
         try {
 
@@ -136,7 +122,7 @@ ServiceEvent SE = new ServiceEvent();
             while(rs.next()) {
 
 
-                Reservation r=new Reservation (rs.getInt("id"),SU.readById(rs.getInt(2)),SE.readById(rs.getInt(3)),rs.getBoolean("isConfirmed"),rs.getInt("nb_place"));
+                Reservation r=new Reservation (rs.getInt("id"),SU.readById(rs.getInt(2)),SE.readById(rs.getInt(3)),rs.getBoolean("is_confirmed"),rs.getInt("nb_place"));
                 list.add(r);
             }
         } catch (SQLException e) {

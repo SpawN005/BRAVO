@@ -8,6 +8,7 @@ public class Reclamation {
     private String etat	;
     private User ownerID	;
     private Date date_treatment ;
+    private TypeReclamation typereclamation ;
     private int note;
 
     public Reclamation() {}
@@ -23,9 +24,10 @@ public class Reclamation {
         this.ownerID = ownerID;
         this.date_treatment = date_treatment;
         this.note = note;
+
     }
     public Reclamation(String title, String description, Date date_creation, String etat, User ownerID,
-                       Date date_treatment, int note) {
+                       Date date_treatment, int note, TypeReclamation typereclamation) {
         super();
         this.title = title;
         this.description = description;
@@ -34,6 +36,7 @@ public class Reclamation {
         this.ownerID = ownerID;
         this.date_treatment = date_treatment;
         this.note = note;
+        this.typereclamation = typereclamation;
     }
     public Reclamation(String title, String description, Date date_creation, String etat, Date date_treatment,
                        int note) {
@@ -84,6 +87,14 @@ public class Reclamation {
 
     public String getTitle() {
         return title;
+    }
+
+    public TypeReclamation getTypereclamation() {
+        return typereclamation;
+    }
+
+    public void setTypereclamation(TypeReclamation typereclamation) {
+        this.typereclamation = typereclamation;
     }
 
     public void setTitle(String title) {

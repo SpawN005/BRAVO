@@ -5,15 +5,16 @@
  */
 package service;
 
-import entity.User;
 import entity.PasswordHasher;
+import entity.User;
+import utils.DataSource;
 
-import java.util.List;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utils.DataSource;
 
 
 /**
@@ -31,7 +32,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void insert(User t) {
-        String requete = "insert into user (firstName,lastName,phoneNumber,email,role,PASSWORD) values "
+        String requete = "insert into user (first_name,last_name,phone,email,roles,PASSWORD) values "
                 + "('" + t.getFirstName() + "','" + t.getLastName() + "'," + t.getPhoneNumber() + "'," + t.getEmail() + "'," + t.getRole() + "'," + t.getPassword()+")";
         try {
             Statement st = conn.createStatement();
@@ -46,7 +47,7 @@ public class ServiceUser implements IService<User> {
             conn.setAutoCommit(false); // start transaction
 
             // Insert new user and role
-            String query = "INSERT INTO user (firstName, lastName, phoneNumber, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO user (first_name, last_name, phone, email, password, roles) VALUES (?, ?, ?, ?, ?, ?)";
             PasswordHasher hasher = new PasswordHasher();
 
             PreparedStatement statement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -54,7 +55,7 @@ public class ServiceUser implements IService<User> {
             statement.setString(2, user.getLastName());
             statement.setInt(3, user.getPhoneNumber());
             statement.setString(4, user.getEmail());
-            statement.setString(5, hasher.hashPassword(user.getPassword()));
+            statement.setString(5, hasher.hashPassword(user.getPassword()).toString());
             statement.setString(6, user.getRole());
             int rows = statement.executeUpdate();
             if (rows != 1) {
@@ -90,10 +91,9 @@ public class ServiceUser implements IService<User> {
             }
 
 
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
-
-
-
 
 
     }
@@ -109,11 +109,11 @@ public class ServiceUser implements IService<User> {
             if (resultSet.next()) {
                 user = new User();
                 user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("firstName"));
-                user.setLastName(resultSet.getString("lastName"));
-                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setPhoneNumber(resultSet.getInt("phone"));
                 user.setEmail(resultSet.getString("email"));
-                user.setRole(resultSet.getString("role"));
+                user.setRole(resultSet.getString("roles"));
                 user.setPassword(resultSet.getString("password"));
             }
         } catch (SQLException ex) {
@@ -131,11 +131,11 @@ public class ServiceUser implements IService<User> {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("firstName"));
-                user.setLastName(resultSet.getString("lastName"));
-                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setPhoneNumber(resultSet.getInt("phone"));
                 user.setEmail(resultSet.getString("email"));
-                user.setRole(resultSet.getString("role"));
+                user.setRole(resultSet.getString("roles"));
                 user.setPassword(resultSet.getString("password"));
                 userList.add(user);
             }
@@ -149,7 +149,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void update(User t) {
-        String requete = "UPDATE user SET firstName=?, lastName=?, phoneNumber=?, password=?, image=? WHERE id=?";
+        String requete = "UPDATE user SET first_name=?, last_name=?, phone=?, password=?, image=? WHERE id=?";
         try (PreparedStatement ps = conn.prepareStatement(requete)) {
             ps.setString(1, t.getFirstName());
             ps.setString(2, t.getLastName());
@@ -250,17 +250,17 @@ public class ServiceUser implements IService<User> {
 
     public List<User> RandomArtists()  {
         List<User> userList = new ArrayList<>();
-        String query = "SELECT * FROM user where role='Artist' ORDER BY RAND() LIMIT 3 ;";
+        String query = "SELECT * FROM user where roles='[\"ROLE_ARTISTE\"]' ORDER BY RAND() LIMIT 3 ;";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
-                user.setFirstName(resultSet.getString("firstName"));
-                user.setLastName(resultSet.getString("lastName"));
-                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setFirstName(resultSet.getString("first_Name"));
+                user.setLastName(resultSet.getString("last_Name"));
+                user.setPhoneNumber(resultSet.getInt("phone"));
                 user.setEmail(resultSet.getString("email"));
-                user.setRole(resultSet.getString("role"));
+                user.setRole(resultSet.getString("roles"));
                 user.setPassword(resultSet.getString("password"));
                 user.setimage(resultSet.getString("image"));
                 userList.add(user);
@@ -274,11 +274,11 @@ public class ServiceUser implements IService<User> {
     public void blockUser(User user) {
         try {
             // Create a prepared statement
-            String sql = "UPDATE user SET checker = ? WHERE id = ?";
+            String sql = "UPDATE user SET banned = ? WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
 
             // Set the parameters
-            statement.setString(1, "banned");
+            statement.setInt(1, 1);
             statement.setInt(2, user.getId());
 
             // Execute the update statement
@@ -287,6 +287,27 @@ public class ServiceUser implements IService<User> {
                 System.out.println("User " + user.getFirstName() + " " + user.getLastName() + " has been blocked.");
             } else {
                 System.out.println("Failed to block user " + user.getFirstName() + " " + user.getLastName() + ".");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void VerifyUser(User user) {
+        try {
+            // Create a prepared statement
+            String sql = "UPDATE user SET is_Verified = ? WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            // Set the parameters
+            statement.setInt(1, 1);
+            statement.setInt(2, user.getId());
+
+            // Execute the update statement
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("User " + user.getFirstName() + " " + user.getLastName() + " has been Verified.");
+            } else {
+                System.out.println("Failed to verify user " + user.getFirstName() + " " + user.getLastName() + ".");
             }
         } catch (SQLException e) {
             e.printStackTrace();

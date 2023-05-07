@@ -2,16 +2,15 @@ package service;
 
 import entity.PasswordHasher;
 import entity.User;
+import utils.DataSource;
+
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import utils.DataSource;
 
 
 public class UserManagement {
@@ -30,25 +29,33 @@ public class UserManagement {
         User user = null;
         PasswordHasher hasher = new PasswordHasher();
 
-        String query = "SELECT * FROM user WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM user WHERE email = ? AND password= ? ";
         try (PreparedStatement statement = conn.prepareStatement(query)) {
             statement.setString(1, email);
-            statement.setString(2, hasher.hashPassword(password));
+            statement.setString(2, hasher.hashPassword(password).toString());
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
+
                     user = new User(
                             rs.getInt("id"),
-                            rs.getString("firstName"),
-                            rs.getString("lastName"),
-                            rs.getInt("phoneNumber"),
+                            rs.getString("first_Name"),
+                            rs.getString("last_Name"),
+                            rs.getInt("phone"),
                             rs.getString("email"),
-                            rs.getString("role"),
+                            rs.getString("roles"),
                             rs.getString("password"),
                             rs.getString("image"),
-                            rs.getString("checker")
+                            rs.getInt("banned"),
+                            rs.getInt("is_verified")
                     );
                 }
+
+
+
+
             }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
         return user;
     }
@@ -63,12 +70,12 @@ public class UserManagement {
     if (result.next()) {
         User user = new User(
             result.getInt("id"),
-            result.getString("firstName"),
-            result.getString("lastName"),
-            result.getInt("phoneNumber"),
+            result.getString("first_name"),
+            result.getString("last_name"),
+            result.getInt("phone"),
             result.getString("email"),
             result.getString("password"),
-            result.getString("role")
+            result.getString("roles")
                 
         );
         return user;
@@ -76,13 +83,13 @@ public class UserManagement {
         return null;
     }
 }
-public String resetPassword(String email) throws SQLException {
+public String resetPassword(String email) throws SQLException, NoSuchAlgorithmException {
     // Generate a new password
     String newPassword = generateRandomPassword();
 
     // Hash the new password
     PasswordHasher hasher = new PasswordHasher();
-    String hashedPassword = hasher.hashPassword(newPassword);
+    String hashedPassword = hasher.hashPassword(newPassword).toString();
 
     // Update the user's password in the database
     String query = "UPDATE user SET password = ? WHERE email = ?";
@@ -119,18 +126,18 @@ public String resetPassword(String email) throws SQLException {
         try {
 
 
-            String query = "SELECT id, firstName, lastName, phoneNumber, email, role FROM user";
+            String query = "SELECT id, first_name, last_name, phone, email, roles FROM user";
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                System.out.println(rs.getInt("id") + " " + rs.getString("firstName") + " " + rs.getString("lastName") + " " + rs.getString("email") + " " + rs.getInt("phoneNumber") + " " +  rs.getString("role") );
+                System.out.println(rs.getInt("id") + " " + rs.getString("first_name") + " " + rs.getString("last_name") + " " + rs.getString("email") + " " + rs.getInt("phone") + " " +  rs.getString("roles") );
                 User user = new User(
                         rs.getInt("id"),
-                        rs.getString("firstName"),
-                        rs.getString("lastName"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
                         rs.getString("email"),
-                        rs.getInt("phoneNumber"),
-                        rs.getString("role")
+                        rs.getInt("phone"),
+                        rs.getString("roles")
 
                 );
                 users.add(user);

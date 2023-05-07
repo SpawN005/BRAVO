@@ -1,32 +1,28 @@
 package com.example.PIDEV;
 
 import entity.Reclamation;
+import entity.TypeReclamation;
 import entity.User;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.*;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import service.ServiceReclamation;
 import service.ServiceUser;
-import java.io.IOException;
-import javafx.scene.Parent;
 
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class modifierReclamationController implements Initializable {
     @FXML
     private ComboBox<String> typeReclamationCBX;
-    ObservableList<String> listtype = FXCollections.observableArrayList("oeuvre", "blogs", "dons", "Autre");
 
     @FXML
     private TextField title;
@@ -43,6 +39,18 @@ public class modifierReclamationController implements Initializable {
     private ServiceReclamation sr = new ServiceReclamation();
     private Reclamation localreclamation;
     public   void SetReclamation(Reclamation r){
+        ServiceReclamation sr = new ServiceReclamation();
+        List<TypeReclamation> l= sr.afficherTypes();
+        List<String> l1= new ArrayList<>();
+        for (int i = 0; i < l.size(); i++) {
+
+            l1.add(l.get(i).getTypeReclamation());
+
+        }
+
+
+        typeReclamationCBX.setItems(FXCollections.observableArrayList(l1));
+        typeReclamationCBX.setValue(r.getTypereclamation().getTypeReclamation());
         localreclamation=r;
         System.out.println("reclamtion---------------------"+localreclamation);
 
@@ -58,7 +66,6 @@ public class modifierReclamationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeReclamationCBX.setPromptText("Reclamation à propos de : ");
-        typeReclamationCBX.setItems(listtype);
     }
 
     private void showAlert(String message ,boolean b) {

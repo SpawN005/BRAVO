@@ -30,7 +30,7 @@ public class Main extends Application {
         Media audio = new Media(Main.class.getResource("audio/audio.mp3").toString());
         MediaPlayer mediaPlayer = new MediaPlayer(audio);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0.4);
         mediaPlayer.play();
         stage.setScene(scene);
         stage.show();

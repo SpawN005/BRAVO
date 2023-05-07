@@ -14,15 +14,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import service.LoggedInUser;
 import service.ServiceDons;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import static java.lang.Integer.parseInt;
 
 
 public class MyDonsController implements Initializable {
@@ -63,9 +61,9 @@ public class MyDonsController implements Initializable {
         colDateCreation.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
         colDateExpiration.setCellValueFactory(new PropertyValueFactory<>("date_expiration"));
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
+        LoggedInUser loggedInUser= new LoggedInUser();
         // Load the data from the database and add it to the table
-        List<Dons> donations = serviceDons.readAll();
+        List<Dons> donations = serviceDons.readByUser(loggedInUser.getUser());
         donationsData.addAll(donations);
         tableDonations.setItems(donationsData);
     }

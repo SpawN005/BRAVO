@@ -50,6 +50,11 @@
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jfree</groupId>

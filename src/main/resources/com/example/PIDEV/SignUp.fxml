@@ -77,7 +77,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
                <children>
-                  <RadioButton fx:id="rbArtist" mnemonicParsing="false" text="Artist" textFill="#5c1010">
+                  <RadioButton fx:id="rbArtist" mnemonicParsing="false" text="Artist"  textFill="#5c1010">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
@@ -88,7 +88,7 @@
                         <ToggleGroup fx:id="tgrole" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rbGuest" layoutX="10.0" layoutY="21.0" mnemonicParsing="false" text="Guest" textFill="#5c1010" toggleGroup="$tgrole">
+                  <RadioButton fx:id="rbGuest" layoutX="10.0" layoutY="21.0" mnemonicParsing="false" text="Guest"   textFill="#5c1010" toggleGroup="$tgrole">
                      <font>
                         <Font size="16.0" />
                      </font></RadioButton>

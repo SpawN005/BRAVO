@@ -1,9 +1,6 @@
 package entity;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Dons {
 
@@ -13,13 +10,14 @@ public class Dons {
     private LocalDate date_creation;
     private LocalDate date_expiration;
     private int amount;
+    private CategorieDon cat;
     private User owner;
 
 
     public Dons() {
     }
 
-    public Dons(int id, String title, String description, LocalDate date_creation, LocalDate date_expiration, int amount, User owner) {
+    public Dons(int id, String title, String description, LocalDate date_creation, LocalDate date_expiration, int amount, User owner,CategorieDon cat) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -27,15 +25,17 @@ public class Dons {
         this.date_expiration = date_expiration;
         this.amount = amount;
         this.owner = owner;
+        this.cat = cat;
     }
 
-    public Dons(String title, String description, LocalDate date_creation, LocalDate date_expiration, int amount, User owner) {
+    public Dons(String title, String description, LocalDate date_creation, LocalDate date_expiration, int amount, User owner,CategorieDon cat) {
         this.title = title;
         this.description = description;
         this.date_creation = date_creation;
         this.date_expiration = date_expiration;
         this.amount = amount;
         this.owner = owner;
+        this.cat=cat;
     }
 
     public Dons(String title, String description, int amount) {
@@ -98,6 +98,14 @@ public class Dons {
 
     public User getOwner() {
         return owner;
+    }
+
+    public CategorieDon getCat() {
+        return cat;
+    }
+
+    public void setCat(CategorieDon cat) {
+        this.cat = cat;
     }
 
     public void setOwner(User owner) {

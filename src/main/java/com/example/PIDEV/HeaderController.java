@@ -68,7 +68,7 @@ public class HeaderController implements Initializable {
 
     @FXML
     void donations(MouseEvent event) {
-if( loggedInUser.getUser().getRole().equalsIgnoreCase("artist")){
+if( loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ARTISTE\"]")){
     FXMLLoader loader=new FXMLLoader(getClass().getResource("MenuDons.fxml"));
     Parent root= null;
     try {
@@ -175,7 +175,7 @@ if( loggedInUser.getUser().getRole().equalsIgnoreCase("artist")){
             logout_btn.setVisible(false);
 
 
-        if (loggedInUser.getUser().getRole().equalsIgnoreCase("admin"))
+        if (loggedInUser.getUser().getRole().equalsIgnoreCase("[\"ROLE_ADMIN\"]"))
         {
             ev.setVisible(false);
             paint.setVisible(false);
